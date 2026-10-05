@@ -39,7 +39,7 @@ if (process.env.SERVE_FRONTEND === "true") {
   if (!existsSync(index)) throw new Error("Frontend não compilado. Execute pnpm build na raiz.");
   app.use(express.static(directory));
   // Direct navigation to React routes needs the same HTML entrypoint.
-  app.get(/^(?!\/api(?:\/|$)).*/, (_req, res) => { res.sendFile(index); });
+  app.get(/^(?!\/api(?:\/|$)).*/, (_req, res) => { res.sendFile("index.html", { root: directory }); });
 }
 
 app.use((_req, res) => { res.status(404).json({ erro: "Rota não encontrada." }); });
