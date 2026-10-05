@@ -217,7 +217,7 @@ router.get("/me", async (req, res) => {
   const { data, error } = await createAuthClient().auth.getUser(token);
   if (authUnavailable(error)) return res.status(503).json({ erro: "Autenticação temporariamente indisponível. Tente novamente." });
   if (error || !data.user) return res.status(401).json({ erro: "Sessão inválida ou expirada." });
-  const { data: profile, error: profileError } = await supabaseAdmin.from("profiles").select("id,nome,tipo_usuario").eq("id", data.user.id).maybeSingle();
+  const { data: profile, error: profileError } = await supabaseAdmin.from("profiles").select("id,nome,tipo_usuario,foto").eq("id", data.user.id).maybeSingle();
   if (profileError) return res.status(503).json({ erro: "Não foi possível carregar seu perfil." });
   if (!profile || !["cliente", "freelancer"].includes(profile.tipo_usuario)) return res.status(401).json({ erro: "Sessão inválida ou expirada." });
   return res.json({ usuario: { ...profile, email: data.user.email } });

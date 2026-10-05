@@ -13,7 +13,7 @@ import {
   WalletCards,
   X,
 } from "lucide-react";
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import Brand from "./Brand";
 import { Button } from "./ui";
@@ -35,6 +35,14 @@ export default function AppShell({ children, title, role = "freelancer" }: { chi
   const navigate = useNavigate();
   const notifications = useData<Notification[]>("/notificacoes", []);
   const unread = notifications.data.filter((item) => !item.lida).length;
+  const [, setIdentityVersion] = useState(0);
+  useEffect(() => {
+    const update = () => notifications.reload();
+    const updateIdentity = () => setIdentityVersion((value) => value + 1);
+    window.addEventListener("tefreela:notifications", update);
+    window.addEventListener("tefreela:account", updateIdentity);
+    return () => { window.removeEventListener("tefreela:notifications", update); window.removeEventListener("tefreela:account", updateIdentity); };
+  }, []);
   async function logout() {
     const request = api("/auth/logout", {});
     clearSession(); navigate("/", { replace: true });
@@ -69,7 +77,7 @@ export default function AppShell({ children, title, role = "freelancer" }: { chi
           </div>
           <div className="topbar-actions">
             <Button variant="ghost" className="notification" aria-label={`Notificações: ${unread} não lidas`} onClick={() => navigate("/app/notificacoes")}><Bell />{unread > 0 && <span />}</Button>
-            <button className="profile-menu" onClick={() => navigate("/app/perfil")}><img src="/avatar-placeholder.svg" alt="" /><span><strong>{user?.nome || "Minha conta"}</strong><small>{role === "cliente" ? "Cliente" : "Freelancer"}</small></span><ChevronDown /></button>
+            <button className="profile-menu" onClick={() => navigate("/app/perfil")}><img src={user?.foto || "/avatar-placeholder.svg"} alt="" /><span><strong>{user?.nome || "Minha conta"}</strong><small>{role === "cliente" ? "Cliente" : "Freelancer"}</small></span><ChevronDown /></button>
           </div>
         </header>
         <div className="app-content">{children}</div>

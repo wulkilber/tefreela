@@ -2,6 +2,7 @@ export type User = {
   id: string
   email: string
   nome: string
+  foto?: string
   tipo_usuario: "cliente" | "freelancer"
 }
 export type Session = {

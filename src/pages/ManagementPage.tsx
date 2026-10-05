@@ -64,10 +64,12 @@ export default function ManagementPage({ kind }: { kind: Kind }) {
         if (session)
           saveSession({
             ...session,
-            usuario: { ...session.usuario, nome: result.nome },
+            usuario: { ...session.usuario, nome: result.nome, foto: result.foto },
           })
       }
       request.reload()
+      if (kind === "notificacoes") window.dispatchEvent(new Event("tefreela:notifications"));
+      if (kind === "perfil") window.dispatchEvent(new Event("tefreela:account"));
       setSuccess("Alteração salva.")
       return true
     } catch (error) {
