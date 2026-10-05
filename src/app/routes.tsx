@@ -7,6 +7,7 @@ import OrdersPage from "../pages/OrdersPage";
 import MessagesPage from "../pages/MessagesPage";
 import ServicePage from "../pages/ServicePage";
 import ClientDashboardPage from "../pages/ClientDashboardPage";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 export const router = createBrowserRouter([
   { path: "/", Component: HomePage },
@@ -14,9 +15,11 @@ export const router = createBrowserRouter([
   { path: "/servico/:id", Component: ServicePage },
   { path: "/entrar", element: <AuthPage mode="login" /> },
   { path: "/cadastro", element: <AuthPage mode="register" /> },
+  { Component: ProtectedRoute, children: [
   { path: "/app", Component: DashboardPage },
   { path: "/app/cliente", Component: ClientDashboardPage },
   { path: "/app/pedidos", Component: OrdersPage },
   { path: "/app/mensagens", Component: MessagesPage },
+  ] },
   { path: "*", Component: HomePage },
 ]);

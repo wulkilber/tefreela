@@ -6,7 +6,8 @@ import { services } from "../data/mock";
 
 export default function ServicePage() {
   const { id } = useParams();
-  const service = services.find((item) => item.id === id) || services[0];
+  const service = services.find((item) => item.id === id);
+  if (!service) return <div className="page-bg"><PublicHeader /><main className="container service-page"><Heading as="h1">Serviço não encontrado</Heading><ButtonLink to="/explorar">Voltar para serviços</ButtonLink></main></div>;
   return (
     <div className="page-bg">
       <PublicHeader />
