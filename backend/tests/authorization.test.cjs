@@ -81,6 +81,7 @@ const tables = {
   pagamentos: [],
 }
 let fake, app
+const objects = new Map()
 function splitTop(value) {
   let depth = 0,
     start = 0
@@ -125,6 +126,18 @@ before(async () => {
     try {
       const url = new URL(req.url, "http://localhost")
       res.setHeader("Content-Type", "application/json")
+      if (url.pathname === "/storage/v1/object/list/servicos-imagens") {
+        let body = ""; for await (const chunk of req) body += chunk
+        const prefix = JSON.parse(body).prefix + "/"
+        res.end(JSON.stringify([...objects.keys()].filter(key => key.startsWith(prefix)).map(key => ({ id: "fixture", name: key.slice(prefix.length), updated_at: "2026-10-05T00:00:00Z" }))))
+        return
+      }
+      if (url.pathname.startsWith("/storage/v1/object/servicos-imagens/")) {
+        const key = url.pathname.slice("/storage/v1/object/servicos-imagens/".length)
+        const chunks = []; for await (const chunk of req) chunks.push(chunk)
+        objects.set(key, Buffer.concat(chunks))
+        res.end(JSON.stringify({ Key: key })); return
+      }
       if (url.pathname === "/auth/v1/user") {
         const token = req.headers.authorization?.replace("Bearer ", "")
         const user = identities[token]
@@ -441,4 +454,35 @@ test("pagamento indisponível não altera saldo", async () => {
     tables.profiles.find((row) => row.id === client).saldo_creditos,
     500,
   )
+})
+test("contato do chat mostra o nome sem expor telefone ou créditos", async () => {
+  const result = await call(`/conversas/${freelancer}`, "client")
+  assert.equal(result.status, 200)
+  assert.equal(result.data.nome, "Freelancer teste")
+  assert.equal(result.data.telefone, undefined)
+  assert.equal(result.data.saldo_creditos, undefined)
+  assert.equal((await call(`/conversas/${client}`, "client")).status, 400)
+})
+async function upload(token, bytes, type = "image/png", slot = 0) {
+  const response = await fetch(`http://127.0.0.1:31988/api/servicos/1/imagens/${slot}`, {
+    method: "PUT", headers: { "Content-Type": type, Authorization: `Bearer ${token}` }, body: bytes,
+  })
+  return { status: response.status, data: await response.json() }
+}
+test("imagens exigem dono, assinatura válida, tamanho e posição permitidos", async () => {
+  const png = Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScLbtAAAAABJRU5ErkJggg==", "base64")
+  assert.equal((await upload("stranger", png)).status, 403)
+  // A client cannot upload; a different freelancer cannot edit the owner's service either.
+  tables.profiles.find(row => row.id === stranger).tipo_usuario = "freelancer"
+  assert.equal((await upload("stranger", png)).status, 404)
+  tables.profiles.find(row => row.id === stranger).tipo_usuario = "cliente"
+  assert.equal((await upload("freelancer", Buffer.from("<svg>not-an-image</svg>"))).status, 400)
+  assert.equal((await upload("freelancer", png, "image/jpeg")).status, 400)
+  assert.equal((await upload("freelancer", png, "image/png", 4)).status, 400)
+  assert.equal((await upload("freelancer", Buffer.alloc(5 * 1024 * 1024 + 1))).status, 413)
+  const result = await upload("freelancer", png)
+  assert.equal(result.status, 200)
+  assert.equal(result.data.imagens.length, 1)
+  assert.match(result.data.imagens[0], /object\/public\/servicos-imagens/)
+  assert.equal((await call("/me/servicos", "freelancer")).data.find(row => row.id_servico === 1).imagens.length, 1)
 })

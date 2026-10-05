@@ -1,4 +1,5 @@
-import { Router, type Request, type Response, type NextFunction } from "express"
+import { Router, raw, type Request, type Response, type NextFunction } from "express"
+import { attachImages, withImages, imageFolder, imageType, imageBucket, imageLimit, invalidateImages } from "../serviceImages.js"
 import { z } from "zod"
 import { authUnavailable, createAuthClient, supabaseAdmin as db } from "../config/supabase.js"
 import { nextOrderStatus } from "../domain.js"
@@ -137,7 +138,7 @@ router.get(
         ) || []
       : []
     res.json(
-      services.map((service) => {
+      await attachImages(services.map((service) => {
         const values = reviews.filter(
           (review) => review.id_freelancer === service.id_freelancer,
         )
@@ -148,7 +149,7 @@ router.get(
             : 0,
           total_avaliacoes: values.length,
         }
-      }),
+      })),
     )
   }),
 )
@@ -174,21 +175,21 @@ router.get(
         .order("criado_em", { ascending: false })
         .limit(100),
     )
-    res.json({ ...service, avaliacoes: reviews })
+    res.json({ ...await withImages(service), avaliacoes: reviews })
   }),
 )
 router.get(
   "/me/servicos",
   handle(async (_req, res) => {
     res.json(
-      checked(
+      await attachImages(checked(
         await db
           .from("servicos")
           .select("*,categoria:categorias(*)")
           .eq("id_freelancer", current(res).id)
           .order("criado_em", { ascending: false })
           .limit(200),
-      ),
+      ) || []),
     )
   }),
 )
@@ -234,6 +235,32 @@ router.patch(
     res.json(service)
   }),
 )
+router.put("/servicos/:id/imagens/:slot", raw({ type: ["image/jpeg", "image/png", "image/webp"], limit: imageLimit }), handle(async (req, res) => {
+  freelancer(res)
+  const serviceId = parse(id, req.params.id)
+  const slot = parse(z.coerce.number().int().min(0).max(3), req.params.slot)
+  const service = checked(await db.from("servicos").select("id_servico,id_freelancer").eq("id_servico", serviceId).eq("id_freelancer", current(res).id).maybeSingle())
+  if (!service) fail(404, "Serviço não encontrado.")
+  const bytes = req.body
+  const contentType = Buffer.isBuffer(bytes) ? imageType(bytes) : null
+  if (!contentType || contentType !== req.headers["content-type"]?.split(";")[0]) fail(400, "Envie uma imagem JPG, PNG ou WebP válida, de até 5 MB.")
+  const folder = imageFolder(service)
+  const { error } = await db.storage.from(imageBucket).upload(`${folder}/${slot}`, bytes, { contentType, upsert: true, cacheControl: "60" })
+  if (error) fail(503, "Não foi possível salvar a imagem. Tente novamente.")
+  invalidateImages(folder)
+  res.json(await withImages(service))
+}))
+router.delete("/servicos/:id/imagens/:slot", handle(async (req, res) => {
+  freelancer(res)
+  const service = checked(await db.from("servicos").select("id_servico,id_freelancer").eq("id_servico", parse(id, req.params.id)).eq("id_freelancer", current(res).id).maybeSingle())
+  if (!service) fail(404, "Serviço não encontrado.")
+  const slot = parse(z.coerce.number().int().min(0).max(3), req.params.slot)
+  const folder = imageFolder(service)
+  const { error } = await db.storage.from(imageBucket).remove([`${folder}/${slot}`])
+  if (error) fail(503, "Não foi possível remover a imagem.")
+  invalidateImages(folder)
+  res.json({ mensagem: "Imagem removida." })
+}))
 router.get(
   "/me/perfil",
   handle(async (_req, res) => {
@@ -587,6 +614,13 @@ router.get(
     )
   }),
 )
+router.get("/conversas/:peer", handle(async (req, res) => {
+  const peer = parse(uuid, req.params.peer)
+  if (peer === current(res).id) fail(400, "Escolha outra pessoa para conversar.")
+  const profile = checked(await db.from("profiles").select("id,nome,foto,tipo_usuario").eq("id", peer).maybeSingle())
+  if (!profile || profile.tipo_usuario === "admin") fail(404, "Destinatário não encontrado.")
+  res.json(profile)
+}))
 router.get(
   "/mensagens/:peer",
   handle(async (req, res) => {
