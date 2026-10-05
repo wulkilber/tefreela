@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   createAuthClient,
+  authUnavailable,
   supabaseAdmin
 } from "../config/supabase.js";
 import { z } from "zod";
@@ -10,7 +11,7 @@ const credentials = z.object({ email: z.string().trim().email().max(254), senha:
 const registration = credentials.extend({
   senha: z.string().min(6).max(256), nome: z.string().trim().min(2).max(120),
   tipo_usuario: z.enum(["cliente", "freelancer"]),
-  telefone: z.string().trim().max(30).optional(), cidade: z.string().trim().max(120).optional(), estado: z.string().trim().max(60).optional(),
+  telefone: z.string().trim().max(20).optional(), cidade: z.string().trim().max(100).optional(), estado: z.string().trim().length(2).or(z.literal("")).optional(),
 });
 
 /**
@@ -125,6 +126,7 @@ router.post("/login", async (req, res) => {
       });
 
     if (error || !data.user || !data.session) {
+      if (authUnavailable(error)) return res.status(503).json({ erro: "Autenticação temporariamente indisponível. Tente novamente." });
       return res.status(401).json({
         erro: "Email ou senha inválidos."
       });
@@ -178,10 +180,42 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.post("/refresh", async (req, res) => {
+  const parsed = z.object({ refresh_token: z.string().min(1).max(4096) }).safeParse(req.body);
+  if (!parsed.success) return res.status(400).json({ erro: "Sessão inválida ou expirada." });
+  const { data, error } = await createAuthClient().auth.refreshSession(parsed.data);
+  if (authUnavailable(error)) return res.status(503).json({ erro: "Autenticação temporariamente indisponível. Tente novamente." });
+  if (error || !data.session) return res.status(401).json({ erro: "Sessão inválida ou expirada." });
+  return res.json({ access_token: data.session.access_token, refresh_token: data.session.refresh_token });
+});
+router.post("/recuperar", async (req, res) => {
+  const parsed = z.object({ email: z.string().trim().email().max(254) }).safeParse(req.body);
+  if (!parsed.success) return res.status(400).json({ erro: "Informe um e-mail válido." });
+  const origin = (process.env.FRONTEND_URL || "http://localhost:8443").split(",")[0].trim();
+  const { error } = await createAuthClient().auth.resetPasswordForEmail(parsed.data.email, { redirectTo: `${origin}/recuperar-senha` });
+  if (error) return res.status(503).json({ erro: "Não foi possível enviar o e-mail agora. Tente novamente mais tarde." });
+  res.json({ mensagem: "Se houver uma conta com esse e-mail, você receberá as instruções." });
+});
+router.post("/senha", async (req, res) => {
+  const parsed = z.object({ access_token: z.string().min(1).max(8192), senha: z.string().min(6).max(256) }).safeParse(req.body);
+  if (!parsed.success) return res.status(400).json({ erro: "Informe uma senha de pelo menos 6 caracteres." });
+  const { data, error } = await createAuthClient().auth.getUser(parsed.data.access_token);
+  if (error || !data.user) return res.status(401).json({ erro: "Link inválido ou expirado. Solicite outro e-mail." });
+  const result = await supabaseAdmin.auth.admin.updateUserById(data.user.id, { password: parsed.data.senha });
+  if (result.error) return res.status(503).json({ erro: "Não foi possível alterar a senha." });
+  await supabaseAdmin.auth.admin.signOut(parsed.data.access_token, "global");
+  res.json({ mensagem: "Senha atualizada. Entre novamente na sua conta." });
+});
+router.post("/logout", async (req, res) => {
+  const token = req.headers.authorization?.match(/^Bearer (.+)$/)?.[1];
+  if (token) await supabaseAdmin.auth.admin.signOut(token, "local");
+  res.json({ mensagem: "Sessão encerrada." });
+});
 router.get("/me", async (req, res) => {
   const token = req.headers.authorization?.match(/^Bearer (.+)$/)?.[1];
   if (!token) return res.status(401).json({ erro: "Sessão inválida ou expirada." });
   const { data, error } = await createAuthClient().auth.getUser(token);
+  if (authUnavailable(error)) return res.status(503).json({ erro: "Autenticação temporariamente indisponível. Tente novamente." });
   if (error || !data.user) return res.status(401).json({ erro: "Sessão inválida ou expirada." });
   const { data: profile, error: profileError } = await supabaseAdmin.from("profiles").select("id,nome,tipo_usuario").eq("id", data.user.id).maybeSingle();
   if (profileError) return res.status(503).json({ erro: "Não foi possível carregar seu perfil." });

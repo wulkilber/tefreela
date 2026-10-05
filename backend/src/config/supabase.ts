@@ -11,6 +11,9 @@ function required(name: string): string {
 const supabaseUrl = required("SUPABASE_URL");
 const publishableKey = required("SUPABASE_PUBLISHABLE_KEY");
 const secretKey = required("SUPABASE_SECRET_KEY");
+export function authUnavailable(error: { status?: number; name?: string } | null) {
+  return !!error && (error.status === 0 || (error.status || 0) >= 500 || error.name === "AuthRetryableFetchError");
+}
 
 export function createAuthClient() { return createClient(
   supabaseUrl,
