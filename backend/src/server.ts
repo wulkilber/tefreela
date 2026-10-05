@@ -2,15 +2,15 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 
-import { supabaseAdmin } from "./config/supabase.js";
 import authRoutes from "./routes/auth.routes.js";
 
 dotenv.config();
 
 const app = express();
 
-app.use(cors());
-app.use(express.json());
+const allowedOrigins = (process.env.FRONTEND_URL || "http://localhost:8443").split(",").map((origin) => origin.trim());
+app.use(cors({ origin: allowedOrigins }));
+app.use(express.json({ limit: "32kb" }));
 
 app.use("/api/auth", authRoutes);
 
@@ -21,29 +21,10 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/teste-supabase", async (req, res) => {
-  const { data, error } = await supabaseAdmin
-    .from("categorias")
-    .select("*");
-
-  if (error) {
-    return res.status(500).json({
-      erro: error.message
-    });
-  }
-
-  return res.json(data);
-});
-
-app.get("/teste-profile", async (req, res) => {
-  const { data, error } = await supabaseAdmin
-    .from("profiles")
-    .select("*");
-
-  return res.json({
-    data,
-    error
-  });
+app.use((_req, res) => { res.status(404).json({ erro: "Rota não encontrada." }); });
+app.use((error: unknown, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
+  const status = (error as { status?: number })?.status;
+  res.status(status === 400 ? 400 : status === 413 ? 413 : 500).json({ erro: status === 400 ? "JSON inválido." : status === 413 ? "Solicitação muito grande." : "Erro interno do servidor." });
 });
 
 const PORT = Number(process.env.PORT) || 3000;

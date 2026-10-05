@@ -3,23 +3,16 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const supabaseUrl = process.env.SUPABASE_URL;
-const publishableKey = process.env.SUPABASE_PUBLISHABLE_KEY;
-const secretKey = process.env.SUPABASE_SECRET_KEY;
-
-if (!supabaseUrl) {
-  throw new Error("SUPABASE_URL não configurada.");
+function required(name: string): string {
+  const value = process.env[name];
+  if (!value) throw new Error(`${name} não configurada.`);
+  return value;
 }
+const supabaseUrl = required("SUPABASE_URL");
+const publishableKey = required("SUPABASE_PUBLISHABLE_KEY");
+const secretKey = required("SUPABASE_SECRET_KEY");
 
-if (!publishableKey) {
-  throw new Error("SUPABASE_PUBLISHABLE_KEY não configurada.");
-}
-
-if (!secretKey) {
-  throw new Error("SUPABASE_SECRET_KEY não configurada.");
-}
-
-export const supabaseAuth = createClient(
+export function createAuthClient() { return createClient(
   supabaseUrl,
   publishableKey,
   {
@@ -29,7 +22,7 @@ export const supabaseAuth = createClient(
       detectSessionInUrl: false
     }
   }
-);
+); }
 
 export const supabaseAdmin = createClient(
   supabaseUrl,

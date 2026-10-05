@@ -1,17 +1,25 @@
 import { Router } from "express";
 import {
-  supabaseAuth,
+  createAuthClient,
   supabaseAdmin
 } from "../config/supabase.js";
+import { z } from "zod";
 
 const router = Router();
+const credentials = z.object({ email: z.string().trim().email().max(254), senha: z.string().min(1).max(256) });
+const registration = credentials.extend({
+  senha: z.string().min(6).max(256), nome: z.string().trim().min(2).max(120),
+  tipo_usuario: z.enum(["cliente", "freelancer"]),
+  telefone: z.string().trim().max(30).optional(), cidade: z.string().trim().max(120).optional(), estado: z.string().trim().max(60).optional(),
+});
 
 /**
  * POST /api/auth/cadastro
  */
 router.post("/cadastro", async (req, res) => {
   try {
-    console.log("BODY RECEBIDO:", req.body);
+    const parsed = registration.safeParse(req.body);
+    if (!parsed.success) return res.status(400).json({ erro: "Confira nome, e-mail, senha (mínimo de 6 caracteres) e tipo de conta." });
 
     const {
       nome,
@@ -21,7 +29,7 @@ router.post("/cadastro", async (req, res) => {
       tipo_usuario,
       cidade,
       estado
-    } = req.body ?? {};
+    } = parsed.data;
 
     if (!nome || !email || !senha || !tipo_usuario) {
       return res.status(400).json({
@@ -50,7 +58,7 @@ router.post("/cadastro", async (req, res) => {
 
     if (authError) {
       return res.status(400).json({
-        erro: authError.message
+        erro: "Não foi possível cadastrar esta conta. Confira os dados ou tente entrar."
       });
     }
 
@@ -71,7 +79,7 @@ router.post("/cadastro", async (req, res) => {
       await supabaseAdmin.auth.admin.deleteUser(user.id);
 
       return res.status(400).json({
-        erro: profileError.message
+        erro: "Não foi possível criar o perfil. Tente novamente."
       });
     }
 
@@ -85,7 +93,6 @@ router.post("/cadastro", async (req, res) => {
       }
     });
   } catch (error) {
-    console.error("ERRO NO CADASTRO:", error);
 
     return res.status(500).json({
       erro: "Erro interno do servidor."
@@ -98,10 +105,12 @@ router.post("/cadastro", async (req, res) => {
  */
 router.post("/login", async (req, res) => {
   try {
+    const parsed = credentials.safeParse(req.body);
+    if (!parsed.success) return res.status(400).json({ erro: "Informe um e-mail válido e sua senha." });
     const {
       email,
       senha
-    } = req.body ?? {};
+    } = parsed.data;
 
     if (!email || !senha) {
       return res.status(400).json({
@@ -110,7 +119,7 @@ router.post("/login", async (req, res) => {
     }
 
     const { data, error } =
-      await supabaseAuth.auth.signInWithPassword({
+      await createAuthClient().auth.signInWithPassword({
         email,
         password: senha
       });
@@ -127,13 +136,10 @@ router.post("/login", async (req, res) => {
         .select("*")
         .eq("id", data.user.id);
 
-    console.log("ID AUTH:", data.user.id);
-    console.log("PROFILES:", profiles);
-    console.log("PROFILE ERROR:", profileError);
 
     if (profileError) {
       return res.status(500).json({
-        erro: profileError.message
+        erro: "Não foi possível carregar seu perfil."
       });
     }
 
@@ -165,12 +171,22 @@ router.post("/login", async (req, res) => {
       }
     });
   } catch (error) {
-    console.error("ERRO NO LOGIN:", error);
 
     return res.status(500).json({
       erro: "Erro interno do servidor."
     });
   }
+});
+
+router.get("/me", async (req, res) => {
+  const token = req.headers.authorization?.match(/^Bearer (.+)$/)?.[1];
+  if (!token) return res.status(401).json({ erro: "Sessão inválida ou expirada." });
+  const { data, error } = await createAuthClient().auth.getUser(token);
+  if (error || !data.user) return res.status(401).json({ erro: "Sessão inválida ou expirada." });
+  const { data: profile, error: profileError } = await supabaseAdmin.from("profiles").select("id,nome,tipo_usuario").eq("id", data.user.id).maybeSingle();
+  if (profileError) return res.status(503).json({ erro: "Não foi possível carregar seu perfil." });
+  if (!profile || !["cliente", "freelancer"].includes(profile.tipo_usuario)) return res.status(401).json({ erro: "Sessão inválida ou expirada." });
+  return res.json({ usuario: { ...profile, email: data.user.email } });
 });
 
 export default router;
