@@ -1,5 +1,6 @@
 import { ArrowLeft, BriefcaseBusiness, Check, Eye, LockKeyhole, Mail, UserRound } from "lucide-react";
-import { Link, useNavigate, useSearchParams } from "react-router";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
+import { afterLogin } from "../lib/redirect";
 import { useState } from "react";
 import { api, saveSession, type Session } from "../lib/session";
 import Brand from "../components/Brand";
@@ -9,6 +10,7 @@ export default function AuthPage({ mode }: { mode: "login" | "register" }) {
   const register = mode === "register";
   const [params] = useSearchParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const [accountType, setAccountType] = useState<"cliente" | "freelancer">(params.get("tipo") === "freelancer" ? "freelancer" : "cliente");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -24,7 +26,7 @@ export default function AuthPage({ mode }: { mode: "login" | "register" }) {
       if (register) await api("/auth/cadastro", { nome: String(values.get("nome") || "").trim(), email, senha, tipo_usuario: accountType });
       const session = await api<Session>("/auth/login", { email, senha });
       saveSession(session);
-      navigate(session.usuario.tipo_usuario === "cliente" ? "/app/cliente" : "/app", { replace: true });
+      navigate(afterLogin(location.state?.from, session.usuario.tipo_usuario), { replace: true });
     } catch (error) { setError(error instanceof Error ? error.message : "Não foi possível entrar."); }
     finally { setBusy(false); }
   }

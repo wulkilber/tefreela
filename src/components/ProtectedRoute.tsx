@@ -54,7 +54,7 @@ export default function ProtectedRoute() {
       </div>
     )
   if (state === "invalid")
-    return <Navigate to="/entrar" replace state={{ from: location.pathname }} />
+    return <Navigate to="/entrar" replace state={{ from: location.pathname + location.search }} />
   const role = getSession()?.usuario.tipo_usuario
   if (location.pathname === "/app" && role === "cliente")
     return <Navigate to="/app/cliente" replace />

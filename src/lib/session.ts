@@ -40,13 +40,13 @@ export async function api<T>(
     response = await fetch(`${import.meta.env.VITE_API_URL || "/api"}${path}`, {
       method: method || (body === undefined ? "GET" : "POST"),
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": body instanceof Blob ? (body.type || "application/octet-stream") : "application/json",
         ...(getSession()
           ? { Authorization: `Bearer ${getSession()!.access_token}` }
           : {}),
       },
-      ...(body === undefined ? {} : { body: JSON.stringify(body) }),
-      signal: AbortSignal.timeout(15000),
+      ...(body === undefined ? {} : { body: body instanceof Blob ? body : JSON.stringify(body) }),
+      signal: AbortSignal.timeout(body instanceof Blob ? 60000 : 15000),
     })
   } catch {
     throw new ApiError("Não foi possível conectar ao servidor. Tente novamente.", 0)

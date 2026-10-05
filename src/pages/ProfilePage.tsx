@@ -2,6 +2,7 @@ import { useParams } from "react-router"
 import PublicHeader from "../components/PublicHeader"
 import { ButtonLink, Heading } from "../components/ui"
 import { useData, type Profile } from "../lib/data"
+import { getSession } from "../lib/session"
 export default function ProfilePage() {
   const { id } = useParams()
   const request = useData<Profile | null>(`/perfis/${id}`, null)
@@ -22,8 +23,8 @@ export default function ProfilePage() {
                   {[profile.cidade, profile.estado].filter(Boolean).join(" · ")}
                 </p>
                 <p>{profile.descricao}</p>
-                <ButtonLink to={`/app/mensagens?usuario=${profile.id}`}>
-                  Conversar
+                <ButtonLink to={getSession()?.usuario.id === profile.id ? "/app/perfil" : `/app/mensagens?usuario=${profile.id}`}>
+                  {getSession()?.usuario.id === profile.id ? "Editar meu perfil" : "Conversar"}
                 </ButtonLink>
               </div>
             </section>

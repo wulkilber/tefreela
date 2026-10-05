@@ -33,6 +33,7 @@ export type Review = {
   criado_em: string
 }
 export type ServiceRecord = {
+  imagens?: string[]
   id_servico: number
   id_freelancer: string
   id_categoria: number
@@ -113,7 +114,7 @@ export function serviceCard(service: ServiceRecord) {
     reviews: service.total_avaliacoes ?? reviews.length,
     price: Number(service.preco),
     delivery: `${service.prazo_dias} dias`,
-    image: "/service-placeholder.svg",
+    image: service.imagens?.[0] || "/service-placeholder.svg",
     avatar: service.freelancer?.foto || "/avatar-placeholder.svg",
     badge: "Disponível",
   }

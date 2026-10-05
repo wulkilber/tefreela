@@ -12,6 +12,7 @@ export default function ServicePage() {
   const [description, setDescription] = useState("")
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState("")
+  const [activeImage, setActiveImage] = useState(0)
   const navigate = useNavigate()
   const record = request.data
   const service = record ? serviceCard(record) : null
@@ -36,10 +37,12 @@ export default function ServicePage() {
     }
   }
   function converse() {
+    if (getSession()?.usuario.id === record?.id_freelancer) { navigate("/app/servicos"); return }
     navigate(
       getSession()
         ? `/app/mensagens?usuario=${record?.id_freelancer}&servico=${id}`
         : "/entrar",
+      getSession() ? undefined : { state: { from: `/app/mensagens?usuario=${record?.id_freelancer}&servico=${id}` } },
     )
   }
   return (
@@ -73,7 +76,8 @@ export default function ServicePage() {
                     : "Sem avaliações"}
                 </span>
               </div>
-              <img className="detail-cover" src={service.image} alt="" />
+              <img className="detail-cover" src={record.imagens?.[activeImage] || service.image} alt={service.title} />
+              {(record.imagens?.length || 0) > 1 && <div className="service-thumbnails">{record.imagens!.map((url, index) => <button key={url} className={activeImage === index ? "active" : ""} onClick={() => setActiveImage(index)} aria-label={`Ver imagem ${index + 1}`} aria-pressed={activeImage === index}><img src={url} alt="" /></button>)}</div>}
               <section className="detail-section">
                 <Heading as="h2">Sobre este serviço</Heading>
                 <p style={{ whiteSpace: "pre-wrap" }}>{record.descricao}</p>
@@ -142,7 +146,7 @@ export default function ServicePage() {
                 className="purchase-button"
                 onClick={converse}
               >
-                <MessageCircle /> Conversar antes
+                <MessageCircle /> {getSession()?.usuario.id === record.id_freelancer ? "Gerenciar meu serviço" : "Conversar antes"}
               </Button>
               <p>
                 O pedido será enviado ao freelancer para aceite. Este projeto

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import AppShell from "../components/AppShell"
 import { Button, ButtonLink, Heading, TextInput } from "../components/ui"
 import { api, getSession, saveSession } from "../lib/session"
@@ -53,6 +53,43 @@ export default function ManagementPage({ kind }: { kind: Kind }) {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState("")
   const [success, setSuccess] = useState("")
+  const [imageFiles, setImageFiles] = useState<File[]>([])
+  const [imagePreviews, setImagePreviews] = useState<string[]>([])
+  useEffect(() => {
+    const urls = imageFiles.map(file => URL.createObjectURL(file))
+    setImagePreviews(urls)
+    return () => urls.forEach(url => URL.revokeObjectURL(url))
+  }, [imageFiles])
+  async function saveService(values: unknown) {
+    setBusy(true); setError(""); setSuccess("")
+    let saved: ServiceRecord | null = null
+    try {
+      saved = await api<ServiceRecord>(editing ? `/servicos/${editing.id_servico}` : "/servicos", values, editing ? "PATCH" : "POST")
+      // Keep the saved ID if an upload fails, so retrying cannot create duplicate services.
+      setEditing(saved)
+      for (let slot = 0; slot < imageFiles.length; slot++) {
+        await api(`/servicos/${saved.id_servico}/imagens/${slot}`, imageFiles[slot], "PUT")
+      }
+      setEditing(null); setImageFiles([])
+      setSuccess("Serviço e imagens salvos com sucesso.")
+      return true
+    } catch (caught) {
+      setError(`${saved ? "O serviço foi salvo, mas uma imagem não foi enviada. Clique em Salvar alterações para tentar novamente. " : ""}${(caught as Error).message}`)
+      return false
+    } finally { setBusy(false); request.reload() }
+  }
+  async function removeServiceImage(url: string) {
+    if (!editing || busy) return
+    const slot = new URL(url, window.location.origin).pathname.split("/").at(-1)
+    if (!slot || !/^[0-3]$/.test(slot)) return
+    setBusy(true); setError("")
+    try {
+      await api(`/servicos/${editing.id_servico}/imagens/${slot}`, undefined, "DELETE")
+      setEditing({ ...editing, imagens: editing.imagens?.filter(image => image !== url) })
+      request.reload(); setSuccess("Imagem removida.")
+    } catch (caught) { setError((caught as Error).message) }
+    finally { setBusy(false) }
+  }
   async function mutate(path: string, body: unknown, method = "POST") {
     setBusy(true)
     setError("")
@@ -182,11 +219,7 @@ export default function ManagementPage({ kind }: { kind: Kind }) {
                 status: form.get("status"),
               }
               if (
-                await mutate(
-                  editing ? `/servicos/${editing.id_servico}` : "/servicos",
-                  values,
-                  editing ? "PATCH" : "POST",
-                )
+                await saveService(values)
               ) {
                 setEditing(null)
                 formElement.reset()
@@ -196,6 +229,7 @@ export default function ManagementPage({ kind }: { kind: Kind }) {
             <Heading as="h3">
               {editing ? "Editar serviço" : "Publicar serviço"}
             </Heading>
+            <p className="form-intro">Mostre o que você faz, escolha a categoria e destaque seu trabalho com imagens.</p>
             <fieldset
               disabled={
                 busy || getSession()?.usuario.tipo_usuario !== "freelancer"
@@ -238,6 +272,21 @@ export default function ManagementPage({ kind }: { kind: Kind }) {
                 </select>
               </label>
               {categories.error && <p role="alert">{categories.error}</p>}
+              <label className="image-upload">
+                Imagens do serviço
+                <span>Até 4 imagens JPG, PNG ou WebP, de até 5 MB cada. A primeira será a capa. As imagens ficam visíveis no catálogo.</span>
+                <input type="file" accept="image/jpeg,image/png,image/webp" multiple onChange={event => {
+                  const files = Array.from(event.target.files || [])
+                  if (files.length > 4 || files.some(file => file.size > 5 * 1024 * 1024 || !["image/jpeg", "image/png", "image/webp"].includes(file.type))) {
+                    setError("Selecione até 4 imagens JPG, PNG ou WebP de até 5 MB cada."); event.target.value = ""; return
+                  }
+                  setError(""); setImageFiles(files)
+                }} />
+              </label>
+              <div className="upload-previews">
+                {(imageFiles.length ? imagePreviews : editing?.imagens || []).map((url, index) => <figure key={url}><img src={url} alt={`Imagem ${index + 1} do serviço`} /><figcaption>{index === 0 ? "Capa" : `Imagem ${index + 1}`}</figcaption>{!imageFiles.length && <Button type="button" variant="ghost" onClick={() => void removeServiceImage(url)} aria-label={`Remover imagem ${index + 1}`}>Remover</Button>}</figure>)}
+              </div>
+              {imageFiles.length > 0 && <Button type="button" variant="ghost" onClick={() => setImageFiles([])}>Limpar seleção de imagens</Button>}
               <label>
                 Preço em créditos
                 <TextInput
@@ -277,7 +326,7 @@ export default function ManagementPage({ kind }: { kind: Kind }) {
                   <Button
                     type="button"
                     variant="ghost"
-                    onClick={() => setEditing(null)}
+                    onClick={() => { setEditing(null); setImageFiles([]); setError("") }}
                   >
                     Cancelar edição
                   </Button>
@@ -288,7 +337,7 @@ export default function ManagementPage({ kind }: { kind: Kind }) {
           <section className="panel">
             {(request.data as ServiceRecord[] | null)?.map((service) => (
               <article className="my-service" key={service.id_servico}>
-                <img src="/service-placeholder.svg" alt="" />
+                <img src={service.imagens?.[0] || "/service-placeholder.svg"} alt="" />
                 <div>
                   <strong>{service.titulo}</strong>
                   <span>
@@ -300,6 +349,8 @@ export default function ManagementPage({ kind }: { kind: Kind }) {
                   variant="secondary"
                   onClick={() => {
                     setEditing(service)
+                    setImageFiles([])
+                    setError("")
                     window.scrollTo({ top: 0, behavior: "smooth" })
                   }}
                 >
