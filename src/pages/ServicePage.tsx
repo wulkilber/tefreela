@@ -1,39 +1,157 @@
-import { ArrowLeft, BadgeCheck, Check, Clock3, Heart, MessageCircle, RefreshCw, ShieldCheck, Star } from "lucide-react";
-import { useParams, Link } from "react-router";
-import PublicHeader from "../components/PublicHeader";
-import { Button, ButtonLink, Heading } from "../components/ui";
-import { services } from "../data/mock";
+import { ArrowLeft, Clock3, MessageCircle, Star } from "lucide-react"
+import { useParams, Link, useNavigate } from "react-router"
+import { useState } from "react"
+import PublicHeader from "../components/PublicHeader"
+import { Button, ButtonLink, Heading } from "../components/ui"
+import { serviceCard, useData, type ServiceRecord } from "../lib/data"
+import { api, getSession } from "../lib/session"
 
 export default function ServicePage() {
-  const { id } = useParams();
-  const service = services.find((item) => item.id === id);
-  if (!service) return <div className="page-bg"><PublicHeader /><main className="container service-page"><Heading as="h1">Serviço não encontrado</Heading><ButtonLink to="/explorar">Voltar para serviços</ButtonLink></main></div>;
+  const { id } = useParams()
+  const request = useData<ServiceRecord | null>(`/servicos/${id}`, null)
+  const [description, setDescription] = useState("")
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState("")
+  const navigate = useNavigate()
+  const record = request.data
+  const service = record ? serviceCard(record) : null
+  async function purchase(event: React.FormEvent) {
+    event.preventDefault()
+    if (!getSession()) {
+      navigate("/entrar")
+      return
+    }
+    setBusy(true)
+    setError("")
+    try {
+      await api("/pedidos", {
+        id_servico: Number(id),
+        descricao_solicitacao: description,
+      })
+      navigate("/app/pedidos")
+    } catch (error) {
+      setError((error as Error).message)
+    } finally {
+      setBusy(false)
+    }
+  }
+  function converse() {
+    navigate(
+      getSession()
+        ? `/app/mensagens?usuario=${record?.id_freelancer}&servico=${id}`
+        : "/entrar",
+    )
+  }
   return (
     <div className="page-bg">
       <PublicHeader />
       <main className="container service-page">
-        <Link className="back-link" to="/explorar"><ArrowLeft /> Voltar para serviços</Link>
-        <div className="service-detail-grid">
-          <div className="service-detail-main">
-            <span className="service-category">{service.category}</span>
-            <Heading as="h1">{service.title}</Heading>
-            <div className="detail-seller"><img src={service.avatar} alt="" /><div><strong>{service.seller} <BadgeCheck /></strong><span>{service.role}</span></div><span className="rating"><Star fill="currentColor" /> <strong>{service.rating}</strong> ({service.reviews} avaliações)</span></div>
-            <img className="detail-cover" src={service.image} alt="Exemplo visual do serviço" />
-            <section className="detail-section"><Heading as="h2">Sobre este serviço</Heading><p>Vou transformar a essência da sua marca em uma identidade visual estratégica, original e pronta para se destacar. O processo é colaborativo e pensado para criar um resultado que faça sentido para seu público e para o futuro do seu negócio.</p><p>Você receberá arquivos organizados, orientações de uso e todo o suporte necessário durante o projeto.</p></section>
-            <section className="detail-section"><Heading as="h2">O que está incluído</Heading><div className="included-grid">{["Briefing estratégico", "2 propostas de conceito", "Paleta de cores e tipografia", "Aplicações da marca", "Arquivos editáveis", "Manual de identidade"].map((item) => <span key={item}><Check /> {item}</span>)}</div></section>
-            <section className="detail-section seller-profile"><img src={service.avatar} alt="" /><div><Heading as="h3">{service.seller}</Heading><p>{service.role} · São Paulo, Brasil</p><div><span><Star fill="currentColor" /> {service.rating} avaliação</span><span>184 projetos concluídos</span><span>Responde em até 1h</span></div><Button variant="secondary"><MessageCircle /> Falar com freelancer</Button></div></section>
+        <Link className="back-link" to="/explorar">
+          <ArrowLeft /> Voltar para serviços
+        </Link>
+        {request.loading && <p role="status">Carregando serviço...</p>}
+        {request.error && (
+          <p role="alert">
+            {request.error}{" "}
+            <Button onClick={request.reload}>Tentar novamente</Button>
+          </p>
+        )}
+        {service && record && (
+          <div className="service-detail-grid">
+            <div className="service-detail-main">
+              <span className="service-category">{service.category}</span>
+              <Heading as="h1">{service.title}</Heading>
+              <div className="detail-seller">
+                <img src={service.avatar} alt="" />
+                <Link to={`/perfil/${record.id_freelancer}`}>
+                  {service.seller}
+                </Link>
+                <span className="rating">
+                  <Star />{" "}
+                  {service.reviews
+                    ? `${service.rating} (${service.reviews} avaliações)`
+                    : "Sem avaliações"}
+                </span>
+              </div>
+              <img className="detail-cover" src={service.image} alt="" />
+              <section className="detail-section">
+                <Heading as="h2">Sobre este serviço</Heading>
+                <p style={{ whiteSpace: "pre-wrap" }}>{record.descricao}</p>
+              </section>
+              <section className="detail-section seller-profile">
+                <img src={service.avatar} alt="" />
+                <div>
+                  <Heading as="h3">{service.seller}</Heading>
+                  <p>{record.freelancer?.descricao}</p>
+                  <ButtonLink
+                    to={`/perfil/${record.id_freelancer}`}
+                    variant="secondary"
+                  >
+                    Ver perfil e portfólio
+                  </ButtonLink>
+                </div>
+              </section>
+              <section className="detail-section">
+                <Heading as="h2">Avaliações do freelancer</Heading>
+                {record.avaliacoes?.map((review) => (
+                  <article key={review.id_avaliacao}>
+                    <strong>{review.nota}/5</strong>
+                    <p>{review.comentario}</p>
+                  </article>
+                ))}
+                {!record.avaliacoes?.length && <p>Ainda sem avaliações.</p>}
+              </section>
+            </div>
+            <aside className="purchase-card">
+              <div className="purchase-top">
+                <span>Solicitar serviço</span>
+              </div>
+              <div className="purchase-price">
+                <span>Valor do serviço</span>
+                <strong>R$ {service.price}</strong>
+                <small>Créditos acadêmicos</small>
+              </div>
+              <div className="purchase-meta">
+                <span>
+                  <Clock3 /> Prazo combinado: {service.delivery}
+                </span>
+              </div>
+              <form onSubmit={purchase}>
+                <label>
+                  Conte ao freelancer o que você precisa
+                  <textarea
+                    required
+                    maxLength={10000}
+                    value={description}
+                    onChange={(event) => setDescription(event.target.value)}
+                  />
+                </label>
+                {error && <p role="alert">{error}</p>}
+                <Button
+                  type="submit"
+                  disabled={
+                    busy || getSession()?.usuario.tipo_usuario === "freelancer"
+                  }
+                  className="purchase-button"
+                >
+                  {busy ? "Enviando..." : "Solicitar contratação"}
+                </Button>
+              </form>
+              <Button
+                variant="secondary"
+                className="purchase-button"
+                onClick={converse}
+              >
+                <MessageCircle /> Conversar antes
+              </Button>
+              <p>
+                O pedido será enviado ao freelancer para aceite. Este projeto
+                não processa dinheiro real.
+              </p>
+            </aside>
           </div>
-          <aside className="purchase-card">
-            <div className="purchase-top"><span>Pacote completo</span><Button variant="ghost"><Heart /></Button></div>
-            <div className="purchase-price"><span>A partir de</span><strong>R$ {service.price}</strong><small>ou 3x sem juros</small></div>
-            <p>Identidade visual profissional com tudo que sua marca precisa para começar.</p>
-            <div className="purchase-meta"><span><Clock3 /> Entrega em {service.delivery}</span><span><RefreshCw /> 2 revisões incluídas</span></div>
-            <ButtonLink to="/cadastro" className="purchase-button">Continuar contratação</ButtonLink>
-            <Button variant="secondary" className="purchase-button"><MessageCircle /> Conversar antes</Button>
-            <div className="safe-purchase"><ShieldCheck /><div><strong>Compra 100% protegida</strong><span>Pagamento liberado só após sua aprovação.</span></div></div>
-          </aside>
-        </div>
+        )}
       </main>
     </div>
-  );
+  )
 }

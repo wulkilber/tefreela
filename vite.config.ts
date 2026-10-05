@@ -32,7 +32,7 @@ react(),
     },
     server: {
       proxy: { '/api': { target: process.env.API_PROXY_TARGET || 'http://localhost:3000', changeOrigin: true } },
-      host: process.env.FIGMA_DEV_SERVER_HOST || '0.0.0.0',
+      host: process.env.FIGMA_DEV_SERVER_HOST || '127.0.0.1',
       port: parseInt(process.env.PORT || '8443'),
       strictPort: true,
       watch: {
@@ -42,7 +42,7 @@ react(),
       },
     },
     preview: {
-      host: process.env.FIGMA_DEV_SERVER_HOST || '0.0.0.0',
+      host: process.env.FIGMA_DEV_SERVER_HOST || '127.0.0.1',
       port: parseInt(process.env.PORT || '8443'),
     },
   }

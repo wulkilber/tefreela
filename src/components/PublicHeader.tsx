@@ -3,9 +3,11 @@ import { useState } from "react";
 import { Link } from "react-router";
 import Brand from "./Brand";
 import { Button, ButtonLink } from "./ui";
+import { getSession } from "../lib/session";
 
 export default function PublicHeader() {
   const [open, setOpen] = useState(false);
+  const session = getSession();
 
   return (
     <header className="public-header">
@@ -21,8 +23,7 @@ export default function PublicHeader() {
           </div>
         </nav>
         <div className="header-actions">
-          <ButtonLink to="/entrar" variant="ghost">Entrar</ButtonLink>
-          <ButtonLink to="/cadastro">Criar conta</ButtonLink>
+          {session ? <ButtonLink to="/app">Minha conta</ButtonLink> : <><ButtonLink to="/entrar" variant="ghost">Entrar</ButtonLink><ButtonLink to="/cadastro">Criar conta</ButtonLink></>}
         </div>
         <Button
           variant="ghost"

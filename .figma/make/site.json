@@ -1,4 +1,6 @@
 {
+  "title": "Tefreela",
+  "language": "pt-BR",
   "description": "Connect clients with freelancers through a modern platform that facilitates service hiring, skill showcasing, and project management, enhancing professional opportunities.",
   "robots": {
     "index": false

@@ -4,11 +4,15 @@ import { useSearchParams } from "react-router";
 import PublicHeader from "../components/PublicHeader";
 import ServiceCard from "../components/ServiceCard";
 import { Button, Heading, TextInput } from "../components/ui";
-import { categories, services } from "../data/mock";
+import { categoryName, serviceCard, useData, type Category, type ServiceRecord } from "../lib/data";
 
 export default function ExplorePage() {
   const [params, setParams] = useSearchParams();
   const [filters, setFilters] = useState(false);
+  const catalog = useData<ServiceRecord[]>("/servicos", []);
+  const categoryData = useData<Category[]>("/categorias", []);
+  const services = catalog.data.map(serviceCard);
+  const categories = categoryData.data.map((category) => ({ name: categoryName(category) }));
   const initial = params.get("q") || "";
   const [query, setQuery] = useState(initial);
   const [selected, setSelected] = useState<string[]>(params.get("categoria") ? [params.get("categoria")!] : []);
@@ -37,12 +41,12 @@ export default function ExplorePage() {
           <form className="explore-search" onSubmit={(event) => { event.preventDefault(); search(); }}><TextInput icon={<Search />} value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Busque por serviço ou habilidade" /><Button type="submit">Buscar</Button></form>
         </div>
         <div className="explore-toolbar">
-          <span><strong>{results.length}</strong> serviços de demonstração encontrados</span>
+          <span><strong>{results.length}</strong> serviços encontrados</span>
           <div><Button variant="secondary" className="filter-toggle" onClick={() => setFilters(!filters)}><Filter /> Filtros</Button><select aria-label="Ordenar serviços" className="sort-button" value={sort} onChange={(event) => setSort(event.target.value)}><option value="relevance">Mais relevantes</option><option value="price">Menor preço</option><option value="rating">Melhor avaliação</option></select></div>
         </div>
         <div className="explore-layout">
           <aside className={filters ? "filters is-open" : "filters"}>
-            <div className="filter-mobile-head"><strong>Filtros</strong><Button variant="ghost" onClick={() => setFilters(false)}><X /></Button></div>
+            <div className="filter-mobile-head"><strong>Filtros</strong><Button variant="ghost" aria-label="Fechar filtros" onClick={() => setFilters(false)}><X /></Button></div>
             <div className="filter-title"><strong>Filtros</strong><button onClick={clear}>Limpar</button></div>
             <div className="filter-group"><strong>Categoria</strong>{categories.map((item) => <label key={item.name}><input type="checkbox" checked={selected.includes(item.name)} onChange={(event) => setSelected(event.target.checked ? [...selected, item.name] : selected.filter((name) => name !== item.name))} /><span>{item.name}</span><small>{services.filter((service) => service.category === item.name).length}</small></label>)}</div>
             <div className="filter-group"><strong>Faixa de preço</strong><div className="price-inputs"><input type="number" min="0" aria-label="Preço mínimo" value={min} onChange={(event) => setMin(event.target.value)} placeholder="R$ mín." /><span>—</span><input type="number" min="0" aria-label="Preço máximo" value={max} onChange={(event) => setMax(event.target.value)} placeholder="R$ máx." /></div></div>
@@ -51,8 +55,11 @@ export default function ExplorePage() {
             <Button className="apply-filter" onClick={() => setFilters(false)}>Aplicar filtros</Button>
           </aside>
           <div className="results-grid">
+            {catalog.loading && <p role="status">Carregando serviços...</p>}
+            {catalog.error && <p role="alert">{catalog.error} <button onClick={catalog.reload}>Tentar novamente</button></p>}
+            {categoryData.error && <p role="alert">Não foi possível carregar as categorias.</p>}
             {results.map((service) => <ServiceCard key={service.id} service={service} />)}
-            {!results.length && <p role="status">Nenhum serviço encontrado. Tente ajustar os filtros.</p>}
+            {!catalog.loading && !catalog.error && !results.length && <p role="status">Nenhum serviço encontrado. Tente ajustar os filtros.</p>}
           </div>
         </div>
       </main>

@@ -1,13 +1,12 @@
 import { Clock3, Heart, Star } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router";
-import type { services } from "../data/mock";
+import type { Service } from "../lib/data";
 import { Button } from "./ui";
 
-type Service = (typeof services)[number];
-
 export default function ServiceCard({ service }: { service: Service }) {
-  const [favorite, setFavorite] = useState(false);
+  const [favorite, setFavorite] = useState(() => { try { return JSON.parse(localStorage.getItem("tefreela.favorites") || "[]").includes(service.id); } catch { return false; } });
+  const toggle = () => { try { const saved: string[] = JSON.parse(localStorage.getItem("tefreela.favorites") || "[]"); localStorage.setItem("tefreela.favorites", JSON.stringify(favorite ? saved.filter((id) => id !== service.id) : [...new Set([...saved, service.id])])); setFavorite(!favorite); } catch { /* Browser storage can be unavailable. */ } };
   return (
     <article className="service-card">
       <div className="service-image">
@@ -18,7 +17,7 @@ export default function ServiceCard({ service }: { service: Service }) {
         <Button
           variant="ghost"
           className={favorite ? "favorite is-active" : "favorite"}
-          onClick={() => setFavorite(!favorite)}
+          onClick={toggle}
           aria-label="Favoritar serviço"
         >
           <Heart fill={favorite ? "currentColor" : "none"} />

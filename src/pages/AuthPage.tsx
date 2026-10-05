@@ -38,10 +38,10 @@ export default function AuthPage({ mode }: { mode: "login" | "register" }) {
           <Heading as="h1">{register ? "Comece algo incrível hoje." : "Que bom ter você de volta."}</Heading>
           <p>{register ? "Crie sua conta e faça parte de uma comunidade que transforma projetos em realidade." : "Seus projetos, conversas e oportunidades estão esperando por você."}</p>
           <div className="auth-benefits">
-            <span><Check /> Pagamentos seguros e protegidos</span><span><Check /> Profissionais e clientes verificados</span><span><Check /> Suporte em todas as etapas</span>
+            <span><Check /> Créditos acadêmicos de demonstração</span><span><Check /> Perfis e portfólios de profissionais</span><span><Check /> Pedidos e conversas em um só lugar</span>
           </div>
         </div>
-        <div className="auth-testimonial"><p>“Encontrei a profissional perfeita para minha marca e todo o processo foi muito simples.”</p><div><img src="https://i.pravatar.cc/100?img=5" alt="" /><span><strong>Ana Rodrigues</strong><small>Fundadora, Clara Studio</small></span></div></div>
+        <div className="auth-testimonial"><p>Encontre profissionais, converse sobre seu projeto e acompanhe cada etapa.</p><div><img src="/avatar-placeholder.svg" alt="" /><span><strong>Sua próxima parceria começa aqui</strong><small>Comunidade Tefreela</small></span></div></div>
       </section>
       <section className="auth-form-side">
         <div className="auth-form">
@@ -54,7 +54,8 @@ export default function AuthPage({ mode }: { mode: "login" | "register" }) {
             {register && <label>Nome completo<TextInput name="nome" required maxLength={120} autoComplete="name" icon={<UserRound />} placeholder="Como podemos chamar você?" /></label>}
             <label>E-mail<TextInput name="email" required autoComplete="email" icon={<Mail />} type="email" placeholder="seu@email.com" /></label>
             <label>Senha<div className="password-field"><TextInput name="senha" required minLength={register ? 6 : undefined} autoComplete={register ? "new-password" : "current-password"} icon={<LockKeyhole />} type={showPassword ? "text" : "password"} placeholder="Sua senha" /><button type="button" aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"} onClick={() => setShowPassword(!showPassword)}><Eye /></button></div></label>
-            {register && <label className="terms"><input type="checkbox" required /> Li e concordo com os <a href="#termos">Termos de uso</a> e a <a href="#privacidade">Política de privacidade</a>.</label>}
+            {!register && <div className="form-options"><Link to="/recuperar-senha">Esqueci minha senha</Link></div>}
+            {register && <label className="terms"><input type="checkbox" required /> Estou ciente de que esta é uma versão acadêmica com créditos fictícios. <Link to="/ajuda#dados">Sobre o protótipo</Link>.</label>}
             {error && <p role="alert">{error}</p>}
             <Button type="submit" className="auth-submit">{busy ? "Aguarde..." : register ? "Criar minha conta" : "Entrar"}</Button>
             </fieldset>
