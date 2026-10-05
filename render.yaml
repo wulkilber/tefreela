@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: tefreela
+    runtime: node
+    plan: free
+    repo: https://github.com/wulkilber/tefreela
+    branch: melhorias/autenticacao-auditoria
+    buildCommand: corepack enable && corepack prepare pnpm@10.34.3 --activate && pnpm install --frozen-lockfile && pnpm --dir backend install --frozen-lockfile && pnpm --dir backend build && pnpm build
+    startCommand: node backend/dist/server.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 24.14.0
+      - key: NODE_ENV
+        value: production
+      - key: HOST
+        value: 0.0.0.0
+      - key: SERVE_FRONTEND
+        value: "true"
+      - key: VITE_API_URL
+        value: /api
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_PUBLISHABLE_KEY
+        sync: false
+      - key: SUPABASE_SECRET_KEY
+        sync: false

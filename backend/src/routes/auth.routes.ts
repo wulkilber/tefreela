@@ -191,7 +191,7 @@ router.post("/refresh", async (req, res) => {
 router.post("/recuperar", async (req, res) => {
   const parsed = z.object({ email: z.string().trim().email().max(254) }).safeParse(req.body);
   if (!parsed.success) return res.status(400).json({ erro: "Informe um e-mail válido." });
-  const origin = (process.env.FRONTEND_URL || "http://localhost:8443").split(",")[0].trim();
+  const origin = (process.env.FRONTEND_URL || process.env.RENDER_EXTERNAL_URL || "http://localhost:8443").split(",")[0].trim();
   const { error } = await createAuthClient().auth.resetPasswordForEmail(parsed.data.email, { redirectTo: `${origin}/recuperar-senha` });
   if (error) return res.status(503).json({ erro: "Não foi possível enviar o e-mail agora. Tente novamente mais tarde." });
   res.json({ mensagem: "Se houver uma conta com esse e-mail, você receberá as instruções." });
