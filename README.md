@@ -43,7 +43,7 @@ Em backend:
 pnpm test
 ```
 
-São 5 testes de sessão e 23 testes de backend com credenciais fictícias e serviço local simulado. Nenhum deles depende do banco real. A configuração antiga do formatador oxfmt 0.2 pode remover separadores de tipos na mesma linha; conferir TypeScript após usá-lo.
+São 7 testes de sessão e 25 testes de backend com credenciais fictícias e serviço local simulado. Nenhum deles depende do banco real. A configuração antiga do formatador oxfmt 0.2 pode remover separadores de tipos na mesma linha; conferir TypeScript após usá-lo.
 
 ## Publicação futura
 
@@ -52,3 +52,17 @@ O frontend compilado precisa de fallback de SPA para `index.html`. O proxy do Vi
 Configure `FRONTEND_URL` no backend com as origens permitidas, separadas por vírgula. Para servidor/container com ingresso externo, defina `HOST=0.0.0.0`; localmente o padrão é `127.0.0.1`. Mantenha todas as chaves secretas exclusivamente no servidor.
 
 Antes de produção, concluir confirmação de e-mail, políticas RLS, SMTP/OAuth e validação dos fluxos com duas contas reais. O design e as ilustrações da página inicial foram preservados; dados de negócio fictícios foram removidos.
+
+
+## Categorias e imagens dos serviços
+
+A tabela de categorias agora inclui Redação, Tradução, Vídeo e animação, Fotografia, Áudio e música, Consultoria, Arquitetura, Engenharia, Suporte administrativo, Aulas e tutoria e Outros, além das três categorias originais.
+
+O formulário aceita até quatro arquivos JPG, PNG ou WebP de até 5 MB cada, com prévia, capa e galeria. Os arquivos ficam no bucket público `servicos-imagens`, em pastas por freelancer e serviço. Somente o backend usa a chave secreta e autoriza envio/remoção após verificar o dono do serviço. Não é necessário alterar a estrutura das tabelas. Ao escolher novos arquivos para editar um serviço, eles substituem as posições correspondentes da galeria; imagens restantes podem ser removidas individualmente.
+
+Para preparar outro ambiente, execute `node scripts/setup-marketplace.cjs` dentro de `backend`, com as variáveis locais configuradas. O script adiciona somente categorias ausentes e cria o bucket se necessário. Não imprime credenciais.
+
+O chat mostra o nome do contato antes da primeira mensagem, confirma o envio na tela, atualiza a conversa a cada dez segundos enquanto estiver visível e permite voltar à lista no celular. A listagem mostra até mil mensagens recentes para reunir as conversas, e cada conversa carrega até duzentas mensagens. Paginação de históricos maiores continua pendente.
+
+`node tests/preview-server.cjs` abre uma prévia local em `127.0.0.1:8445` com dados fictícios, após o build, para conferir responsividade sem usar contas reais. Esse servidor é exclusivo para desenvolvimento e não participa do deploy.
+
