@@ -37,7 +37,7 @@ export default function AuthPage({ mode }: { mode: "login" | "register" }) {
         <div className="auth-brand"><Brand /></div>
         <div className="auth-quote">
           <span className="hero-kicker">Onde ideias encontram talento</span>
-          <Heading as="h1">{register ? "Comece algo incrível hoje." : "Que bom ter você de volta."}</Heading>
+          <Heading as="h1">{register ? "O próximo capítulo começa com você." : "Boas ideias merecem boas conexões."}</Heading>
           <p>{register ? "Crie sua conta e faça parte de uma comunidade que transforma projetos em realidade." : "Seus projetos, conversas e oportunidades estão esperando por você."}</p>
           <div className="auth-benefits">
             <span><Check /> Créditos acadêmicos de demonstração</span><span><Check /> Perfis e portfólios de profissionais</span><span><Check /> Pedidos e conversas em um só lugar</span>

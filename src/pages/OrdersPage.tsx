@@ -1,7 +1,8 @@
 import { Download, MessageCircle, Search } from "lucide-react"
 import { useState } from "react"
 import AppShell from "../components/AppShell"
-import { Button, ButtonLink, Heading, TextInput } from "../components/ui"
+import { Button, ButtonLink, EmptyState, Heading, Skeleton, Tabs, TextInput } from "../components/ui"
+import { OrderTimeline } from "../components/OrderCard"
 import { api, getSession } from "../lib/session"
 import { date, money, useData, type Order } from "../lib/data"
 const labels: Record<string, string> = {
@@ -103,31 +104,7 @@ export default function OrdersPage() {
           <Download /> Exportar relatório
         </Button>
       </div>
-      <div className="order-tabs">
-        {[
-          "",
-          "solicitado",
-          "aceito",
-          "em_andamento",
-          "concluido",
-          "cancelado",
-          "recusado",
-        ].map((value) => (
-          <button
-            className={tab === value ? "active" : ""}
-            onClick={() => setTab(value)}
-            key={value}
-          >
-            {value ? labels[value] : "Todos"}{" "}
-            <b>
-              {
-                request.data.filter((order) => !value || order.status === value)
-                  .length
-              }
-            </b>
-          </button>
-        ))}
-      </div>
+      <Tabs value={tab} onChange={setTab} items={["", "solicitado", "aceito", "em_andamento", "concluido", "cancelado", "recusado"].map(value => ({ value, label: value ? labels[value] : "Todos", count: request.data.filter(order => !value || order.status === value).length }))} />
       <section className="panel orders-page-panel">
         <div className="orders-filter">
           <TextInput
@@ -140,12 +117,12 @@ export default function OrdersPage() {
             Atualizar
           </Button>
         </div>
-        {request.loading && <p role="status">Carregando pedidos...</p>}
+        {request.loading && <Skeleton kind="row" count={3} />}
         {(request.error || error) && (
           <p role="alert">{request.error || error}</p>
         )}
         {!request.loading && !request.error && !orders.length && (
-          <p>Nenhum pedido encontrado.</p>
+          <EmptyState title="Nenhum pedido por aqui ainda." description="Os próximos projetos e suas etapas vão aparecer neste espaço. Tente outra busca ou comece uma nova parceria." to={user.tipo_usuario === "cliente" ? "/explorar" : "/app/servicos"} action={user.tipo_usuario === "cliente" ? "Encontrar um profissional" : "Gerenciar meus serviços"} />
         )}
         {orders.map((order) => {
           const client = order.id_cliente === user.id
@@ -174,13 +151,14 @@ export default function OrdersPage() {
                     Com {peer?.nome} · {date(order.criado_em)}
                   </p>
                 </div>
-                <span className="order-status">
+                <span className="order-status" data-status={order.status}>
                   {labels[order.status]} · {money(order.valor)}
                 </span>
               </div>
               <p style={{ whiteSpace: "pre-wrap" }}>
                 {order.descricao_solicitacao}
               </p>
+              <OrderTimeline status={order.status} />
               <div className="action-row">
                 {actions.map((status) => (
                   <Button

@@ -1,8 +1,8 @@
-import { ArrowLeft, MessageCircle, Search, Send } from "lucide-react"
+import { ArrowLeft, Link2, MessageCircle, Search, Send } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
 import { useSearchParams } from "react-router"
 import AppShell from "../components/AppShell"
-import { Button, Heading, TextInput } from "../components/ui"
+import { Avatar, Button, Heading, Modal, Skeleton, TextInput } from "../components/ui"
 import { api, getSession } from "../lib/session"
 import { date, useData, type Conversation, type Message, type Profile } from "../lib/data"
 export default function MessagesPage() {
@@ -17,6 +17,8 @@ export default function MessagesPage() {
   const [error, setError] = useState("")
   const [busy, setBusy] = useState(false)
   const [version, setVersion] = useState(0)
+  const [sharing, setSharing] = useState(false)
+  const [sharedUrl, setSharedUrl] = useState("")
   const bottom = useRef<HTMLDivElement>(null)
   const activePeer = useRef(peer)
   activePeer.current = peer
@@ -79,7 +81,7 @@ export default function MessagesPage() {
         <div className="message-title"><Heading as="h2">Conversas</Heading></div>
         <TextInput icon={<Search />} value={query} onChange={event => setQuery(event.target.value)} placeholder="Buscar conversa" />
         {conversations.error && <p role="alert">{conversations.error} <Button onClick={conversations.reload}>Tentar novamente</Button></p>}
-        {conversations.loading && !conversations.data.length && <p role="status">Carregando conversas...</p>}
+        {conversations.loading && !conversations.data.length && <Skeleton kind="row" count={3} />}
         {conversations.data.filter(person => person.nome?.toLowerCase().includes(query.toLowerCase())).map(person =>
           <button className={`conversation ${peer === person.id ? "active" : ""}`} onClick={() => setParams({ usuario: person.id })} key={person.id}>
             <img width="38" height="38" src={person.foto || "/avatar-placeholder.svg"} alt="" />
@@ -92,25 +94,27 @@ export default function MessagesPage() {
       <div className="chat">
         <header className="chat-head">
           <div><Button type="button" className="chat-back" variant="ghost" aria-label="Voltar às conversas" onClick={() => setParams({})}><ArrowLeft /></Button>
-            <strong>{selected?.nome || (recipient.data?.id === peer ? recipient.data.nome : peer ? "Carregando contato..." : "Suas mensagens")}</strong></div>
+            {peer && <Avatar src={selected?.foto || (recipient.data?.id === peer ? recipient.data.foto : undefined)} name="" size={38} />}<div><strong>{selected?.nome || (recipient.data?.id === peer ? recipient.data.nome : peer ? "Carregando contato..." : "Suas mensagens")}</strong>{peer && <small>Combine os detalhes por aqui</small>}</div></div>
           {peer && <Button variant="ghost" onClick={() => { setVersion(value => value + 1); recipient.reload(); conversations.reload() }}>Atualizar</Button>}
         </header>
         <div className="project-context">{params.get("pedido") ? `Pedido #${params.get("pedido")}` : params.get("servico") ? `Serviço #${params.get("servico")}` : "Converse sobre o projeto e combine os detalhes"}</div>
         <div className="chat-body" aria-live="polite">
           {!peer && <div className="chat-empty"><MessageCircle /><h3>Vamos conversar?</h3><p>Selecione um contato ao lado para continuar seu projeto.</p></div>}
-          {loading && <p role="status">Carregando mensagens...</p>}
+          {loading && <Skeleton kind="row" count={2} />}
           {peer && !loading && !messages.length && !error && <div className="chat-empty"><MessageCircle /><p>Envie a primeira mensagem para combinar os detalhes do serviço.</p></div>}
           {messages.map(item => <div className={`bubble ${item.id_remetente === getSession()?.usuario.id ? "outgoing" : "incoming"}`} key={item.id_mensagem}>
-            <p>{item.mensagem}</p><small>{date(item.data_envio)}{item.id_remetente === getSession()?.usuario.id && item.lida ? " · Lida" : ""}</small>
+            <p>{item.mensagem.split(/(https:\/\/[^\s]+)/g).map((part,index)=>part.startsWith("https://")?<a key={index} href={part} target="_blank" rel="noreferrer noopener">{part}</a>:part)}</p><small>{date(item.data_envio)}{item.id_remetente === getSession()?.usuario.id && item.lida ? " · Lida" : ""}</small>
           </div>)}
           {(error || recipient.error) && <p role="alert">{error || recipient.error}</p>}
           <div ref={bottom} />
         </div>
         <form className="chat-input" onSubmit={send}>
+          <Button variant="ghost" type="button" disabled={!peer || busy} aria-label="Compartilhar link" title="Compartilhar um arquivo ou referência por link" onClick={()=>setSharing(true)}><Link2 /></Button>
           <input aria-label="Mensagem" value={message} onChange={event => setMessage(event.target.value)} required maxLength={10000} disabled={!peer || busy || !!recipient.error || recipient.loading} placeholder="Escreva uma mensagem..." />
           <Button disabled={!peer || busy || !message.trim() || !!recipient.error || recipient.loading} aria-label="Enviar mensagem"><Send /></Button>
         </form>
       </div>
     </section>
+    <Modal open={sharing} title="Compartilhar um link" onClose={()=>setSharing(false)}><p>Cole o link de um arquivo ou referência. Você poderá revisar a mensagem antes de enviar.</p><form className="data-form" onSubmit={event=>{event.preventDefault();if(!sharedUrl.startsWith("https://"))return;setMessage(current=>(current.trim()?current.trim()+"\n":"")+sharedUrl.trim());setSharedUrl("");setSharing(false)}}><label>Link HTTPS<TextInput name="shared_url" type="url" required pattern="https://.*" maxLength={2000} value={sharedUrl} onChange={event=>setSharedUrl(event.target.value)} placeholder="https://..."/></label><Button disabled={message.length+sharedUrl.length+1>10000}>Adicionar à mensagem</Button></form></Modal>
   </AppShell>
 }

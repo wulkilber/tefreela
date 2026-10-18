@@ -4,7 +4,7 @@ export default function HelpPage() {
   return (
     <div className="page-bg">
       <PublicHeader />
-      <main className="container service-page">
+      <main className="container service-page help-content">
         <Heading as="h1">Sobre o projeto e ajuda</Heading>
         <section className="panel" id="sobre">
           <Heading as="h2">Tefreela</Heading>

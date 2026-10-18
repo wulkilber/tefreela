@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import PublicHeader from "../components/PublicHeader";
 import ServiceCard from "../components/ServiceCard";
-import { Button, Heading, TextInput } from "../components/ui";
+import { Button, EmptyState, Heading, Skeleton, TextInput } from "../components/ui";
 import { categoryName, serviceCard, useData, type Category, type ServiceRecord } from "../lib/data";
 
 export default function ExplorePage() {
@@ -31,11 +31,13 @@ export default function ExplorePage() {
   ).sort((a, b) => sort === "price" ? a.price - b.price : sort === "rating" ? b.rating - a.rating : 0);
   const search = () => { const next = new URLSearchParams(params); if (query.trim()) next.set("q", query.trim()); else next.delete("q"); setParams(next); };
   const clear = () => { setSelected([]); setMin(""); setMax(""); setDays(0); setRating(0); setQuery(""); setSort("relevance"); setParams({}); };
+  useEffect(() => { if (!filters) return; const escape=(event:KeyboardEvent)=>{if(event.key === "Escape")setFilters(false)};document.addEventListener("keydown",escape);return ()=>document.removeEventListener("keydown",escape) },[filters]);
 
   return (
     <div className="page-bg">
       <PublicHeader />
       <main className="container explore-page">
+        {filters && <button className="filters-backdrop" aria-label="Fechar filtros" tabIndex={-1} onClick={() => setFilters(false)} />}
         <div className="explore-head">
           <div><span className="eyebrow">Marketplace Tefreela</span><Heading as="h1">Encontre o serviço ideal</Heading><p>Profissionais prontos para tirar seu projeto do papel.</p></div>
           <form className="explore-search" onSubmit={(event) => { event.preventDefault(); search(); }}><TextInput icon={<Search />} value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Busque por serviço ou habilidade" /><Button type="submit">Buscar</Button></form>
@@ -43,6 +45,14 @@ export default function ExplorePage() {
         <div className="explore-toolbar">
           <span><strong>{results.length}</strong> serviços encontrados</span>
           <div><Button variant="secondary" className="filter-toggle" onClick={() => setFilters(!filters)}><Filter /> Filtros</Button><select aria-label="Ordenar serviços" className="sort-button" value={sort} onChange={(event) => setSort(event.target.value)}><option value="relevance">Mais relevantes</option><option value="price">Menor preço</option><option value="rating">Melhor avaliação</option></select></div>
+        </div>
+        <div className="active-filters" aria-label="Filtros ativos">
+          {initial && <button className="filter-chip" onClick={() => { const next = new URLSearchParams(params); next.delete("q"); setParams(next) }}>Busca: {initial}<X /></button>}
+          {selected.map(name => <button className="filter-chip" key={name} onClick={() => { setSelected(values => values.filter(value => value !== name)); if(params.get("categoria")===name){const next=new URLSearchParams(params);next.delete("categoria");setParams(next)} }}>{name}<X /></button>)}
+          {(min || max) && <button className="filter-chip" onClick={()=>{setMin("");setMax("")}}>Preço: {min || "0"} – {max || "sem limite"}<X /></button>}
+          {!!days && <button className="filter-chip" onClick={()=>setDays(0)}>Até {days} dias<X /></button>}
+          {!!rating && <button className="filter-chip" onClick={()=>setRating(0)}>Nota {rating}+<X /></button>}
+          {(selected.length>0 || min || max || days || rating || initial) && <Button variant="ghost" onClick={clear}>Limpar tudo</Button>}
         </div>
         <div className="explore-layout">
           <aside className={filters ? "filters is-open" : "filters"}>
@@ -55,11 +65,11 @@ export default function ExplorePage() {
             <Button className="apply-filter" onClick={() => setFilters(false)}>Aplicar filtros</Button>
           </aside>
           <div className="results-grid">
-            {catalog.loading && <p role="status">Carregando serviços...</p>}
+            {catalog.loading && <Skeleton count={3} />}
             {catalog.error && <p role="alert">{catalog.error} <button onClick={catalog.reload}>Tentar novamente</button></p>}
             {categoryData.error && <p role="alert">Não foi possível carregar as categorias.</p>}
             {results.map((service) => <ServiceCard key={service.id} service={service} />)}
-            {!catalog.loading && !catalog.error && !results.length && <p role="status">Nenhum serviço encontrado. Tente ajustar os filtros.</p>}
+            {!catalog.loading && !catalog.error && !results.length && <EmptyState title="Ainda não encontramos essa combinação." description="Experimente outra palavra ou remova alguns filtros para descobrir novos talentos." onAction={clear} action="Ver todos os serviços" />}
           </div>
         </div>
       </main>

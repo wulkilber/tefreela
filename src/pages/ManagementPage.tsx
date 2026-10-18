@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import AppShell from "../components/AppShell"
-import { Button, ButtonLink, Heading, TextInput } from "../components/ui"
+import { Button, ButtonLink, EmptyState, Heading, Modal, Skeleton, TextInput } from "../components/ui"
+import NotificationsPanel from "../components/NotificationsPanel"
 import { api, getSession, saveSession } from "../lib/session"
 import {
   categoryName,
@@ -53,6 +54,7 @@ export default function ManagementPage({ kind }: { kind: Kind }) {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState("")
   const [success, setSuccess] = useState("")
+  const [removingPortfolio, setRemovingPortfolio] = useState<Portfolio | null>(null)
   const [imageFiles, setImageFiles] = useState<File[]>([])
   const [imagePreviews, setImagePreviews] = useState<string[]>([])
   useEffect(() => {
@@ -133,7 +135,7 @@ export default function ManagementPage({ kind }: { kind: Kind }) {
           Atualizar
         </Button>
       </div>
-      {request.loading && <p role="status">Carregando...</p>}
+      {request.loading && <Skeleton kind={kind === "perfil" ? "profile" : "row"} count={kind === "perfil" ? 1 : 2} />}
       {(request.error || error) && <p role="alert">{request.error || error}</p>}
       {success && <p role="status">{success}</p>}
       {profile && !request.loading && (
@@ -256,7 +258,7 @@ export default function ManagementPage({ kind }: { kind: Kind }) {
               <label>
                 Categoria
                 <select
-                  name="id_categoria"
+                  name="id_categoria" aria-label="Categoria"
                   required
                   defaultValue={editing?.id_categoria || ""}
                 >
@@ -360,7 +362,7 @@ export default function ManagementPage({ kind }: { kind: Kind }) {
             ))}
             {!request.loading &&
               !(request.data as ServiceRecord[] | null)?.length && (
-                <p>Nenhum serviço publicado.</p>
+                <EmptyState title="Seu talento merece ser visto." description="Use o formulário acima para publicar seu primeiro serviço, com descrição, categoria e imagens do seu trabalho." />
               )}
           </section>
         </>
@@ -446,7 +448,7 @@ export default function ManagementPage({ kind }: { kind: Kind }) {
           </form>
           <section className="services-grid">
             {(request.data as Portfolio[] | null)?.map((item) => (
-              <article className="panel" key={item.id_portfolio}>
+              <article className="panel portfolio-item" key={item.id_portfolio}>
                 {item.imagem && (
                   <img
                     className="portfolio-image"
@@ -474,16 +476,7 @@ export default function ManagementPage({ kind }: { kind: Kind }) {
                 <Button
                   disabled={busy}
                   variant="ghost"
-                  onClick={() => {
-                    if (
-                      window.confirm(`Remover "${item.titulo}" do portfólio?`)
-                    )
-                      void mutate(
-                        `/portfolio/${item.id_portfolio}`,
-                        undefined,
-                        "DELETE",
-                      )
-                  }}
+                  onClick={() => setRemovingPortfolio(item)}
                 >
                   Remover
                 </Button>
@@ -492,50 +485,11 @@ export default function ManagementPage({ kind }: { kind: Kind }) {
           </section>
           {!request.loading &&
             !(request.data as Portfolio[] | null)?.length && (
-              <p>Nenhum trabalho no portfólio.</p>
+              <EmptyState title="Todo trabalho tem uma história." description="Adicione seu primeiro projeto ao portfólio e mostre o que você pode criar para seus próximos clientes." />
             )}
         </>
       )}
-      {kind === "notificacoes" && (
-        <section className="panel">
-          {(request.data as Notification[] | null)?.map((item) => (
-            <article className="order-detail" key={item.id_notificacao}>
-              <Heading as="h3">{item.titulo}</Heading>
-              <p>{item.mensagem}</p>
-              <small>{date(item.criado_em)}</small>
-              <div className="action-row">
-                {!item.lida && (
-                  <Button
-                    disabled={busy}
-                    variant="secondary"
-                    onClick={() =>
-                      void mutate(
-                        `/notificacoes/${item.id_notificacao}`,
-                        {},
-                        "PATCH",
-                      )
-                    }
-                  >
-                    Marcar como lida
-                  </Button>
-                )}
-                <ButtonLink
-                  to={
-                    item.tipo === "mensagem" ? "/app/mensagens" : "/app/pedidos"
-                  }
-                  variant="ghost"
-                >
-                  Abrir
-                </ButtonLink>
-              </div>
-            </article>
-          ))}
-          {!request.loading &&
-            !(request.data as Notification[] | null)?.length && (
-              <p>Nenhuma notificação.</p>
-            )}
-        </section>
-      )}
+      {kind === "notificacoes" && !request.loading && <NotificationsPanel items={(request.data as Notification[] | null) || []} busy={busy} onRead={id => void mutate(`/notificacoes/${id}`, {}, "PATCH")} />}
       {credits && (
         <>
           <section className="panel">
@@ -576,6 +530,7 @@ export default function ManagementPage({ kind }: { kind: Kind }) {
           </section>
         </>
       )}
+      <Modal open={!!removingPortfolio} title="Remover este trabalho?" onClose={() => { if (!busy) setRemovingPortfolio(null) }}><p>O trabalho “{removingPortfolio?.titulo}” será removido do seu portfólio público.</p><div className="action-row"><Button variant="secondary" disabled={busy} onClick={() => setRemovingPortfolio(null)}>Manter trabalho</Button><Button disabled={busy} onClick={async () => { if (removingPortfolio && await mutate(`/portfolio/${removingPortfolio.id_portfolio}`, undefined, "DELETE")) setRemovingPortfolio(null) }}>{busy ? "Removendo..." : "Remover trabalho"}</Button></div></Modal>
     </AppShell>
   )
 }

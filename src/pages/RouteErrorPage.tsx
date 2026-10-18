@@ -8,7 +8,8 @@ export default function RouteErrorPage({
   return (
     <div className="page-bg">
       <PublicHeader />
-      <main className="container service-page">
+      <main className="container service-page route-error-content">
+        <span className="route-error-mark">{notFound ? "404 · UM NOVO CAMINHO" : "VAMOS TENTAR DE NOVO"}</span>
         <Heading as="h1">
           {notFound
             ? "Página não encontrada"

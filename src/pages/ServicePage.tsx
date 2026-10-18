@@ -2,8 +2,8 @@ import { ArrowLeft, Clock3, MessageCircle, Star } from "lucide-react"
 import { useParams, Link, useNavigate } from "react-router"
 import { useState } from "react"
 import PublicHeader from "../components/PublicHeader"
-import { Button, ButtonLink, Heading } from "../components/ui"
-import { serviceCard, useData, type ServiceRecord } from "../lib/data"
+import { Button, ButtonLink, EmptyState, Heading, Skeleton } from "../components/ui"
+import { money, serviceCard, useData, type ServiceRecord } from "../lib/data"
 import { api, getSession } from "../lib/session"
 
 export default function ServicePage() {
@@ -52,7 +52,7 @@ export default function ServicePage() {
         <Link className="back-link" to="/explorar">
           <ArrowLeft /> Voltar para serviços
         </Link>
-        {request.loading && <p role="status">Carregando serviço...</p>}
+        {request.loading && <Skeleton kind="profile" />}
         {request.error && (
           <p role="alert">
             {request.error}{" "}
@@ -98,12 +98,12 @@ export default function ServicePage() {
               <section className="detail-section">
                 <Heading as="h2">Avaliações do freelancer</Heading>
                 {record.avaliacoes?.map((review) => (
-                  <article key={review.id_avaliacao}>
-                    <strong>{review.nota}/5</strong>
+                  <article className="review-card" key={review.id_avaliacao}>
+                    <div className="review-stars" aria-label={`${review.nota} de 5 estrelas`}>{Array.from({length:5},(_,index)=><Star key={index} fill={index<review.nota?"currentColor":"none"} />)}<span>{new Date(review.criado_em).toLocaleDateString("pt-BR")}</span></div>
                     <p>{review.comentario}</p>
                   </article>
                 ))}
-                {!record.avaliacoes?.length && <p>Ainda sem avaliações.</p>}
+                {!record.avaliacoes?.length && <EmptyState title="A primeira experiência pode ser a sua." description="As avaliações de pedidos concluídos aparecerão aqui." />}
               </section>
             </div>
             <aside className="purchase-card">
@@ -112,7 +112,7 @@ export default function ServicePage() {
               </div>
               <div className="purchase-price">
                 <span>Valor do serviço</span>
-                <strong>R$ {service.price}</strong>
+                <strong>{money(service.price)}</strong>
                 <small>Créditos acadêmicos</small>
               </div>
               <div className="purchase-meta">

@@ -13,8 +13,9 @@ import ProfilePage from "../pages/ProfilePage";
 import RecoveryPage from "../pages/RecoveryPage";
 import HelpPage from "../pages/HelpPage";
 import RouteErrorPage from "../pages/RouteErrorPage";
+import PageFrame from "../components/PageFrame";
 
-export const router = createBrowserRouter([{ errorElement: <RouteErrorPage />, children: [
+export const router = createBrowserRouter([{ element: <PageFrame />, errorElement: <RouteErrorPage />, children: [
   { path: "/", Component: HomePage },
   { path: "/explorar", Component: ExplorePage },
   { path: "/servico/:id", Component: ServicePage },

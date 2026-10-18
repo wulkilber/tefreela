@@ -38,7 +38,7 @@ export default function RecoveryPage() {
     <div className="page-bg">
       <PublicHeader />
       <main className="container service-page">
-        <section className="panel data-form">
+        <section className="panel data-form recovery-panel">
           <Heading as="h1">
             {token ? "Definir nova senha" : "Recuperar acesso"}
           </Heading>
