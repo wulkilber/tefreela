@@ -12,7 +12,7 @@ test("produção serve frontend na raiz", async () => {
   const result = await fetch(base); assert.equal(result.status, 200); assert.match(result.headers.get("content-type"), /text\/html/); assert.match(await result.text(), /Tefreela/);
 });
 test("atualizar rota React preserva a entrada HTML", async () => {
-  for (const path of ["/entrar", "/app/pedidos", "/recuperar-senha"]) { const result = await fetch(base + path); assert.equal(result.status, 200); assert.match(await result.text(), /id="root"/); }
+  for (const path of ["/entrar", "/cadastro", "/explorar", "/servico/1", "/perfil/22222222-2222-4222-8222-222222222222", "/app", "/app/cliente", "/app/pedidos", "/app/mensagens", "/app/perfil", "/app/servicos", "/app/portfolio", "/app/notificacoes", "/app/creditos", "/recuperar-senha", "/ajuda"]) { const result = await fetch(base + path); assert.equal(result.status, 200); assert.match(await result.text(), /id="root"/); }
 });
 test("health check funciona sem acessar o banco", async () => { const result = await fetch(base + "/api/health"); assert.equal(result.status, 200); assert.deepEqual(await result.json(), { status: "ok" }); });
 test("API privada continua protegida no modo publicado", async () => { const result = await fetch(base + "/api/auth/me"); assert.equal(result.status, 401); assert.match(result.headers.get("content-type"), /application\/json/); });

@@ -43,7 +43,7 @@ Em backend:
 pnpm test
 ```
 
-São 7 testes de sessão e 25 testes de backend com credenciais fictícias e serviço local simulado. Nenhum deles depende do banco real. A configuração antiga do formatador oxfmt 0.2 pode remover separadores de tipos na mesma linha; conferir TypeScript após usá-lo.
+São 8 testes de sessão e feedback e 25 testes de backend com credenciais fictícias e serviço local simulado. Nenhum deles depende do banco real. A configuração antiga do formatador oxfmt 0.2 pode remover separadores de tipos na mesma linha; conferir TypeScript após usá-lo.
 
 ## Publicação futura
 
@@ -66,3 +66,14 @@ O chat mostra o nome do contato antes da primeira mensagem, confirma o envio na 
 
 `node tests/preview-server.cjs` abre uma prévia local em `127.0.0.1:8445` com dados fictícios, após o build, para conferir responsividade sem usar contas reais. Esse servidor é exclusivo para desenvolvimento e não participa do deploy.
 
+
+
+## Nova identidade visual
+
+A identidade azul e os tokens semânticos estão documentados em `DESIGN.md` e centralizados em `src/styles/redesign.css`. O logotipo fornecido pelo responsável está em `public/brand/tefreela-logo.jpg`; o componente `Brand` cuida da apresentação em fundos claros e escuros. `ui.tsx` reúne Button, Input, Select, Card, Badge, Avatar, Tabs, Skeleton, EmptyState e Modal. O feedback transitório usa `Toasts` e eventos locais; consultas e marcações automáticas de leitura não geram avisos repetitivos.
+
+Home, busca, detalhes, perfil e área interna usam a mesma identidade. Os dashboards compartilham `Overview`, e a timeline e o resumo de pedidos ficam em `OrderCard`. Métricas, histórico e avaliações usam exclusivamente dados da API existente. O backend e seu contrato não foram alterados por esta reformulação.
+
+Para testar visualmente sem contas reais: compile e execute `node tests/preview-server.cjs`. No ambiente local, `/__role/client` e `/__role/freelancer` selecionam a conta fictícia; `/__scenario/empty`, `/__scenario/error` e `/__scenario/normal` exercitam os estados da interface. Esses caminhos e dados só existem no servidor de prévia e não integram o deploy. As artes fictícias ficam em `tests/fixtures`.
+
+O chat mantém mensagens e leitura e permite compartilhar links HTTPS de arquivos/referências. Upload binário de anexos, presença online e contagem de visualizações não foram adicionados à API. O tema usa tokens semânticos e respeita redução de movimento; não há alternância de dark mode nesta versão.
