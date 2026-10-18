@@ -1,24 +1,26 @@
-import { Clock3, Heart, Star } from "lucide-react";
+import { ArrowUpRight, Clock3, Heart, Star } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router";
-import type { Service } from "../lib/data";
+import { money, type Service } from "../lib/data";
+import { notify } from "../lib/feedback";
 import { Button } from "./ui";
 
 export default function ServiceCard({ service }: { service: Service }) {
   const [favorite, setFavorite] = useState(() => { try { return JSON.parse(localStorage.getItem("tefreela.favorites") || "[]").includes(service.id); } catch { return false; } });
-  const toggle = () => { try { const saved: string[] = JSON.parse(localStorage.getItem("tefreela.favorites") || "[]"); localStorage.setItem("tefreela.favorites", JSON.stringify(favorite ? saved.filter((id) => id !== service.id) : [...new Set([...saved, service.id])])); setFavorite(!favorite); } catch { /* Browser storage can be unavailable. */ } };
+  const toggle = () => { try { const saved: string[] = JSON.parse(localStorage.getItem("tefreela.favorites") || "[]"); localStorage.setItem("tefreela.favorites", JSON.stringify(favorite ? saved.filter((id) => id !== service.id) : [...new Set([...saved, service.id])])); setFavorite(!favorite); notify(favorite ? "Serviço removido dos favoritos." : "Serviço salvo nos favoritos.", "info"); } catch { /* Browser storage can be unavailable. */ } };
   return (
     <article className="service-card">
       <div className="service-image">
-        <Link to={`/servico/${service.id}`}>
-          <img src={service.image} alt="" />
+        <Link to={`/servico/${service.id}`} aria-label={`Ver serviço: ${service.title}`}>
+          <img src={service.image} alt="" loading="lazy" />
         </Link>
         <span className="service-badge">{service.badge}</span>
         <Button
           variant="ghost"
           className={favorite ? "favorite is-active" : "favorite"}
           onClick={toggle}
-          aria-label="Favoritar serviço"
+          aria-label={favorite ? "Remover dos favoritos" : "Favoritar serviço"}
+          aria-pressed={favorite}
         >
           <Heart fill={favorite ? "currentColor" : "none"} />
         </Button>
@@ -29,11 +31,12 @@ export default function ServiceCard({ service }: { service: Service }) {
           <div><strong>{service.seller}</strong><span>{service.category}</span></div>
         </div>
         <Link className="service-title" to={`/servico/${service.id}`}>{service.title}</Link>
-        <div className="rating"><Star fill="currentColor" /> <strong>{service.rating}</strong> <span>({service.reviews})</span></div>
+        <div className="rating"><Star fill={service.reviews ? "currentColor" : "none"} /> <strong>{service.reviews ? service.rating : "Novo"}</strong> <span>{service.reviews ? `(${service.reviews} avaliações)` : "Sem avaliações ainda"}</span></div>
         <div className="service-footer">
           <span className="delivery"><Clock3 /> {service.delivery}</span>
-          <div><span>A partir de</span><strong>R$ {service.price}</strong></div>
+          <div><span>A partir de</span><strong>{money(service.price)}</strong><small>em créditos</small></div>
         </div>
+        <Link className="card-quick-action" to={`/servico/${service.id}`}>Conhecer serviço<ArrowUpRight /></Link>
       </div>
     </article>
   );
