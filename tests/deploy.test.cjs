@@ -16,3 +16,10 @@ test("atualizar rota React preserva a entrada HTML", async () => {
 });
 test("health check funciona sem acessar o banco", async () => { const result = await fetch(base + "/api/health"); assert.equal(result.status, 200); assert.deepEqual(await result.json(), { status: "ok" }); });
 test("API privada continua protegida no modo publicado", async () => { const result = await fetch(base + "/api/auth/me"); assert.equal(result.status, 401); assert.match(result.headers.get("content-type"), /application\/json/); });
+test("logotipo publicado contém a imagem, sem ponteiro LFS nem fallback HTML", async () => {
+  const result = await fetch(base + '/brand/tefreela-logo.jpg')
+  assert.equal(result.status, 200)
+  assert.match(result.headers.get('content-type'), /image\/jpeg/)
+  const bytes = Buffer.from(await result.arrayBuffer())
+  assert.deepEqual([...bytes.subarray(0,3)], [255,216,255])
+})

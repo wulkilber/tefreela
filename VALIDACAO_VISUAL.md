@@ -23,7 +23,7 @@ Build de produção servido por tests/preview-server.cjs, restrito a 127.0.0.1, 
 - TypeScript sem emissão e build Vite.
 - 8 testes de sessão/feedback.
 - 25 testes de backend: autenticação, isolamento de dados, pedidos, mensagens, portfólio, upload e limites.
-- 4 testes do servidor publicado, com entrada HTML preservada nas 16 rotas existentes, health check e API privada protegida.
+- 5 testes do servidor publicado, com entrada HTML preservada nas 16 rotas existentes, health check, API privada protegida e logotipo JPEG válido no deploy.
 
 Os testes de backend/deploy passaram isoladamente. Uma execução simultânea compilando a mesma pasta excedeu o prazo de inicialização dos processos locais; a repetição sem compilação concorrente passou.
 
