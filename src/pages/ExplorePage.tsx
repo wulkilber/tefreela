@@ -1,14 +1,18 @@
 import { ChevronDown, Filter, Search, SlidersHorizontal, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router";
 import PublicHeader from "../components/PublicHeader";
 import ServiceCard from "../components/ServiceCard";
 import { Button, EmptyState, Heading, Skeleton, TextInput } from "../components/ui";
 import { categoryName, serviceCard, useData, type Category, type ServiceRecord } from "../lib/data";
 
+import { useDrawer } from "../lib/useDrawer";
 export default function ExplorePage() {
   const [params, setParams] = useSearchParams();
   const [filters, setFilters] = useState(false);
+  const panel=useRef<HTMLElement>(null);
+  const close=useCallback(()=>setFilters(false),[]);
+  useDrawer(filters,close,panel);
   const catalog = useData<ServiceRecord[]>("/servicos", []);
   const categoryData = useData<Category[]>("/categorias", []);
   const services = catalog.data.map(serviceCard);
@@ -31,7 +35,7 @@ export default function ExplorePage() {
   ).sort((a, b) => sort === "price" ? a.price - b.price : sort === "rating" ? b.rating - a.rating : 0);
   const search = () => { const next = new URLSearchParams(params); if (query.trim()) next.set("q", query.trim()); else next.delete("q"); setParams(next); };
   const clear = () => { setSelected([]); setMin(""); setMax(""); setDays(0); setRating(0); setQuery(""); setSort("relevance"); setParams({}); };
-  useEffect(() => { if (!filters) return; const escape=(event:KeyboardEvent)=>{if(event.key === "Escape")setFilters(false)};document.addEventListener("keydown",escape);return ()=>document.removeEventListener("keydown",escape) },[filters]);
+
 
   return (
     <div className="page-bg">
@@ -55,7 +59,7 @@ export default function ExplorePage() {
           {(selected.length>0 || min || max || days || rating || initial) && <Button variant="ghost" onClick={clear}>Limpar tudo</Button>}
         </div>
         <div className="explore-layout">
-          <aside className={filters ? "filters is-open" : "filters"}>
+          <aside ref={panel} aria-label="Filtros de serviços" className={filters ? "filters is-open" : "filters"}>
             <div className="filter-mobile-head"><strong>Filtros</strong><Button variant="ghost" aria-label="Fechar filtros" onClick={() => setFilters(false)}><X /></Button></div>
             <div className="filter-title"><strong>Filtros</strong><button onClick={clear}>Limpar</button></div>
             <div className="filter-group"><strong>Categoria</strong>{categories.map((item) => <label key={item.name}><input type="checkbox" checked={selected.includes(item.name)} onChange={(event) => setSelected(event.target.checked ? [...selected, item.name] : selected.filter((name) => name !== item.name))} /><span>{item.name}</span><small>{services.filter((service) => service.category === item.name).length}</small></label>)}</div>

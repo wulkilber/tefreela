@@ -1,13 +1,17 @@
 import { ArrowUpRight, Clock3, Heart, Star } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { money, type Service } from "../lib/data";
 import { notify } from "../lib/feedback";
+import { useAuth } from "../lib/auth";
 import { Button } from "./ui";
 
 export default function ServiceCard({ service }: { service: Service }) {
-  const [favorite, setFavorite] = useState(() => { try { return JSON.parse(localStorage.getItem("tefreela.favorites") || "[]").includes(service.id); } catch { return false; } });
-  const toggle = () => { try { const saved: string[] = JSON.parse(localStorage.getItem("tefreela.favorites") || "[]"); localStorage.setItem("tefreela.favorites", JSON.stringify(favorite ? saved.filter((id) => id !== service.id) : [...new Set([...saved, service.id])])); setFavorite(!favorite); notify(favorite ? "Serviço removido dos favoritos." : "Serviço salvo nos favoritos.", "info"); } catch { /* Browser storage can be unavailable. */ } };
+  const {user}=useAuth();
+  const favoriteKey=`tefreela.favorites.${user?.id || "guest"}`;
+  const [favorite, setFavorite] = useState(() => { try { return JSON.parse(localStorage.getItem(favoriteKey) || "[]").includes(service.id); } catch { return false; } });
+  useEffect(()=>{try{setFavorite(JSON.parse(localStorage.getItem(favoriteKey)||"[]").includes(service.id))}catch{setFavorite(false)}},[favoriteKey,service.id]);
+  const toggle = () => { try { const saved: string[] = JSON.parse(localStorage.getItem(favoriteKey) || "[]"); localStorage.setItem(favoriteKey, JSON.stringify(favorite ? saved.filter((id) => id !== service.id) : [...new Set([...saved, service.id])])); setFavorite(!favorite); notify(favorite ? "Serviço removido dos favoritos." : "Serviço salvo nos favoritos.", "info"); } catch { /* Browser storage can be unavailable. */ } };
   return (
     <article className="service-card">
       <div className="service-image">

@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { api } from "./session"
+import { useAuth } from "./auth"
 export type Profile = {
   id: string
   nome: string
   tipo_usuario: string
-  foto?: string
+  foto?: string | null
   descricao?: string
   telefone?: string
   cidade?: string
@@ -121,12 +122,17 @@ export function serviceCard(service: ServiceRecord) {
 }
 export type Service = ReturnType<typeof serviceCard>
 export function useData<T>(path: string | null, initial: T) {
+  const { user } = useAuth()
+  const owner = user?.id || "guest"
+  const resource = `${owner}:${path}`
+  const previous = useRef(resource)
   const [data, setData] = useState<T>(initial)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
   const [version, setVersion] = useState(0)
   useEffect(() => {
     let active = true
+    if (previous.current !== resource) { setData(initial); previous.current = resource }
     if (!path) {
       setLoading(false)
       return
@@ -146,7 +152,7 @@ export function useData<T>(path: string | null, initial: T) {
     return () => {
       active = false
     }
-  }, [path, version])
+  }, [path, version, owner])
   return {
     data,
     setData,

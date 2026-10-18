@@ -37,7 +37,7 @@ export default function HelpPage() {
             são acessíveis pela API conforme o usuário participante.
           </p>
           <p>
-            A sessão é mantida na aba do navegador. Use Sair ao terminar. Links
+            A sessão é mantida neste navegador e compartilhada entre abas. Use Sair ao terminar, especialmente em dispositivos compartilhados. Links
             e imagens de portfólio podem levar a sites externos.
           </p>
           <p>

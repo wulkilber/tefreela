@@ -2,6 +2,9 @@ import { useEffect, useState } from "react"
 import AppShell from "../components/AppShell"
 import { Button, ButtonLink, EmptyState, Heading, Modal, Skeleton, TextInput } from "../components/ui"
 import NotificationsPanel from "../components/NotificationsPanel"
+import ProfileEditor from "../components/ProfileEditor"
+import ActionMenu from "../components/ActionMenu"
+import { Ellipsis, ExternalLink, Pencil } from "lucide-react"
 import { api, getSession, saveSession } from "../lib/session"
 import {
   categoryName,
@@ -103,7 +106,7 @@ export default function ManagementPage({ kind }: { kind: Kind }) {
         if (session)
           saveSession({
             ...session,
-            usuario: { ...session.usuario, nome: result.nome, foto: result.foto },
+            usuario: { ...session.usuario, nome: result.nome, foto: result.foto || undefined },
           })
       }
       request.reload()
@@ -135,74 +138,10 @@ export default function ManagementPage({ kind }: { kind: Kind }) {
           Atualizar
         </Button>
       </div>
-      {request.loading && <Skeleton kind={kind === "perfil" ? "profile" : "row"} count={kind === "perfil" ? 1 : 2} />}
+      {request.loading && !request.data && <Skeleton kind={kind === "perfil" ? "profile" : "row"} count={kind === "perfil" ? 1 : 2} />}
       {(request.error || error) && <p role="alert">{request.error || error}</p>}
       {success && <p role="status">{success}</p>}
-      {profile && !request.loading && (
-        <form
-          key={JSON.stringify(profile)}
-          className="panel data-form"
-          onSubmit={async (event) => {
-            event.preventDefault()
-            const form = new FormData(event.currentTarget)
-            await mutate("/me/perfil", Object.fromEntries(form), "PATCH")
-          }}
-        >
-          <fieldset disabled={busy}>
-            <label>
-              Nome
-              <TextInput
-                name="nome"
-                required
-                maxLength={150}
-                defaultValue={profile.nome}
-              />
-            </label>
-            <label>
-              Telefone
-              <TextInput
-                name="telefone"
-                maxLength={20}
-                defaultValue={profile.telefone || ""}
-              />
-            </label>
-            <label>
-              Descrição
-              <textarea
-                name="descricao"
-                maxLength={10000}
-                defaultValue={profile.descricao || ""}
-              />
-            </label>
-            <label>
-              Cidade
-              <TextInput
-                name="cidade"
-                maxLength={100}
-                defaultValue={profile.cidade || ""}
-              />
-            </label>
-            <label>
-              UF
-              <TextInput
-                name="estado"
-                maxLength={2}
-                minLength={2}
-                defaultValue={profile.estado || ""}
-              />
-            </label>
-            <label>
-              URL da foto (HTTPS)
-              <TextInput
-                type="url"
-                name="foto"
-                defaultValue={profile.foto || ""}
-              />
-            </label>
-            <Button>Salvar perfil</Button>
-          </fieldset>
-        </form>
-      )}
+      {profile && <ProfileEditor profile={profile} onSaved={request.reload} />}
       {kind === "servicos" && (
         <>
           <form
@@ -358,6 +297,10 @@ export default function ManagementPage({ kind }: { kind: Kind }) {
                 >
                   Editar
                 </Button>
+                <ActionMenu label={`Ações do serviço ${service.titulo}`} trigger={<Ellipsis/>} items={[
+                  {label:"Editar serviço",icon:<Pencil/>,onSelect:()=>{setEditing(service);setImageFiles([]);setError("");window.scrollTo({top:0,behavior:"smooth"})}},
+                  {label:service.status==="ativo"?"Ver página do serviço":"Serviço fora do catálogo",icon:<ExternalLink/>,to:service.status==="ativo"?`/servico/${service.id_servico}`:undefined,disabled:service.status!=="ativo"},
+                ]}/>
               </article>
             ))}
             {!request.loading &&

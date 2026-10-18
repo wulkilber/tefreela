@@ -5,9 +5,10 @@ const vm = require("node:vm");
 const ts = require("typescript");
 function sessionModule(fetch, onToast = () => {}) {
   const storage = new Map();
+  const persistent = new Map();
   const source = fs.readFileSync("src/lib/session.ts", "utf8").replaceAll("import.meta.env", "({})");
   const code = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText;
-  const context = { exports: {}, require: (name) => { if (name === "./feedback") return { notify: onToast }; throw new Error(name) }, fetch, Response, Blob, AbortSignal, Error, sessionStorage: { getItem: (key) => storage.get(key) || null, setItem: (key, value) => storage.set(key, value), removeItem: (key) => storage.delete(key) } };
+  const context = { exports: {}, require: (name) => { if (name === "./feedback") return { notify: onToast }; throw new Error(name) }, fetch, Response, Blob, AbortSignal, Error, localStorage: { getItem: (key) => persistent.get(key) || null, setItem: (key, value) => persistent.set(key, value), removeItem: (key) => persistent.delete(key) }, sessionStorage: { getItem: (key) => storage.get(key) || null, setItem: (key, value) => storage.set(key, value), removeItem: (key) => storage.delete(key) } };
   vm.runInNewContext(code, context);
   context.exports.saveSession({ access_token: "expired", refresh_token: "refresh", usuario: { id: "user", nome: "Teste", tipo_usuario: "cliente" } });
   return context.exports;

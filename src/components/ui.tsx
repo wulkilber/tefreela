@@ -1,4 +1,4 @@
-import { useEffect, useRef, type ButtonHTMLAttributes, type InputHTMLAttributes, type ReactNode, type SelectHTMLAttributes } from "react";
+import { useEffect, useRef, useState, type ButtonHTMLAttributes, type InputHTMLAttributes, type ReactNode, type SelectHTMLAttributes } from "react";
 import { ArrowRight, Inbox, X } from "lucide-react";
 import { Link } from "react-router";
 
@@ -91,8 +91,12 @@ export function Card({ children, className = "" }: { children: ReactNode; classN
 export function Badge({ children, tone = "blue" }: { children: ReactNode; tone?: string }) {
   return <span className={`ui-badge badge-${tone}`}>{children}</span>
 }
-export function Avatar({ src, name, size = 40 }: { src?: string; name: string; size?: number }) {
-  return <img className="ui-avatar" src={src || "/avatar-placeholder.svg"} alt={name} width={size} height={size} onError={event => { if (!event.currentTarget.src.endsWith("/avatar-placeholder.svg")) event.currentTarget.src = "/avatar-placeholder.svg" }} />
+export function Avatar({ src, name, size = 40, status }: { src?: string | null; name: string; size?: number | "small" | "medium" | "large" | "extra-large"; status?: "online" | "offline" }) {
+  const [failed, setFailed] = useState(false)
+  useEffect(() => setFailed(false), [src])
+  const pixels = typeof size === "number" ? size : {small:28,medium:40,large:64,"extra-large":112}[size]
+  const initials = name.trim().split(/\s+/).filter(Boolean).slice(0,2).map(part=>part[0]).join("").toUpperCase() || "TF"
+  return <span className={`ui-avatar ${status ? `avatar-${status}` : ""}`} style={{width:pixels,height:pixels,fontSize:Math.max(10,pixels*.32)}} role={!src||failed?"img":undefined} aria-label={!src||failed?name||"Avatar":undefined}>{src&&!failed?<img src={src} alt={name} width={pixels} height={pixels} onError={()=>setFailed(true)}/>:initials}{status&&<i className="avatar-presence" title={status==="online"?"Online":"Offline"}/>}</span>
 }
 export function Select(props: SelectHTMLAttributes<HTMLSelectElement>) { return <select {...props} className={`ui-select ${props.className || ""}`} /> }
 export function Skeleton({ kind = "card", count = 1 }: { kind?: "card" | "row" | "profile" | "stat"; count?: number }) {

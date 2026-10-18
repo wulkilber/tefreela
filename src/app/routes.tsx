@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router";
 import HomePage from "../pages/HomePage";
 import ExplorePage from "../pages/ExplorePage";
 import AuthPage from "../pages/AuthPage";
@@ -30,8 +30,11 @@ export const router = createBrowserRouter([{ element: <PageFrame />, errorElemen
   { path: "/app/pedidos", Component: OrdersPage },
   { path: "/app/mensagens", Component: MessagesPage },
   { path: "/app/perfil", element: <ManagementPage key="perfil" kind="perfil" /> },
+  { path: "/perfil", element: <Navigate to="/app/perfil" replace /> },
+  { element: <ProtectedRoute role="freelancer" />, children: [
   { path: "/app/servicos", element: <ManagementPage key="servicos" kind="servicos" /> },
   { path: "/app/portfolio", element: <ManagementPage key="portfolio" kind="portfolio" /> },
+  ] },
   { path: "/app/notificacoes", element: <ManagementPage key="notificacoes" kind="notificacoes" /> },
   { path: "/app/creditos", element: <ManagementPage key="creditos" kind="creditos" /> },
   ] },

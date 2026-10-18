@@ -18,9 +18,11 @@ import {
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import Brand from "./Brand";
-import { Button } from "./ui";
-import { api, clearSession, getSession } from "../lib/session";
+import { Avatar, Button } from "./ui";
+import { useAuth } from "../lib/auth";
 import { useData, type Notification } from "../lib/data";
+import ThemeToggle from "./ThemeToggle";
+import ActionMenu from "./ActionMenu";
 
 const nav = [
   { label: "Visão geral", to: "/app", icon: LayoutDashboard },
@@ -55,7 +57,8 @@ export default function AppShell({ children, title, role = "freelancer" }: { chi
     document.addEventListener("keydown", keyboard);
     return () => { document.body.style.overflow = overflow; document.removeEventListener("keydown", keyboard); previous?.focus() };
   }, [open, mobile]);
-  const user = getSession()?.usuario;
+  const auth = useAuth();
+  const user = auth.user;
   const navigate = useNavigate();
   const notifications = useData<Notification[]>("/notificacoes", []);
   const unread = notifications.data.filter((item) => !item.lida).length;
@@ -68,9 +71,9 @@ export default function AppShell({ children, title, role = "freelancer" }: { chi
     return () => { window.removeEventListener("tefreela:notifications", update); window.removeEventListener("tefreela:account", updateIdentity); };
   }, []);
   async function logout() {
-    const request = api("/auth/logout", {});
-    clearSession(); navigate("/", { replace: true });
-    await request.catch(() => {});
+    const request = auth.logout();
+    navigate("/", { replace: true });
+    await request;
   }
   role = user?.tipo_usuario || role;
 
@@ -104,8 +107,16 @@ export default function AppShell({ children, title, role = "freelancer" }: { chi
             <div><span>Olá, {user?.nome || "usuário"}</span><strong>{title}</strong></div>
           </div>
           <div className="topbar-actions">
+            <ThemeToggle />
             <Button variant="ghost" className="notification" aria-label={`Notificações: ${unread} não lidas`} onClick={() => navigate("/app/notificacoes")}><Bell />{unread > 0 && <span />}</Button>
-            <button className="profile-menu" onClick={() => navigate("/app/perfil")}><img src={user?.foto || "/avatar-placeholder.svg"} alt="" /><span><strong>{user?.nome || "Minha conta"}</strong><small>{role === "cliente" ? "Cliente" : "Freelancer"}</small></span><ChevronDown /></button>
+            <ActionMenu label="Menu da minha conta" className="profile-menu" trigger={<><Avatar src={user?.foto} name={user?.nome || "Minha conta"} size={38}/><span><strong>{user?.nome || "Minha conta"}</strong><small>{role === "cliente" ? "Cliente" : "Freelancer"}</small></span><ChevronDown /></>} items={[
+              {label:"Meu perfil",to:"/app/perfil",icon:<Settings/>},
+              {label:"Notificações",to:"/app/notificacoes",icon:<Bell/>},
+              ...(role==="freelancer"?[{label:"Meus serviços",to:"/app/servicos",icon:<Layers3/>},{label:"Meu portfólio",to:"/app/portfolio",icon:<Images/>}]:[]),
+              {label:"Meus créditos",to:"/app/creditos",icon:<WalletCards/>},
+              {label:"Central de ajuda",to:"/ajuda",icon:<HelpCircle/>},
+              {label:"Sair da conta",onSelect:()=>void logout(),danger:true,icon:<LogOut/>},
+            ]} />
           </div>
         </header>
         <div className="app-content" key={location.pathname}>{children}</div>

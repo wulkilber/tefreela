@@ -9,19 +9,21 @@ let orders=["solicitado","em_andamento","concluido"].map((status,index)=>({id_pe
 let portfolio=[{id_portfolio:1,titulo:"Aurora — identidade que inspira",descricao:"Estratégia e design para uma marca feita de novas possibilidades.",imagem:"/preview-1.svg",link:"https://example.com"}]
 let notifications=[{id_notificacao:1,titulo:"Uma nova conversa está esperando",mensagem:"Lucas enviou uma mensagem sobre seu projeto de identidade visual.",tipo:"mensagem",lida:false,criado_em:new Date().toISOString()},{id_notificacao:2,titulo:"Você recebeu uma nova solicitação",mensagem:"Veja o pedido e combine os próximos passos com seu cliente.",tipo:"pedido",lida:false,criado_em:new Date().toISOString()},{id_notificacao:3,titulo:"Entrega avaliada",mensagem:"Uma nova avaliação foi adicionada ao seu perfil.",tipo:"avaliacao",lida:true,criado_em:"2026-10-10T14:00:00Z"}]
 let messages=[{id_mensagem:1,id_remetente:client,id_destinatario:freelancer,mensagem:"Olá, Marina! Vi seu portfólio e adorei o cuidado com os detalhes. Podemos conversar sobre a identidade visual da minha marca?",data_envio:new Date().toISOString(),lida:false},{id_mensagem:2,id_remetente:freelancer,id_destinatario:client,mensagem:"Olá, Lucas! Que bom que gostou. Vamos criar algo especial. Me conte um pouco sobre a sua marca e o que você tem em mente.",data_envio:new Date().toISOString(),lida:true}]
+const avatarFiles=new Map()
 const root=path.resolve(__dirname,"../dist")
 http.createServer(async(req,res)=>{try{
  const url=new URL(req.url,"http://localhost"),route=url.pathname.replace(/^\/api/,""),empty=req.headers.cookie?.includes("scenario=empty"),broken=req.headers.cookie?.includes("scenario=error")
  if(url.pathname.startsWith("/__role/")){role=url.pathname.endsWith("client")?"client":"freelancer";res.writeHead(302,{"Set-Cookie":`previewRole=${role}; Path=/; SameSite=Lax`,Location:"/entrar"});res.end();return}
  if(url.pathname.startsWith("/__scenario/")){res.writeHead(302,{"Set-Cookie":`scenario=${url.pathname.split("/").at(-1)}; Path=/; SameSite=Lax`,Location:"/"});res.end();return}
  if(url.pathname.startsWith("/api")){
-  res.setHeader("Content-Type","application/json");let body="";for await(const chunk of req)body+=chunk
+  res.setHeader("Content-Type","application/json");const chunks=[];for await(const chunk of req)chunks.push(chunk);const inputBuffer=Buffer.concat(chunks);const body=inputBuffer.toString("utf8")
   const data=body&&req.headers["content-type"]?.includes("application/json")?JSON.parse(body):{}
   if(broken&&!route.startsWith("/auth")){res.statusCode=503;res.end(JSON.stringify({erro:"Não foi possível acessar os dados. Tente novamente."}));return}
   const user=people[role],peer=role==="freelancer"?people.client:people.freelancer
   let result=[]
   if(route==="/auth/login"){role=req.headers.cookie?.includes("previewRole=client")||data.email?.startsWith("client")?"client":"freelancer";result={access_token:"preview-local",refresh_token:"preview-refresh",usuario:people[role]}}
   else if(route==="/auth/me")result={usuario:user}
+  else if(route==="/me/avatar"){if(req.headers.cookie?.includes("scenario=avatar-error")){res.statusCode=503;res.end(JSON.stringify({erro:"Não foi possível enviar a foto. Tente novamente."}));return}if(req.method==="DELETE"){user.foto=null;avatarFiles.delete(user.id)}else{avatarFiles.set(user.id,{bytes:inputBuffer,type:req.headers["content-type"]});user.foto=`http://localhost:8445/__avatar/${user.id}?v=${Date.now()}`}result=user}
   else if(route==="/me/perfil"){if(req.method==="PATCH")Object.assign(user,data);result=user}
   else if(route==="/categorias")result=categories
   else if(route==="/servicos"||route==="/me/servicos"){if(req.method==="POST"){result={...data,id_freelancer:freelancer,id_servico:services.length+1,imagens:[],freelancer:people.freelancer,categoria:categories.find(c=>c.id_categoria===data.id_categoria)};services.push(result)}else result=empty?[]:services}
@@ -43,6 +45,7 @@ http.createServer(async(req,res)=>{try{
   else if(route==="/mensagens"&&req.method==="POST"){result={...data,id_mensagem:messages.length+1,id_remetente:user.id,data_envio:new Date().toISOString(),lida:false};messages.push(result)}
   res.end(JSON.stringify(result||{}));return
  }
+ if(url.pathname.startsWith("/__avatar/")){const avatar=avatarFiles.get(url.pathname.split("/").at(-1));if(!avatar){res.statusCode=404;res.end();return}res.setHeader("Content-Type",avatar.type);res.end(avatar.bytes);return}
  const candidate=/^\/preview-[1-3]\.svg$/.test(url.pathname)?path.resolve(__dirname,"fixtures",url.pathname.slice(1)):path.resolve(root,"."+decodeURIComponent(url.pathname)),file=(candidate.startsWith(root+path.sep)||candidate.startsWith(path.resolve(__dirname,"fixtures")+path.sep))&&fs.existsSync(candidate)&&fs.statSync(candidate).isFile()?candidate:path.join(root,"index.html")
  res.setHeader("Content-Type",{".html":"text/html",".js":"text/javascript",".css":"text/css",".svg":"image/svg+xml",".jpg":"image/jpeg"}[path.extname(file)]||"application/octet-stream");fs.createReadStream(file).pipe(res)
 }catch{res.statusCode=500;res.end(JSON.stringify({erro:"Erro no ambiente de teste"}))}}).listen(8445,"127.0.0.1",()=>console.log("Preview isolado em http://localhost:8445 — contas fictícias; nunca usar como servidor de produção"))

@@ -8,7 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "format": "oxfmt",
-    "test": "node --test tests/session.test.cjs",
+    "test": "node --test tests/session.test.cjs tests/refinements.test.cjs",
     "test:deploy": "pnpm build && pnpm --dir backend build && node --test tests/deploy.test.cjs"
   },
   "dependencies": {

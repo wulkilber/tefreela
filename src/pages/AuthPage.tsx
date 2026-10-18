@@ -2,15 +2,18 @@ import { ArrowLeft, BriefcaseBusiness, Check, Eye, LockKeyhole, Mail, UserRound 
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
 import { afterLogin } from "../lib/redirect";
 import { useState } from "react";
-import { api, saveSession, type Session } from "../lib/session";
+import { api } from "../lib/session";
+import { useAuth } from "../lib/auth";
 import Brand from "../components/Brand";
 import { Button, Heading, TextInput } from "../components/ui";
+import ThemeToggle from "../components/ThemeToggle";
 
 export default function AuthPage({ mode }: { mode: "login" | "register" }) {
   const register = mode === "register";
   const [params] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
+  const auth = useAuth();
   const [accountType, setAccountType] = useState<"cliente" | "freelancer">(params.get("tipo") === "freelancer" ? "freelancer" : "cliente");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -24,14 +27,14 @@ export default function AuthPage({ mode }: { mode: "login" | "register" }) {
     setBusy(true); setError("");
     try {
       if (register) await api("/auth/cadastro", { nome: String(values.get("nome") || "").trim(), email, senha, tipo_usuario: accountType });
-      const session = await api<Session>("/auth/login", { email, senha });
-      saveSession(session);
+      const session = await auth.login(email, senha);
       navigate(afterLogin(location.state?.from, session.usuario.tipo_usuario), { replace: true });
     } catch (error) { setError(error instanceof Error ? error.message : "Não foi possível entrar."); }
     finally { setBusy(false); }
   }
   return (
     <main className="auth-page">
+      <div className="auth-theme-control"><ThemeToggle /></div>
       <section className="auth-showcase">
         <Link className="auth-back" to="/"><ArrowLeft /> Voltar para o início</Link>
         <div className="auth-brand"><Brand /></div>

@@ -1,66 +1,14 @@
-import { useEffect, useState } from "react"
 import { Navigate, Outlet, useLocation } from "react-router"
 import Brand from "./Brand"
-import { Skeleton } from "./ui"
-import {
-  api,
-  ApiError,
-  clearSession,
-  getSession,
-  saveSession,
-  type User,
-} from "../lib/session"
-
-export default function ProtectedRoute() {
-  const location = useLocation()
-  const [state, setState] = useState<"loading" | "ready" | "invalid" | "error">(
-    "loading",
-  )
-  const [attempt, setAttempt] = useState(0)
-  useEffect(() => {
-    let active = true
-    setState("loading")
-    const session = getSession()
-    if (!session) {
-      setState("invalid")
-      return
-    }
-    api<{ usuario: User }>("/auth/me")
-      .then(({ usuario }) => {
-        if (active) {
-          const refreshed = getSession();
-          if (!refreshed || refreshed.usuario.id !== session.usuario.id) { setState("invalid"); return; }
-          saveSession({ ...refreshed, usuario })
-          setState("ready")
-        }
-      })
-      .catch((error) => {
-        if (!active) return
-        if (error instanceof ApiError && error.status === 401) {
-          clearSession()
-          setState("invalid")
-        } else setState("error")
-      })
-    return () => {
-      active = false
-    }
-  }, [attempt])
-  if (state === "loading") return <div className="session-loading"><Brand /><p>Preparando seu espaço...</p><Skeleton kind="row" /></div>
-  if (state === "error")
-    return (
-      <div role="alert">
-        Não foi possível validar sua sessão.{" "}
-        <button onClick={() => setAttempt(attempt + 1)}>
-          Tentar novamente
-        </button>
-      </div>
-    )
-  if (state === "invalid")
-    return <Navigate to="/entrar" replace state={{ from: location.pathname + location.search }} />
-  const role = getSession()?.usuario.tipo_usuario
-  if (location.pathname === "/app" && role === "cliente")
-    return <Navigate to="/app/cliente" replace />
-  if (location.pathname === "/app/cliente" && role === "freelancer")
-    return <Navigate to="/app" replace />
-  return <Outlet />
+import { Button, Skeleton } from "./ui"
+import { useAuth } from "../lib/auth"
+export default function ProtectedRoute({role}:{role?:"cliente"|"freelancer"}){
+ const location=useLocation(),auth=useAuth()
+ if(auth.status==="loading")return <div className="session-loading"><Brand/><p>Preparando seu espaço...</p><Skeleton kind="row"/></div>
+ if(!auth.user)return <Navigate to="/entrar" replace state={{from:location.pathname+location.search}}/>
+ if(auth.status==="error")return <div className="session-loading"><Brand/><p role="alert">Não foi possível validar sua sessão. Seus dados de acesso foram preservados.</p><Button onClick={auth.retry}>Tentar novamente</Button></div>
+ const home=auth.user.tipo_usuario==="cliente"?"/app/cliente":"/app"
+ if(role&&auth.user.tipo_usuario!==role)return <Navigate to={home} replace/>
+ if((location.pathname==="/app"&&auth.user.tipo_usuario==="cliente")||(location.pathname==="/app/cliente"&&auth.user.tipo_usuario==="freelancer"))return <Navigate to={home} replace/>
+ return <Outlet key={auth.user.id}/>
 }
