@@ -43,7 +43,7 @@ Em backend:
 pnpm test
 ```
 
-São 8 testes de sessão e feedback e 25 testes de backend com credenciais fictícias e serviço local simulado. Nenhum deles depende do banco real. A configuração antiga do formatador oxfmt 0.2 pode remover separadores de tipos na mesma linha; conferir TypeScript após usá-lo.
+São 18 testes de sessão, tema, menus e feedback e 28 testes de backend com credenciais fictícias e serviço local simulado. Nenhum deles depende do banco real. A configuração antiga do formatador oxfmt 0.2 pode remover separadores de tipos na mesma linha; conferir TypeScript após usá-lo.
 
 ## Publicação futura
 
@@ -77,3 +77,5 @@ Home, busca, detalhes, perfil e área interna usam a mesma identidade. Os dashbo
 Para testar visualmente sem contas reais: compile e execute `node tests/preview-server.cjs`. No ambiente local, `/__role/client` e `/__role/freelancer` selecionam a conta fictícia; `/__scenario/empty`, `/__scenario/error` e `/__scenario/normal` exercitam os estados da interface. Esses caminhos e dados só existem no servidor de prévia e não integram o deploy. As artes fictícias ficam em `tests/fixtures`.
 
 O chat mantém mensagens e leitura e permite compartilhar links HTTPS de arquivos/referências. Upload binário de anexos, presença online e contagem de visualizações não foram adicionados à API. O tema usa tokens semânticos e respeita redução de movimento; não há alternância de dark mode nesta versão.
+
+Refinamento de sessão, temas, perfil e avatares: consulte [RELATORIO_REFINAMENTO.md](RELATORIO_REFINAMENTO.md). O bucket `avatars` deve ser público, limitar arquivos a 5 MB e aceitar JPEG/PNG/WebP. O script `backend/scripts/setup-avatars.cjs` prepara o bucket usando somente as credenciais do servidor; execute apenas com autorização para exposição pública das fotos.

@@ -1,0 +1,5513 @@
+{
+  "environment": "local fixtures; synthetic accounts",
+  "checks": [
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 320,
+      "route": "/",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 320,
+      "route": "/explorar",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 320,
+      "route": "/servico/1",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 320,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 320,
+      "route": "/entrar",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 320,
+      "route": "/cadastro",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 320,
+      "route": "/app",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 320,
+      "route": "/app/cliente",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 320,
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/mensagens",
+      "requested": 320,
+      "route": "/app/mensagens",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 320,
+      "route": "/app/perfil",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/servicos",
+      "requested": 320,
+      "route": "/app/servicos",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/portfolio",
+      "requested": 320,
+      "route": "/app/portfolio",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/notificacoes",
+      "requested": 320,
+      "route": "/app/notificacoes",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/creditos",
+      "requested": 320,
+      "route": "/app/creditos",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 320,
+      "route": "/recuperar-senha",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 320,
+      "route": "/ajuda",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 375,
+      "route": "/",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 375,
+      "route": "/explorar",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 375,
+      "route": "/servico/1",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 375,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 375,
+      "route": "/entrar",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 375,
+      "route": "/cadastro",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 375,
+      "route": "/app",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 375,
+      "route": "/app/cliente",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 375,
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/mensagens",
+      "requested": 375,
+      "route": "/app/mensagens",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 375,
+      "route": "/app/perfil",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/servicos",
+      "requested": 375,
+      "route": "/app/servicos",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/portfolio",
+      "requested": 375,
+      "route": "/app/portfolio",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/notificacoes",
+      "requested": 375,
+      "route": "/app/notificacoes",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/creditos",
+      "requested": 375,
+      "route": "/app/creditos",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 375,
+      "route": "/recuperar-senha",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 375,
+      "route": "/ajuda",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 390,
+      "route": "/",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 390,
+      "route": "/explorar",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 390,
+      "route": "/servico/1",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 390,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 390,
+      "route": "/entrar",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 390,
+      "route": "/cadastro",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 390,
+      "route": "/app",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 390,
+      "route": "/app/cliente",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 390,
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/mensagens",
+      "requested": 390,
+      "route": "/app/mensagens",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 390,
+      "route": "/app/perfil",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/servicos",
+      "requested": 390,
+      "route": "/app/servicos",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/portfolio",
+      "requested": 390,
+      "route": "/app/portfolio",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/notificacoes",
+      "requested": 390,
+      "route": "/app/notificacoes",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/creditos",
+      "requested": 390,
+      "route": "/app/creditos",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 390,
+      "route": "/recuperar-senha",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 390,
+      "route": "/ajuda",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 430,
+      "route": "/",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 430,
+      "route": "/explorar",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 430,
+      "route": "/servico/1",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 430,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 430,
+      "route": "/entrar",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 430,
+      "route": "/cadastro",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 430,
+      "route": "/app",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 430,
+      "route": "/app/cliente",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 430,
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/mensagens",
+      "requested": 430,
+      "route": "/app/mensagens",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 430,
+      "route": "/app/perfil",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/servicos",
+      "requested": 430,
+      "route": "/app/servicos",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/portfolio",
+      "requested": 430,
+      "route": "/app/portfolio",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/notificacoes",
+      "requested": 430,
+      "route": "/app/notificacoes",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/creditos",
+      "requested": 430,
+      "route": "/app/creditos",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 430,
+      "route": "/recuperar-senha",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 430,
+      "route": "/ajuda",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 768,
+      "route": "/",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 768,
+      "route": "/explorar",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 768,
+      "route": "/servico/1",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 768,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 768,
+      "route": "/entrar",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 768,
+      "route": "/cadastro",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 768,
+      "route": "/app",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 768,
+      "route": "/app/cliente",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 768,
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/mensagens",
+      "requested": 768,
+      "route": "/app/mensagens",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 768,
+      "route": "/app/perfil",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/servicos",
+      "requested": 768,
+      "route": "/app/servicos",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/portfolio",
+      "requested": 768,
+      "route": "/app/portfolio",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/notificacoes",
+      "requested": 768,
+      "route": "/app/notificacoes",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/creditos",
+      "requested": 768,
+      "route": "/app/creditos",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 768,
+      "route": "/recuperar-senha",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 768,
+      "route": "/ajuda",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 1024,
+      "route": "/",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 1024,
+      "route": "/explorar",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 1024,
+      "route": "/servico/1",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 1024,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1024,
+      "route": "/entrar",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 1024,
+      "route": "/cadastro",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 1024,
+      "route": "/app",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 1024,
+      "route": "/app/cliente",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 1024,
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/mensagens",
+      "requested": 1024,
+      "route": "/app/mensagens",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 1024,
+      "route": "/app/perfil",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/servicos",
+      "requested": 1024,
+      "route": "/app/servicos",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/portfolio",
+      "requested": 1024,
+      "route": "/app/portfolio",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/notificacoes",
+      "requested": 1024,
+      "route": "/app/notificacoes",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/creditos",
+      "requested": 1024,
+      "route": "/app/creditos",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 1024,
+      "route": "/recuperar-senha",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 1024,
+      "route": "/ajuda",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 1280,
+      "route": "/",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 1280,
+      "route": "/explorar",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 1280,
+      "route": "/servico/1",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 1280,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1280,
+      "route": "/entrar",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 1280,
+      "route": "/cadastro",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 1280,
+      "route": "/app",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 1280,
+      "route": "/app/cliente",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 1280,
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/mensagens",
+      "requested": 1280,
+      "route": "/app/mensagens",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 1280,
+      "route": "/app/perfil",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/servicos",
+      "requested": 1280,
+      "route": "/app/servicos",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/portfolio",
+      "requested": 1280,
+      "route": "/app/portfolio",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/notificacoes",
+      "requested": 1280,
+      "route": "/app/notificacoes",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/creditos",
+      "requested": 1280,
+      "route": "/app/creditos",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 1280,
+      "route": "/recuperar-senha",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 1280,
+      "route": "/ajuda",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 1440,
+      "route": "/",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 1440,
+      "route": "/explorar",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 1440,
+      "route": "/servico/1",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 1440,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1440,
+      "route": "/entrar",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 1440,
+      "route": "/cadastro",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 1440,
+      "route": "/app",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 1440,
+      "route": "/app/cliente",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 1440,
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/mensagens",
+      "requested": 1440,
+      "route": "/app/mensagens",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 1440,
+      "route": "/app/perfil",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/servicos",
+      "requested": 1440,
+      "route": "/app/servicos",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/portfolio",
+      "requested": 1440,
+      "route": "/app/portfolio",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/notificacoes",
+      "requested": 1440,
+      "route": "/app/notificacoes",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/creditos",
+      "requested": 1440,
+      "route": "/app/creditos",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 1440,
+      "route": "/recuperar-senha",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 1440,
+      "route": "/ajuda",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 1920,
+      "route": "/",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 1920,
+      "route": "/explorar",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 1920,
+      "route": "/servico/1",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 1920,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1920,
+      "route": "/entrar",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 1920,
+      "route": "/cadastro",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 1920,
+      "route": "/app",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 1920,
+      "route": "/app/cliente",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 1920,
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/mensagens",
+      "requested": 1920,
+      "route": "/app/mensagens",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 1920,
+      "route": "/app/perfil",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/servicos",
+      "requested": 1920,
+      "route": "/app/servicos",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/portfolio",
+      "requested": 1920,
+      "route": "/app/portfolio",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/notificacoes",
+      "requested": 1920,
+      "route": "/app/notificacoes",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/creditos",
+      "requested": 1920,
+      "route": "/app/creditos",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 1920,
+      "route": "/recuperar-senha",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 1920,
+      "route": "/ajuda",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 320,
+      "route": "/",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 320,
+      "route": "/explorar",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 320,
+      "route": "/servico/1",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 320,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 320,
+      "route": "/entrar",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 320,
+      "route": "/cadastro",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 320,
+      "route": "/app",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 320,
+      "route": "/app/cliente",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 320,
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/mensagens",
+      "requested": 320,
+      "route": "/app/mensagens",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 320,
+      "route": "/app/perfil",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/servicos",
+      "requested": 320,
+      "route": "/app/servicos",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/portfolio",
+      "requested": 320,
+      "route": "/app/portfolio",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/notificacoes",
+      "requested": 320,
+      "route": "/app/notificacoes",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/creditos",
+      "requested": 320,
+      "route": "/app/creditos",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 320,
+      "route": "/recuperar-senha",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 320,
+      "route": "/ajuda",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 375,
+      "route": "/",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 375,
+      "route": "/explorar",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 375,
+      "route": "/servico/1",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 375,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 375,
+      "route": "/entrar",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 375,
+      "route": "/cadastro",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 375,
+      "route": "/app",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 375,
+      "route": "/app/cliente",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 375,
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/mensagens",
+      "requested": 375,
+      "route": "/app/mensagens",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 375,
+      "route": "/app/perfil",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/servicos",
+      "requested": 375,
+      "route": "/app/servicos",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/portfolio",
+      "requested": 375,
+      "route": "/app/portfolio",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/notificacoes",
+      "requested": 375,
+      "route": "/app/notificacoes",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/creditos",
+      "requested": 375,
+      "route": "/app/creditos",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 375,
+      "route": "/recuperar-senha",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 375,
+      "route": "/ajuda",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 390,
+      "route": "/",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 390,
+      "route": "/explorar",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 390,
+      "route": "/servico/1",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 390,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 390,
+      "route": "/entrar",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 390,
+      "route": "/cadastro",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 390,
+      "route": "/app",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 390,
+      "route": "/app/cliente",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 390,
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/mensagens",
+      "requested": 390,
+      "route": "/app/mensagens",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 390,
+      "route": "/app/perfil",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/servicos",
+      "requested": 390,
+      "route": "/app/servicos",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/portfolio",
+      "requested": 390,
+      "route": "/app/portfolio",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/notificacoes",
+      "requested": 390,
+      "route": "/app/notificacoes",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/creditos",
+      "requested": 390,
+      "route": "/app/creditos",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 390,
+      "route": "/recuperar-senha",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 390,
+      "route": "/ajuda",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 430,
+      "route": "/",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 430,
+      "route": "/explorar",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 430,
+      "route": "/servico/1",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 430,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 430,
+      "route": "/entrar",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 430,
+      "route": "/cadastro",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 430,
+      "route": "/app",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 430,
+      "route": "/app/cliente",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 430,
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/mensagens",
+      "requested": 430,
+      "route": "/app/mensagens",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 430,
+      "route": "/app/perfil",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/servicos",
+      "requested": 430,
+      "route": "/app/servicos",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/portfolio",
+      "requested": 430,
+      "route": "/app/portfolio",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/notificacoes",
+      "requested": 430,
+      "route": "/app/notificacoes",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/creditos",
+      "requested": 430,
+      "route": "/app/creditos",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 430,
+      "route": "/recuperar-senha",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 430,
+      "route": "/ajuda",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 768,
+      "route": "/",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 768,
+      "route": "/explorar",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 768,
+      "route": "/servico/1",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 768,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 768,
+      "route": "/entrar",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 768,
+      "route": "/cadastro",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 768,
+      "route": "/app",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 768,
+      "route": "/app/cliente",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 768,
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/mensagens",
+      "requested": 768,
+      "route": "/app/mensagens",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 768,
+      "route": "/app/perfil",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/servicos",
+      "requested": 768,
+      "route": "/app/servicos",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/portfolio",
+      "requested": 768,
+      "route": "/app/portfolio",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/notificacoes",
+      "requested": 768,
+      "route": "/app/notificacoes",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/creditos",
+      "requested": 768,
+      "route": "/app/creditos",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 768,
+      "route": "/recuperar-senha",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 768,
+      "route": "/ajuda",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 1024,
+      "route": "/",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 1024,
+      "route": "/explorar",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 1024,
+      "route": "/servico/1",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 1024,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1024,
+      "route": "/entrar",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 1024,
+      "route": "/cadastro",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 1024,
+      "route": "/app",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 1024,
+      "route": "/app/cliente",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 1024,
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/mensagens",
+      "requested": 1024,
+      "route": "/app/mensagens",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 1024,
+      "route": "/app/perfil",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/servicos",
+      "requested": 1024,
+      "route": "/app/servicos",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/portfolio",
+      "requested": 1024,
+      "route": "/app/portfolio",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/notificacoes",
+      "requested": 1024,
+      "route": "/app/notificacoes",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/creditos",
+      "requested": 1024,
+      "route": "/app/creditos",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 1024,
+      "route": "/recuperar-senha",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 1024,
+      "route": "/ajuda",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 1280,
+      "route": "/",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 1280,
+      "route": "/explorar",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 1280,
+      "route": "/servico/1",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 1280,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1280,
+      "route": "/entrar",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 1280,
+      "route": "/cadastro",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 1280,
+      "route": "/app",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 1280,
+      "route": "/app/cliente",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 1280,
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/mensagens",
+      "requested": 1280,
+      "route": "/app/mensagens",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 1280,
+      "route": "/app/perfil",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/servicos",
+      "requested": 1280,
+      "route": "/app/servicos",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/portfolio",
+      "requested": 1280,
+      "route": "/app/portfolio",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/notificacoes",
+      "requested": 1280,
+      "route": "/app/notificacoes",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/creditos",
+      "requested": 1280,
+      "route": "/app/creditos",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 1280,
+      "route": "/recuperar-senha",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 1280,
+      "route": "/ajuda",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 1440,
+      "route": "/",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 1440,
+      "route": "/explorar",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 1440,
+      "route": "/servico/1",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 1440,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1440,
+      "route": "/entrar",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 1440,
+      "route": "/cadastro",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 1440,
+      "route": "/app",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 1440,
+      "route": "/app/cliente",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 1440,
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/mensagens",
+      "requested": 1440,
+      "route": "/app/mensagens",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 1440,
+      "route": "/app/perfil",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/servicos",
+      "requested": 1440,
+      "route": "/app/servicos",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/portfolio",
+      "requested": 1440,
+      "route": "/app/portfolio",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/notificacoes",
+      "requested": 1440,
+      "route": "/app/notificacoes",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/creditos",
+      "requested": 1440,
+      "route": "/app/creditos",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 1440,
+      "route": "/recuperar-senha",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 1440,
+      "route": "/ajuda",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 1920,
+      "route": "/",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 1920,
+      "route": "/explorar",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 1920,
+      "route": "/servico/1",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 1920,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1920,
+      "route": "/entrar",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 1920,
+      "route": "/cadastro",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 1920,
+      "route": "/app",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 1920,
+      "route": "/app/cliente",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 1920,
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/mensagens",
+      "requested": 1920,
+      "route": "/app/mensagens",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 1920,
+      "route": "/app/perfil",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/servicos",
+      "requested": 1920,
+      "route": "/app/servicos",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/portfolio",
+      "requested": 1920,
+      "route": "/app/portfolio",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/notificacoes",
+      "requested": 1920,
+      "route": "/app/notificacoes",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/creditos",
+      "requested": 1920,
+      "route": "/app/creditos",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 1920,
+      "route": "/recuperar-senha",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 1920,
+      "route": "/ajuda",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 320,
+      "route": "/",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 320,
+      "route": "/explorar",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 320,
+      "route": "/servico/1",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 320,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 320,
+      "route": "/entrar",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 320,
+      "route": "/cadastro",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 320,
+      "route": "/app",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 320,
+      "route": "/app/cliente",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 320,
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/mensagens",
+      "requested": 320,
+      "route": "/app/mensagens",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 320,
+      "route": "/app/perfil",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 320,
+      "route": "/app/servicos",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 320,
+      "route": "/app/portfolio",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/notificacoes",
+      "requested": 320,
+      "route": "/app/notificacoes",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/creditos",
+      "requested": 320,
+      "route": "/app/creditos",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 320,
+      "route": "/recuperar-senha",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 320,
+      "route": "/ajuda",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 375,
+      "route": "/",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 375,
+      "route": "/explorar",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 375,
+      "route": "/servico/1",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 375,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 375,
+      "route": "/entrar",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 375,
+      "route": "/cadastro",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 375,
+      "route": "/app",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 375,
+      "route": "/app/cliente",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 375,
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/mensagens",
+      "requested": 375,
+      "route": "/app/mensagens",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 375,
+      "route": "/app/perfil",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 375,
+      "route": "/app/servicos",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 375,
+      "route": "/app/portfolio",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/notificacoes",
+      "requested": 375,
+      "route": "/app/notificacoes",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/creditos",
+      "requested": 375,
+      "route": "/app/creditos",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 375,
+      "route": "/recuperar-senha",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 375,
+      "route": "/ajuda",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 390,
+      "route": "/",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 390,
+      "route": "/explorar",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 390,
+      "route": "/servico/1",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 390,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 390,
+      "route": "/entrar",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 390,
+      "route": "/cadastro",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 390,
+      "route": "/app",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 390,
+      "route": "/app/cliente",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 390,
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/mensagens",
+      "requested": 390,
+      "route": "/app/mensagens",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 390,
+      "route": "/app/perfil",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 390,
+      "route": "/app/servicos",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 390,
+      "route": "/app/portfolio",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/notificacoes",
+      "requested": 390,
+      "route": "/app/notificacoes",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/creditos",
+      "requested": 390,
+      "route": "/app/creditos",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 390,
+      "route": "/recuperar-senha",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 390,
+      "route": "/ajuda",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 430,
+      "route": "/",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 430,
+      "route": "/explorar",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 430,
+      "route": "/servico/1",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 430,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 430,
+      "route": "/entrar",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 430,
+      "route": "/cadastro",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 430,
+      "route": "/app",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 430,
+      "route": "/app/cliente",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 430,
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/mensagens",
+      "requested": 430,
+      "route": "/app/mensagens",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 430,
+      "route": "/app/perfil",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 430,
+      "route": "/app/servicos",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 430,
+      "route": "/app/portfolio",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/notificacoes",
+      "requested": 430,
+      "route": "/app/notificacoes",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/creditos",
+      "requested": 430,
+      "route": "/app/creditos",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 430,
+      "route": "/recuperar-senha",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 430,
+      "route": "/ajuda",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 768,
+      "route": "/",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 768,
+      "route": "/explorar",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 768,
+      "route": "/servico/1",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 768,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 768,
+      "route": "/entrar",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 768,
+      "route": "/cadastro",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 768,
+      "route": "/app",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 768,
+      "route": "/app/cliente",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 768,
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/mensagens",
+      "requested": 768,
+      "route": "/app/mensagens",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 768,
+      "route": "/app/perfil",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 768,
+      "route": "/app/servicos",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 768,
+      "route": "/app/portfolio",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/notificacoes",
+      "requested": 768,
+      "route": "/app/notificacoes",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/creditos",
+      "requested": 768,
+      "route": "/app/creditos",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 768,
+      "route": "/recuperar-senha",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 768,
+      "route": "/ajuda",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 1024,
+      "route": "/",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 1024,
+      "route": "/explorar",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 1024,
+      "route": "/servico/1",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 1024,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1024,
+      "route": "/entrar",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 1024,
+      "route": "/cadastro",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1024,
+      "route": "/app",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1024,
+      "route": "/app/cliente",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 1024,
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/mensagens",
+      "requested": 1024,
+      "route": "/app/mensagens",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 1024,
+      "route": "/app/perfil",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1024,
+      "route": "/app/servicos",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1024,
+      "route": "/app/portfolio",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/notificacoes",
+      "requested": 1024,
+      "route": "/app/notificacoes",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/creditos",
+      "requested": 1024,
+      "route": "/app/creditos",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 1024,
+      "route": "/recuperar-senha",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 1024,
+      "route": "/ajuda",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 1280,
+      "route": "/",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 1280,
+      "route": "/explorar",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 1280,
+      "route": "/servico/1",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 1280,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1280,
+      "route": "/entrar",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 1280,
+      "route": "/cadastro",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1280,
+      "route": "/app",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1280,
+      "route": "/app/cliente",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 1280,
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/mensagens",
+      "requested": 1280,
+      "route": "/app/mensagens",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 1280,
+      "route": "/app/perfil",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1280,
+      "route": "/app/servicos",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1280,
+      "route": "/app/portfolio",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/notificacoes",
+      "requested": 1280,
+      "route": "/app/notificacoes",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/creditos",
+      "requested": 1280,
+      "route": "/app/creditos",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 1280,
+      "route": "/recuperar-senha",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 1280,
+      "route": "/ajuda",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 1440,
+      "route": "/",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 1440,
+      "route": "/explorar",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 1440,
+      "route": "/servico/1",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 1440,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1440,
+      "route": "/entrar",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 1440,
+      "route": "/cadastro",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1440,
+      "route": "/app",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1440,
+      "route": "/app/cliente",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 1440,
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/mensagens",
+      "requested": 1440,
+      "route": "/app/mensagens",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 1440,
+      "route": "/app/perfil",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1440,
+      "route": "/app/servicos",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1440,
+      "route": "/app/portfolio",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/notificacoes",
+      "requested": 1440,
+      "route": "/app/notificacoes",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/creditos",
+      "requested": 1440,
+      "route": "/app/creditos",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 1440,
+      "route": "/recuperar-senha",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 1440,
+      "route": "/ajuda",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 1920,
+      "route": "/",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 1920,
+      "route": "/explorar",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 1920,
+      "route": "/servico/1",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 1920,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1920,
+      "route": "/entrar",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 1920,
+      "route": "/cadastro",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1920,
+      "route": "/app",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1920,
+      "route": "/app/cliente",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 1920,
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/mensagens",
+      "requested": 1920,
+      "route": "/app/mensagens",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 1920,
+      "route": "/app/perfil",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1920,
+      "route": "/app/servicos",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1920,
+      "route": "/app/portfolio",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/notificacoes",
+      "requested": 1920,
+      "route": "/app/notificacoes",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/creditos",
+      "requested": 1920,
+      "route": "/app/creditos",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 1920,
+      "route": "/recuperar-senha",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 1920,
+      "route": "/ajuda",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 320,
+      "route": "/",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 320,
+      "route": "/explorar",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 320,
+      "route": "/servico/1",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 320,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 320,
+      "route": "/entrar",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 320,
+      "route": "/cadastro",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 320,
+      "route": "/app",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 320,
+      "route": "/app/cliente",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 320,
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 320,
+      "route": "/app/mensagens",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 320,
+      "route": "/app/perfil",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 320,
+      "route": "/app/servicos",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 320,
+      "route": "/app/portfolio",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 320,
+      "route": "/app/notificacoes",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 320,
+      "route": "/app/creditos",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 320,
+      "route": "/recuperar-senha",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 320,
+      "route": "/ajuda",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 375,
+      "route": "/",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 375,
+      "route": "/explorar",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 375,
+      "route": "/servico/1",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 375,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 375,
+      "route": "/entrar",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 375,
+      "route": "/cadastro",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 375,
+      "route": "/app",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 375,
+      "route": "/app/cliente",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 375,
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 375,
+      "route": "/app/mensagens",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 375,
+      "route": "/app/perfil",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 375,
+      "route": "/app/servicos",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 375,
+      "route": "/app/portfolio",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 375,
+      "route": "/app/notificacoes",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 375,
+      "route": "/app/creditos",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 375,
+      "route": "/recuperar-senha",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 375,
+      "route": "/ajuda",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 390,
+      "route": "/",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 390,
+      "route": "/explorar",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 390,
+      "route": "/servico/1",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 390,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 390,
+      "route": "/entrar",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 390,
+      "route": "/cadastro",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 390,
+      "route": "/app",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 390,
+      "route": "/app/cliente",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 390,
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 390,
+      "route": "/app/mensagens",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 390,
+      "route": "/app/perfil",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 390,
+      "route": "/app/servicos",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 390,
+      "route": "/app/portfolio",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 390,
+      "route": "/app/notificacoes",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 390,
+      "route": "/app/creditos",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 390,
+      "route": "/recuperar-senha",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 390,
+      "route": "/ajuda",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 430,
+      "route": "/",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 430,
+      "route": "/explorar",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 430,
+      "route": "/servico/1",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 430,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 430,
+      "route": "/entrar",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 430,
+      "route": "/cadastro",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 430,
+      "route": "/app",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 430,
+      "route": "/app/cliente",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 430,
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 430,
+      "route": "/app/mensagens",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 430,
+      "route": "/app/perfil",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 430,
+      "route": "/app/servicos",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 430,
+      "route": "/app/portfolio",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 430,
+      "route": "/app/notificacoes",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 430,
+      "route": "/app/creditos",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 430,
+      "route": "/recuperar-senha",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 430,
+      "route": "/ajuda",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 768,
+      "route": "/",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 768,
+      "route": "/explorar",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 768,
+      "route": "/servico/1",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 768,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 768,
+      "route": "/entrar",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 768,
+      "route": "/cadastro",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 768,
+      "route": "/app",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 768,
+      "route": "/app/cliente",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 768,
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 768,
+      "route": "/app/mensagens",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 768,
+      "route": "/app/perfil",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 768,
+      "route": "/app/servicos",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 768,
+      "route": "/app/portfolio",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 768,
+      "route": "/app/notificacoes",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 768,
+      "route": "/app/creditos",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 768,
+      "route": "/recuperar-senha",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 768,
+      "route": "/ajuda",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 1024,
+      "route": "/",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 1024,
+      "route": "/explorar",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 1024,
+      "route": "/servico/1",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 1024,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1024,
+      "route": "/entrar",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 1024,
+      "route": "/cadastro",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1024,
+      "route": "/app",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1024,
+      "route": "/app/cliente",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1024,
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1024,
+      "route": "/app/mensagens",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1024,
+      "route": "/app/perfil",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1024,
+      "route": "/app/servicos",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1024,
+      "route": "/app/portfolio",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1024,
+      "route": "/app/notificacoes",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1024,
+      "route": "/app/creditos",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 1024,
+      "route": "/recuperar-senha",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 1024,
+      "route": "/ajuda",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 1280,
+      "route": "/",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 1280,
+      "route": "/explorar",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 1280,
+      "route": "/servico/1",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 1280,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1280,
+      "route": "/entrar",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 1280,
+      "route": "/cadastro",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1280,
+      "route": "/app",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1280,
+      "route": "/app/cliente",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1280,
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1280,
+      "route": "/app/mensagens",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1280,
+      "route": "/app/perfil",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1280,
+      "route": "/app/servicos",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1280,
+      "route": "/app/portfolio",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1280,
+      "route": "/app/notificacoes",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1280,
+      "route": "/app/creditos",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 1280,
+      "route": "/recuperar-senha",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 1280,
+      "route": "/ajuda",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 1440,
+      "route": "/",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 1440,
+      "route": "/explorar",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 1440,
+      "route": "/servico/1",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 1440,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1440,
+      "route": "/entrar",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 1440,
+      "route": "/cadastro",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1440,
+      "route": "/app",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1440,
+      "route": "/app/cliente",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1440,
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1440,
+      "route": "/app/mensagens",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1440,
+      "route": "/app/perfil",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1440,
+      "route": "/app/servicos",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1440,
+      "route": "/app/portfolio",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1440,
+      "route": "/app/notificacoes",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1440,
+      "route": "/app/creditos",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 1440,
+      "route": "/recuperar-senha",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 1440,
+      "route": "/ajuda",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/",
+      "requested": 1920,
+      "route": "/",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 1920,
+      "route": "/explorar",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/servico/1",
+      "requested": 1920,
+      "route": "/servico/1",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/perfil/22222222-2222-4222-8222-222222222222",
+      "requested": 1920,
+      "route": "/perfil/22222222-2222-4222-8222-222222222222",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1920,
+      "route": "/entrar",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 1920,
+      "route": "/cadastro",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1920,
+      "route": "/app",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1920,
+      "route": "/app/cliente",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1920,
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1920,
+      "route": "/app/mensagens",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1920,
+      "route": "/app/perfil",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1920,
+      "route": "/app/servicos",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1920,
+      "route": "/app/portfolio",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1920,
+      "route": "/app/notificacoes",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/entrar",
+      "requested": 1920,
+      "route": "/app/creditos",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/recuperar-senha",
+      "requested": 1920,
+      "route": "/recuperar-senha",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/ajuda",
+      "requested": 1920,
+      "route": "/ajuda",
+      "theme": "dark",
+      "width": 1920
+    }
+  ]
+}
