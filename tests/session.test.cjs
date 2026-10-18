@@ -3,11 +3,11 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const vm = require("node:vm");
 const ts = require("typescript");
-function sessionModule(fetch) {
+function sessionModule(fetch, onToast = () => {}) {
   const storage = new Map();
   const source = fs.readFileSync("src/lib/session.ts", "utf8").replaceAll("import.meta.env", "({})");
   const code = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText;
-  const context = { exports: {}, fetch, Response, Blob, AbortSignal, Error, sessionStorage: { getItem: (key) => storage.get(key) || null, setItem: (key, value) => storage.set(key, value), removeItem: (key) => storage.delete(key) } };
+  const context = { exports: {}, require: (name) => { if (name === "./feedback") return { notify: onToast }; throw new Error(name) }, fetch, Response, Blob, AbortSignal, Error, sessionStorage: { getItem: (key) => storage.get(key) || null, setItem: (key, value) => storage.set(key, value), removeItem: (key) => storage.delete(key) } };
   vm.runInNewContext(code, context);
   context.exports.saveSession({ access_token: "expired", refresh_token: "refresh", usuario: { id: "user", nome: "Teste", tipo_usuario: "cliente" } });
   return context.exports;
@@ -72,4 +72,19 @@ test("login preserva o contato do chat e rejeita destinos externos", () => {
   assert.equal(redirect("/app/mensagens?usuario=contato&servico=1", "cliente"), "/app/mensagens?usuario=contato&servico=1")
   for (const unsafe of ["https://example.invalid", "//example.invalid", "/app\\evil", "/application", null]) assert.equal(redirect(unsafe, "cliente"), "/app/cliente")
   assert.equal(redirect(null, "freelancer"), "/app")
+})
+
+
+test("feedback confirma gravações, preserva erros e não interrompe consultas do chat", async () => {
+  const notices = []
+  const mod = sessionModule(async url => response(url.endsWith('/falha') ? 400 : 200, { erro: 'Confira os dados' }), (message,tone) => notices.push({message,tone}))
+  await mod.api('/pedidos')
+  await mod.api('/mensagens/contato/lidas', {}, 'PATCH')
+  assert.equal(notices.length, 0)
+  await mod.api('/mensagens', {mensagem:'Olá'})
+  assert.equal(notices.length, 1)
+  assert.equal(notices[0].message, 'Mensagem enviada.')
+  await assert.rejects(mod.api('/falha', {}), error => error.status === 400)
+  assert.equal(notices.at(-1).tone, 'error')
+  assert.equal(notices.at(-1).message, 'Confira os dados')
 })

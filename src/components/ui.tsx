@@ -1,4 +1,5 @@
-import type { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode } from "react";
+import { useEffect, useRef, type ButtonHTMLAttributes, type InputHTMLAttributes, type ReactNode, type SelectHTMLAttributes } from "react";
+import { ArrowRight, Inbox, X } from "lucide-react";
 import { Link } from "react-router";
 
 export function Button({
@@ -56,7 +57,7 @@ export function TextInput({
   return (
     <div className={`input-wrap ${className}`}>
       {icon}
-      <input {...props} />
+      <input aria-label={props["aria-label"] || (!props.name ? props.placeholder : undefined)} {...props} />
     </div>
   );
 }
@@ -82,4 +83,29 @@ export function SectionTitle({
       {action}
     </div>
   );
+}
+
+export function Card({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return <section className={`ui-card ${className}`}>{children}</section>
+}
+export function Badge({ children, tone = "blue" }: { children: ReactNode; tone?: string }) {
+  return <span className={`ui-badge badge-${tone}`}>{children}</span>
+}
+export function Avatar({ src, name, size = 40 }: { src?: string; name: string; size?: number }) {
+  return <img className="ui-avatar" src={src || "/avatar-placeholder.svg"} alt={name} width={size} height={size} onError={event => { if (!event.currentTarget.src.endsWith("/avatar-placeholder.svg")) event.currentTarget.src = "/avatar-placeholder.svg" }} />
+}
+export function Select(props: SelectHTMLAttributes<HTMLSelectElement>) { return <select {...props} className={`ui-select ${props.className || ""}`} /> }
+export function Skeleton({ kind = "card", count = 1 }: { kind?: "card" | "row" | "profile" | "stat"; count?: number }) {
+  return <>{Array.from({length:count}, (_,index) => <div className={`skeleton skeleton-${kind}`} key={index} role="status" aria-label="Carregando"><div className="skeleton-media" /><div className="skeleton-line" /><div className="skeleton-line short" /><span className="sr-only">Carregando conteúdo...</span></div>)}</>
+}
+export function EmptyState({ title, description, to, action, icon, onAction }: {title:string; description:string; to?:string; action?:string; icon?:ReactNode; onAction?:()=>void}) {
+  return <div className="ui-empty"><span className="empty-icon">{icon || <Inbox />}</span><h3>{title}</h3><p>{description}</p>{onAction ? <Button variant="secondary" onClick={onAction}>{action || "Tentar novamente"}<ArrowRight /></Button> : to && <ButtonLink to={to} variant="secondary">{action || "Explorar serviços"}<ArrowRight /></ButtonLink>}</div>
+}
+export function Tabs({ items, value, onChange }: { items:{value:string;label:string;count?:number}[];value:string;onChange:(value:string)=>void }) {
+  return <div className="ui-tabs" role="group" aria-label="Filtrar conteúdo">{items.map(item => <button key={item.value} aria-pressed={value === item.value} className={value === item.value ? "active" : ""} onClick={() => onChange(item.value)}>{item.label}{item.count !== undefined && <span>{item.count}</span>}</button>)}</div>
+}
+export function Modal({ open, onClose, title, children }: {open:boolean;onClose:()=>void;title:string;children:ReactNode}) {
+  const dialog = useRef<HTMLDialogElement>(null)
+  useEffect(() => { const element = dialog.current; if (!element) return; if (open && !element.open) element.showModal(); else if (!open && element.open) element.close(); return () => { if (element.open) element.close() } }, [open])
+  return <dialog ref={dialog} className="ui-modal" aria-label={title} onCancel={event => { event.preventDefault(); onClose() }} onClick={event => { if (event.target === event.currentTarget) { const rect = event.currentTarget.getBoundingClientRect(); if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) onClose() } }}><header><h2>{title}</h2><Button variant="ghost" aria-label="Fechar janela" onClick={onClose}><X /></Button></header>{children}</dialog>
 }

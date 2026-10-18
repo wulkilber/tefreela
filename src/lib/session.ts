@@ -1,3 +1,4 @@
+import { notify } from "./feedback"
 export type User = {
   id: string
   email: string
@@ -49,6 +50,7 @@ export async function api<T>(
       signal: AbortSignal.timeout(body instanceof Blob ? 60000 : 15000),
     })
   } catch {
+    if ((method || (body === undefined ? "GET" : "POST")) !== "GET" && !["/auth/refresh", "/auth/logout"].includes(path) && !path.endsWith("/lidas")) notify("Não foi possível conectar ao servidor. Tente novamente.", "error")
     throw new ApiError("Não foi possível conectar ao servidor. Tente novamente.", 0)
   }
   const data = await response.json().catch(() => ({}))
@@ -84,7 +86,15 @@ export async function api<T>(
       })
     if (await refreshing) return api<T>(path, body, method, false)
   }
-  if (!response.ok)
+  const writes = (method || (body === undefined ? "GET" : "POST")) !== "GET"
+  const feedback = writes && !path.endsWith("/lidas") && !["/auth/refresh", "/auth/logout"].includes(path)
+  if (!response.ok) {
+    if (feedback) notify(data.erro || "Não foi possível concluir a ação.", "error")
     throw new ApiError(data.erro || "Não foi possível concluir a solicitação.", response.status)
+  }
+  if (feedback) {
+    const message = path === "/auth/login" ? "Tudo certo. Boas-vindas ao Tefreela!" : path === "/mensagens" ? "Mensagem enviada." : path.includes("/imagens/") ? "Imagem atualizada." : path === "/pedidos" ? "Solicitação enviada ao profissional." : path === "/avaliacoes" ? "Obrigado! Sua avaliação foi enviada." : path.includes("/perfil") ? "Perfil atualizado." : "Alteração salva com sucesso."
+    notify(message)
+  }
   return data as T
 }

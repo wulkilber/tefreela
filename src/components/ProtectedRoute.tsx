@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 import { Navigate, Outlet, useLocation } from "react-router"
+import Brand from "./Brand"
+import { Skeleton } from "./ui"
 import {
   api,
   ApiError,
@@ -43,7 +45,7 @@ export default function ProtectedRoute() {
       active = false
     }
   }, [attempt])
-  if (state === "loading") return <p role="status">Validando sua sessão...</p>
+  if (state === "loading") return <div className="session-loading"><Brand /><p>Preparando seu espaço...</p><Skeleton kind="row" /></div>
   if (state === "error")
     return (
       <div role="alert">
