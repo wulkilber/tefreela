@@ -3,6 +3,7 @@ import { attachImages, withImages, imageFolder, imageType, imageBucket, imageLim
 import { z } from "zod"
 import { authUnavailable, createAuthClient, supabaseAdmin as db } from "../config/supabase.js"
 import { nextOrderStatus } from "../domain.js"
+import { randomUUID } from "node:crypto"
 
 const router = Router()
 const id = z.coerce.number().int().positive().max(Number.MAX_SAFE_INTEGER)
@@ -260,6 +261,38 @@ router.delete("/servicos/:id/imagens/:slot", handle(async (req, res) => {
   if (error) fail(503, "Não foi possível remover a imagem.")
   invalidateImages(folder)
   res.json({ mensagem: "Imagem removida." })
+}))
+function ownedAvatarPath(url: string | null | undefined, userId: string) {
+  if (!url) return null
+  const base = db.storage.from("avatars").getPublicUrl("").data.publicUrl
+  if (!url.startsWith(base)) return null
+  const path = url.slice(base.length).split("?")[0].replace(/^\//, "")
+  return path.startsWith(`${userId}/`) && !path.includes("..") ? path : null
+}
+async function cleanAvatar(path: string | null) {
+  if (path) { const { error } = await db.storage.from("avatars").remove([path]); if (error) console.warn("Limpeza de avatar anterior pendente.") }
+}
+router.put("/me/avatar", raw({ type: ["image/jpeg", "image/png", "image/webp"], limit: imageLimit }), handle(async (req, res) => {
+  const user = current(res)
+  const bytes = req.body
+  const contentType = Buffer.isBuffer(bytes) ? imageType(bytes) : null
+  if (!contentType || contentType !== req.headers["content-type"]?.split(";")[0]) fail(400, "Escolha uma imagem JPG, PNG ou WebP válida de até 5 MB.")
+  const previous = checked(await db.from("profiles").select("foto").eq("id", user.id).single())
+  const path = `${user.id}/${randomUUID()}`
+  const result = await db.storage.from("avatars").upload(path, bytes, { contentType, cacheControl: "3600", upsert: false })
+  if (result.error) fail(503, "Não foi possível enviar a foto. Tente novamente.")
+  const foto = db.storage.from("avatars").getPublicUrl(path).data.publicUrl
+  const saved = await db.from("profiles").update({ foto }).eq("id", user.id).select(privateProfile).single()
+  if (saved.error) { await cleanAvatar(path); fail(503, "A foto não pôde ser salva no perfil. Tente novamente.") }
+  await cleanAvatar(ownedAvatarPath(previous?.foto, user.id))
+  res.json(saved.data)
+}))
+router.delete("/me/avatar", handle(async (_req, res) => {
+  const user = current(res)
+  const previous = checked(await db.from("profiles").select("foto").eq("id", user.id).single())
+  const saved = checked(await db.from("profiles").update({foto:null}).eq("id", user.id).select(privateProfile).single())
+  await cleanAvatar(ownedAvatarPath(previous?.foto, user.id))
+  res.json(saved)
 }))
 router.get(
   "/me/perfil",

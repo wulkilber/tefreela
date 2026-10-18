@@ -82,6 +82,8 @@ const tables = {
 }
 let fake, app
 const objects = new Map()
+let failAvatarUpload = false
+let failProfileSave = false
 function splitTop(value) {
   let depth = 0,
     start = 0
@@ -126,6 +128,17 @@ before(async () => {
     try {
       const url = new URL(req.url, "http://localhost")
       res.setHeader("Content-Type", "application/json")
+      if (url.pathname.startsWith("/storage/v1/object/avatars/")) {
+        if (failAvatarUpload) { res.statusCode=503;res.end(JSON.stringify({message:"Storage unavailable",statusCode:"503"}));return }
+        const key=url.pathname.slice("/storage/v1/object/avatars/".length), chunks=[]
+        for await(const chunk of req)chunks.push(chunk)
+        objects.set("avatars/"+key,Buffer.concat(chunks));res.end(JSON.stringify({Key:key}));return
+      }
+      if (url.pathname === "/storage/v1/object/avatars" && req.method === "DELETE") {
+        let body="";for await(const chunk of req)body+=chunk
+        const keys=JSON.parse(body).prefixes||[];keys.forEach(key=>objects.delete("avatars/"+key))
+        res.end(JSON.stringify(keys.map(name=>({name}))));return
+      }
       if (url.pathname === "/storage/v1/object/list/servicos-imagens") {
         let body = ""; for await (const chunk of req) body += chunk
         const prefix = JSON.parse(body).prefix + "/"
@@ -172,6 +185,7 @@ before(async () => {
       let body = ""
       for await (const chunk of req) body += chunk
       const values = body ? JSON.parse(body) : {}
+      if (name === "profiles" && req.method === "PATCH" && Object.hasOwn(values,"foto") && failProfileSave) { res.statusCode=500;res.end(JSON.stringify({code:"DBERROR"}));return }
       const primary = {
         servicos: "id_servico",
         pedidos: "id_pedido",
@@ -485,4 +499,42 @@ test("imagens exigem dono, assinatura válida, tamanho e posição permitidos", 
   assert.equal(result.data.imagens.length, 1)
   assert.match(result.data.imagens[0], /object\/public\/servicos-imagens/)
   assert.equal((await call("/me/servicos", "freelancer")).data.find(row => row.id_servico === 1).imagens.length, 1)
+})
+async function avatarRequest(token, bytes, type = "image/png", method = "PUT") {
+  const response=await fetch('http://127.0.0.1:31988/api/me/avatar',{method,headers:{...(token?{Authorization:'Bearer '+token}:{}),'Content-Type':type},...(bytes?{body:bytes}:{})})
+  return {status:response.status,data:await response.json()}
+}
+const avatarPng=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScLbtAAAAABJRU5ErkJggg==','base64')
+test('avatar exige sessão, valida conteúdo e limite de tamanho',async()=>{
+ assert.equal((await avatarRequest(null,avatarPng)).status,401)
+ assert.equal((await avatarRequest('client',Buffer.from('<svg>unsafe</svg>'))).status,400)
+ assert.equal((await avatarRequest('client',avatarPng,'image/jpeg')).status,400)
+ assert.equal((await avatarRequest('client',Buffer.alloc(5*1024*1024+1))).status,413)
+})
+test('avatar é salvo somente no perfil autenticado e remove apenas a imagem anterior do dono',async()=>{
+ const result=await avatarRequest('client',avatarPng)
+ assert.equal(result.status,200);assert.match(result.data.foto,new RegExp('/avatars/'+client+'/'))
+ const previous=result.data.foto
+ const other=tables.profiles.find(p=>p.id===freelancer).foto
+ const second=await avatarRequest('client',avatarPng)
+ assert.equal(second.status,200);assert.notEqual(second.data.foto,previous)
+ assert.equal([...objects.keys()].filter(key=>key.startsWith('avatars/'+client+'/')).length,1)
+ assert.equal(tables.profiles.find(p=>p.id===freelancer).foto,other)
+ const removed=await avatarRequest('client',undefined,'application/json','DELETE')
+ assert.equal(removed.status,200);assert.equal(removed.data.foto,null)
+ assert.equal([...objects.keys()].filter(key=>key.startsWith('avatars/'+client+'/')).length,0)
+})
+test('falha de Storage ou banco mantém a foto anterior e não deixa novo objeto órfão',async()=>{
+ const profile=tables.profiles.find(p=>p.id===client)
+ profile.foto='https://example.invalid/external-avatar.png'
+ failAvatarUpload=true
+ assert.equal((await avatarRequest('client',avatarPng)).status,503)
+ failAvatarUpload=false
+ assert.equal(profile.foto,'https://example.invalid/external-avatar.png')
+ failProfileSave=true
+ const failed=await avatarRequest('client',avatarPng)
+ failProfileSave=false
+ assert.equal(failed.status,503)
+ assert.equal(profile.foto,'https://example.invalid/external-avatar.png')
+ assert.equal([...objects.keys()].filter(key=>key.startsWith('avatars/'+client+'/')).length,0)
 })
