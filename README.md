@@ -15,14 +15,21 @@ Requer Node.js compatível com Vite 8 e pnpm.
 
 O frontend usa `/api`, encaminhado pelo Vite para `http://localhost:3000`. Para outra API local, use `API_PROXY_TARGET`; para outra URL pública, configure `VITE_API_URL` no .env local da raiz. Nunca coloque chaves administrativas em variáveis `VITE_*`.
 
-## Banco e créditos
+## Banco e financeiro simulado
 
-A API usa o schema fornecido para profiles, categorias, servicos, pedidos, pagamentos, movimentacoes_creditos, avaliacoes, mensagens, notificacoes e portfolio. Categorias precisam conter `id_categoria`; o frontend reconhece `nome`, `nome_categoria` ou `titulo` como rótulo.
+Clientes não possuem carteira ou saldo interno e não pagam taxa à plataforma. A taxa do freelancer nasce apenas quando o pedido é concluído. Não há gateway, cartão, Pix ou movimentação de dinheiro real.
 
-O pagamento acadêmico só funciona após revisar e executar [backend/sql/001_creditos_e_rls.sql](backend/sql/001_creditos_e_rls.sql) no SQL Editor do Supabase. Não executado automaticamente. Esse arquivo habilita RLS sem remover políticas existentes e cria uma RPC transacional restrita ao servidor.
+Antes de publicar a API, execute [backend/sql/002_taxas_plataforma.sql](backend/sql/002_taxas_plataforma.sql) no SQL Editor. Ela cria configuração central, taxas, trigger transacional, RLS e RPCs restritas ao servidor. O percentual inicial está definido somente na configuração do banco; futuras alterações preservam os valores históricos. O resumo agrega todo o histórico com NUMERIC; a listagem possui paginação de 20 registros.
 
-Créditos são fictícios, sem dinheiro real. A aplicação não oferece carregamento arbitrário de saldo pelo cliente, nem escrow. Saldos iniciais devem ser definidos pelo responsável pelo ambiente acadêmico.
+A migração inclui pedidos já concluídos, com uma taxa simulada única por pedido. O responsável informou execução bem-sucedida em 18/10/2026, e a API de dados confirmou configuração e resumo disponíveis. Não execute a migração antiga 001.
 
+A aplicação não lê nem modifica saldo_creditos, movimentacoes_creditos ou pagamentos. Os dados antigos continuam preservados. [003_arquivar_creditos_MANUAL.sql](backend/sql/003_arquivar_creditos_MANUAL.sql) contém uma proposta comentada de remoção futura, dependente de backup e revisão; não foi executada.
+
+A nova área `/app/financeiro` é exclusiva do freelancer. O link antigo `/app/creditos` redireciona para ela; clientes são enviados ao próprio painel. Endpoints antigos de créditos e pagamento respondem HTTP 410 após autenticação.
+
+Cadastro exige senha de oito caracteres, uma letra e um número, além de confirmação idêntica no frontend e backend. A confirmação não é salva. Senhas continuam exclusivamente no Supabase Auth. Logins antigos continuam aceitando suas credenciais existentes.
+
+Consulte [MODELO_TAXAS.md](MODELO_TAXAS.md) para regras, validação e operação.
 ## Recuperação de senha
 
 Autorize `http://localhost:8443/recuperar-senha` em Authentication → URL Configuration → Redirect URLs do Supabase. Para outro domínio, autorize a URL correspondente e atualize `FRONTEND_URL`. Configure o envio de e-mail e teste a recuperação antes de disponibilizá-la aos usuários.
@@ -43,7 +50,7 @@ Em backend:
 pnpm test
 ```
 
-São 18 testes de sessão, tema, menus e feedback e 28 testes de backend com credenciais fictícias e serviço local simulado. Nenhum deles depende do banco real. A configuração antiga do formatador oxfmt 0.2 pode remover separadores de tipos na mesma linha; conferir TypeScript após usá-lo.
+São 18 testes de sessão, tema, menus e feedback e 37 testes de backend, incluindo PostgreSQL isolado com PGlite e serviço HTTP simulado. Nenhum deles depende do banco real. A configuração antiga do formatador oxfmt 0.2 pode remover separadores de tipos na mesma linha; conferir TypeScript após usá-lo.
 
 ## Publicação futura
 
@@ -76,6 +83,6 @@ Home, busca, detalhes, perfil e área interna usam a mesma identidade. Os dashbo
 
 Para testar visualmente sem contas reais: compile e execute `node tests/preview-server.cjs`. No ambiente local, `/__role/client` e `/__role/freelancer` selecionam a conta fictícia; `/__scenario/empty`, `/__scenario/error` e `/__scenario/normal` exercitam os estados da interface. Esses caminhos e dados só existem no servidor de prévia e não integram o deploy. As artes fictícias ficam em `tests/fixtures`.
 
-O chat mantém mensagens e leitura e permite compartilhar links HTTPS de arquivos/referências. Upload binário de anexos, presença online e contagem de visualizações não foram adicionados à API. O tema usa tokens semânticos e respeita redução de movimento; não há alternância de dark mode nesta versão.
+O chat mantém mensagens e leitura e permite compartilhar links HTTPS de arquivos/referências. Upload binário de anexos, presença online e contagem de visualizações não foram adicionados à API. O tema usa tokens semânticos e respeita redução de movimento; há alternância persistida entre temas claro e escuro.
 
 Refinamento de sessão, temas, perfil e avatares: consulte [RELATORIO_REFINAMENTO.md](RELATORIO_REFINAMENTO.md). O bucket `avatars` deve ser público, limitar arquivos a 5 MB e aceitar JPEG/PNG/WebP. O script `backend/scripts/setup-avatars.cjs` prepara o bucket usando somente as credenciais do servidor; execute apenas com autorização para exposição pública das fotos.

@@ -1,5 +1,7 @@
 # Auditoria e implementação Tefreela
 
+> Registro histórico da primeira etapa. O sistema de créditos descrito abaixo foi aposentado em 18/10/2026. As regras vigentes e testes estão em [MODELO_TAXAS.md](MODELO_TAXAS.md); não execute a migração 001.
+
 Base: commit `955450f`, enviado pelo usuário ao GitHub. Trabalho realizado em cópia separada, na branch `melhorias/autenticacao-auditoria`. A pasta original e os arquivos de referência do projeto ChatGPT não foram alterados.
 
 ## Achados e resultado

@@ -1,0 +1,1805 @@
+{
+  "environment": "local synthetic accounts",
+  "checks": [
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 320,
+      "role": "cliente",
+      "route": "/app/cliente",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 320,
+      "role": "cliente",
+      "route": "/app/financeiro",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 320,
+      "role": "cliente",
+      "route": "/app/creditos",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 320,
+      "role": "cliente",
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 320,
+      "role": "cliente",
+      "route": "/app/perfil",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 320,
+      "role": "cliente",
+      "route": "/explorar",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 375,
+      "role": "cliente",
+      "route": "/app/cliente",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 375,
+      "role": "cliente",
+      "route": "/app/financeiro",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 375,
+      "role": "cliente",
+      "route": "/app/creditos",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 375,
+      "role": "cliente",
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 375,
+      "role": "cliente",
+      "route": "/app/perfil",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 375,
+      "role": "cliente",
+      "route": "/explorar",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 390,
+      "role": "cliente",
+      "route": "/app/cliente",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 390,
+      "role": "cliente",
+      "route": "/app/financeiro",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 390,
+      "role": "cliente",
+      "route": "/app/creditos",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 390,
+      "role": "cliente",
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 390,
+      "role": "cliente",
+      "route": "/app/perfil",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 390,
+      "role": "cliente",
+      "route": "/explorar",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 430,
+      "role": "cliente",
+      "route": "/app/cliente",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 430,
+      "role": "cliente",
+      "route": "/app/financeiro",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 430,
+      "role": "cliente",
+      "route": "/app/creditos",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 430,
+      "role": "cliente",
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 430,
+      "role": "cliente",
+      "route": "/app/perfil",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 430,
+      "role": "cliente",
+      "route": "/explorar",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 768,
+      "role": "cliente",
+      "route": "/app/cliente",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 768,
+      "role": "cliente",
+      "route": "/app/financeiro",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 768,
+      "role": "cliente",
+      "route": "/app/creditos",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 768,
+      "role": "cliente",
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 768,
+      "role": "cliente",
+      "route": "/app/perfil",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 768,
+      "role": "cliente",
+      "route": "/explorar",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1024,
+      "role": "cliente",
+      "route": "/app/cliente",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1024,
+      "role": "cliente",
+      "route": "/app/financeiro",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1024,
+      "role": "cliente",
+      "route": "/app/creditos",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 1024,
+      "role": "cliente",
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 1024,
+      "role": "cliente",
+      "route": "/app/perfil",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 1024,
+      "role": "cliente",
+      "route": "/explorar",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1280,
+      "role": "cliente",
+      "route": "/app/cliente",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1280,
+      "role": "cliente",
+      "route": "/app/financeiro",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1280,
+      "role": "cliente",
+      "route": "/app/creditos",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 1280,
+      "role": "cliente",
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 1280,
+      "role": "cliente",
+      "route": "/app/perfil",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 1280,
+      "role": "cliente",
+      "route": "/explorar",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1440,
+      "role": "cliente",
+      "route": "/app/cliente",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1440,
+      "role": "cliente",
+      "route": "/app/financeiro",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1440,
+      "role": "cliente",
+      "route": "/app/creditos",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 1440,
+      "role": "cliente",
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 1440,
+      "role": "cliente",
+      "route": "/app/perfil",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 1440,
+      "role": "cliente",
+      "route": "/explorar",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1920,
+      "role": "cliente",
+      "route": "/app/cliente",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1920,
+      "role": "cliente",
+      "route": "/app/financeiro",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1920,
+      "role": "cliente",
+      "route": "/app/creditos",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 1920,
+      "role": "cliente",
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 1920,
+      "role": "cliente",
+      "route": "/app/perfil",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 1920,
+      "role": "cliente",
+      "route": "/explorar",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 320,
+      "role": "cliente",
+      "route": "/app/cliente",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 320,
+      "role": "cliente",
+      "route": "/app/financeiro",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 320,
+      "role": "cliente",
+      "route": "/app/creditos",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 320,
+      "role": "cliente",
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 320,
+      "role": "cliente",
+      "route": "/app/perfil",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 320,
+      "role": "cliente",
+      "route": "/explorar",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 375,
+      "role": "cliente",
+      "route": "/app/cliente",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 375,
+      "role": "cliente",
+      "route": "/app/financeiro",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 375,
+      "role": "cliente",
+      "route": "/app/creditos",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 375,
+      "role": "cliente",
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 375,
+      "role": "cliente",
+      "route": "/app/perfil",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 375,
+      "role": "cliente",
+      "route": "/explorar",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 390,
+      "role": "cliente",
+      "route": "/app/cliente",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 390,
+      "role": "cliente",
+      "route": "/app/financeiro",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 390,
+      "role": "cliente",
+      "route": "/app/creditos",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 390,
+      "role": "cliente",
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 390,
+      "role": "cliente",
+      "route": "/app/perfil",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 390,
+      "role": "cliente",
+      "route": "/explorar",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 430,
+      "role": "cliente",
+      "route": "/app/cliente",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 430,
+      "role": "cliente",
+      "route": "/app/financeiro",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 430,
+      "role": "cliente",
+      "route": "/app/creditos",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 430,
+      "role": "cliente",
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 430,
+      "role": "cliente",
+      "route": "/app/perfil",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 430,
+      "role": "cliente",
+      "route": "/explorar",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 768,
+      "role": "cliente",
+      "route": "/app/cliente",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 768,
+      "role": "cliente",
+      "route": "/app/financeiro",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 768,
+      "role": "cliente",
+      "route": "/app/creditos",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 768,
+      "role": "cliente",
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 768,
+      "role": "cliente",
+      "route": "/app/perfil",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 768,
+      "role": "cliente",
+      "route": "/explorar",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1024,
+      "role": "cliente",
+      "route": "/app/cliente",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1024,
+      "role": "cliente",
+      "route": "/app/financeiro",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1024,
+      "role": "cliente",
+      "route": "/app/creditos",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 1024,
+      "role": "cliente",
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 1024,
+      "role": "cliente",
+      "route": "/app/perfil",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 1024,
+      "role": "cliente",
+      "route": "/explorar",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1280,
+      "role": "cliente",
+      "route": "/app/cliente",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1280,
+      "role": "cliente",
+      "route": "/app/financeiro",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1280,
+      "role": "cliente",
+      "route": "/app/creditos",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 1280,
+      "role": "cliente",
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 1280,
+      "role": "cliente",
+      "route": "/app/perfil",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 1280,
+      "role": "cliente",
+      "route": "/explorar",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1440,
+      "role": "cliente",
+      "route": "/app/cliente",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1440,
+      "role": "cliente",
+      "route": "/app/financeiro",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1440,
+      "role": "cliente",
+      "route": "/app/creditos",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 1440,
+      "role": "cliente",
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 1440,
+      "role": "cliente",
+      "route": "/app/perfil",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 1440,
+      "role": "cliente",
+      "route": "/explorar",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1920,
+      "role": "cliente",
+      "route": "/app/cliente",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1920,
+      "role": "cliente",
+      "route": "/app/financeiro",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/cliente",
+      "requested": 1920,
+      "role": "cliente",
+      "route": "/app/creditos",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 1920,
+      "role": "cliente",
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/perfil",
+      "requested": 1920,
+      "role": "cliente",
+      "route": "/app/perfil",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/explorar",
+      "requested": 1920,
+      "role": "cliente",
+      "route": "/explorar",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 320,
+      "role": "freelancer",
+      "route": "/cadastro",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 320,
+      "role": "freelancer",
+      "route": "/app",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/financeiro",
+      "requested": 320,
+      "role": "freelancer",
+      "route": "/app/financeiro",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 320,
+      "role": "freelancer",
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 375,
+      "role": "freelancer",
+      "route": "/cadastro",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 375,
+      "role": "freelancer",
+      "route": "/app",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/financeiro",
+      "requested": 375,
+      "role": "freelancer",
+      "route": "/app/financeiro",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 375,
+      "role": "freelancer",
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 390,
+      "role": "freelancer",
+      "route": "/cadastro",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 390,
+      "role": "freelancer",
+      "route": "/app",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/financeiro",
+      "requested": 390,
+      "role": "freelancer",
+      "route": "/app/financeiro",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 390,
+      "role": "freelancer",
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 430,
+      "role": "freelancer",
+      "route": "/cadastro",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 430,
+      "role": "freelancer",
+      "route": "/app",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/financeiro",
+      "requested": 430,
+      "role": "freelancer",
+      "route": "/app/financeiro",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 430,
+      "role": "freelancer",
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 768,
+      "role": "freelancer",
+      "route": "/cadastro",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 768,
+      "role": "freelancer",
+      "route": "/app",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/financeiro",
+      "requested": 768,
+      "role": "freelancer",
+      "route": "/app/financeiro",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 768,
+      "role": "freelancer",
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 1024,
+      "role": "freelancer",
+      "route": "/cadastro",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 1024,
+      "role": "freelancer",
+      "route": "/app",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/financeiro",
+      "requested": 1024,
+      "role": "freelancer",
+      "route": "/app/financeiro",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 1024,
+      "role": "freelancer",
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 1280,
+      "role": "freelancer",
+      "route": "/cadastro",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 1280,
+      "role": "freelancer",
+      "route": "/app",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/financeiro",
+      "requested": 1280,
+      "role": "freelancer",
+      "route": "/app/financeiro",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 1280,
+      "role": "freelancer",
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 1440,
+      "role": "freelancer",
+      "route": "/cadastro",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 1440,
+      "role": "freelancer",
+      "route": "/app",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/financeiro",
+      "requested": 1440,
+      "role": "freelancer",
+      "route": "/app/financeiro",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 1440,
+      "role": "freelancer",
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 1920,
+      "role": "freelancer",
+      "route": "/cadastro",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 1920,
+      "role": "freelancer",
+      "route": "/app",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/financeiro",
+      "requested": 1920,
+      "role": "freelancer",
+      "route": "/app/financeiro",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 1920,
+      "role": "freelancer",
+      "route": "/app/pedidos",
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 320,
+      "role": "freelancer",
+      "route": "/cadastro",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 320,
+      "role": "freelancer",
+      "route": "/app",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/financeiro",
+      "requested": 320,
+      "role": "freelancer",
+      "route": "/app/financeiro",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 320,
+      "role": "freelancer",
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 375,
+      "role": "freelancer",
+      "route": "/cadastro",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 375,
+      "role": "freelancer",
+      "route": "/app",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/financeiro",
+      "requested": 375,
+      "role": "freelancer",
+      "route": "/app/financeiro",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 375,
+      "role": "freelancer",
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 390,
+      "role": "freelancer",
+      "route": "/cadastro",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 390,
+      "role": "freelancer",
+      "route": "/app",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/financeiro",
+      "requested": 390,
+      "role": "freelancer",
+      "route": "/app/financeiro",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 390,
+      "role": "freelancer",
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 430,
+      "role": "freelancer",
+      "route": "/cadastro",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 430,
+      "role": "freelancer",
+      "route": "/app",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/financeiro",
+      "requested": 430,
+      "role": "freelancer",
+      "route": "/app/financeiro",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 430,
+      "role": "freelancer",
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 768,
+      "role": "freelancer",
+      "route": "/cadastro",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 768,
+      "role": "freelancer",
+      "route": "/app",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/financeiro",
+      "requested": 768,
+      "role": "freelancer",
+      "route": "/app/financeiro",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 768,
+      "role": "freelancer",
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 1024,
+      "role": "freelancer",
+      "route": "/cadastro",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 1024,
+      "role": "freelancer",
+      "route": "/app",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/financeiro",
+      "requested": 1024,
+      "role": "freelancer",
+      "route": "/app/financeiro",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 1024,
+      "role": "freelancer",
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 1280,
+      "role": "freelancer",
+      "route": "/cadastro",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 1280,
+      "role": "freelancer",
+      "route": "/app",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/financeiro",
+      "requested": 1280,
+      "role": "freelancer",
+      "route": "/app/financeiro",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 1280,
+      "role": "freelancer",
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 1440,
+      "role": "freelancer",
+      "route": "/cadastro",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 1440,
+      "role": "freelancer",
+      "route": "/app",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/financeiro",
+      "requested": 1440,
+      "role": "freelancer",
+      "route": "/app/financeiro",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 1440,
+      "role": "freelancer",
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/cadastro",
+      "requested": 1920,
+      "role": "freelancer",
+      "route": "/cadastro",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app",
+      "requested": 1920,
+      "role": "freelancer",
+      "route": "/app",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/financeiro",
+      "requested": 1920,
+      "role": "freelancer",
+      "route": "/app/financeiro",
+      "theme": "dark",
+      "width": 1920
+    },
+    {
+      "fatal": false,
+      "overflow": false,
+      "path": "/app/pedidos",
+      "requested": 1920,
+      "role": "freelancer",
+      "route": "/app/pedidos",
+      "theme": "dark",
+      "width": 1920
+    }
+  ]
+}
