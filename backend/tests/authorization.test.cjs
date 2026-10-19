@@ -83,6 +83,8 @@ const tables = {
   taxas_plataforma:[],
 }
 const registered=[]
+tables.mensagens.forEach(row=>Object.assign(row,{ocultada_remetente:false,ocultada_destinatario:false}))
+let failChatDelete=false
 let fake, app
 const objects = new Map()
 let failAvatarUpload = false
@@ -187,6 +189,14 @@ before(async () => {
       }
       if (url.pathname.startsWith("/rest/v1/rpc/")) {
         let raw="";for await(const chunk of req)raw+=chunk;const args=JSON.parse(raw||"{}")
+        if(url.pathname.endsWith("/tefreela_excluir_conversa")){
+          if(failChatDelete){res.statusCode=503;res.end(JSON.stringify({code:"DBERROR"}));return}
+          for(const message of tables.mensagens){
+            if(message.id_remetente===args.p_usuario_id&&message.id_destinatario===args.p_contato_id)message.ocultada_remetente=true
+            if(message.id_destinatario===args.p_usuario_id&&message.id_remetente===args.p_contato_id)message.ocultada_destinatario=true
+          }
+          res.end(JSON.stringify({mensagem:"Conversa excluída"}));return
+        }
         if(url.pathname.endsWith("/tefreela_resumo_taxas")){res.end(JSON.stringify({total_concluidos:tables.taxas_plataforma.filter(f=>f.freelancer_id===args.p_freelancer_id).length,percentual_atual:5,simulado:true}));return}
         if(url.pathname.endsWith("/tefreela_simular_taxa")){
           const fee=tables.taxas_plataforma.find(f=>f.id===args.p_taxa_id&&f.freelancer_id===args.p_freelancer_id)
@@ -229,6 +239,7 @@ before(async () => {
           return
         }
         const row = {
+          ...(name==="mensagens"?{ocultada_remetente:false,ocultada_destinatario:false}:{}),
           ...values,
           ...(primary
             ? { [primary]: Math.max(0, ...rows.map((row) => row[primary])) + 1 }
@@ -596,4 +607,28 @@ test("taxas usam a identidade do token e negam cliente e freelancer alheio",asyn
  const repeated=await call(`/taxas/${fee.id}/simular-pagamento`,"freelancer","POST",{});assert.equal(repeated.data.taxa.pago_em,result.data.taxa.pago_em)
  assert.equal((await call("/pedidos/1","freelancer","PATCH",{status:"concluido"})).status,200);assert.equal(tables.taxas_plataforma.filter(f=>f.pedido_id===1).length,1)
  assert.equal((await call("/creditos","client")).status,410)
+})
+
+test("excluir chat exige sessão, ignora identidade enviada e preserva o histórico alheio",async()=>{
+ assert.equal((await call(`/conversas/${freelancer}`,undefined,"DELETE")).status,401)
+ assert.equal((await call(`/conversas/${client}`,"client","DELETE")).status,400)
+ const before=(await call(`/mensagens/${freelancer}`,"client")).data
+ assert.ok(before.length>0)
+ assert.equal((await call(`/conversas/${freelancer}`,"stranger","DELETE",{p_usuario_id:client})).status,200)
+ assert.equal((await call(`/mensagens/${freelancer}`,"client")).data.length,before.length)
+ failChatDelete=true
+ assert.equal((await call(`/conversas/${freelancer}`,"client","DELETE")).status,503)
+ failChatDelete=false
+ assert.equal((await call(`/mensagens/${freelancer}`,"client")).data.length,before.length)
+ for(let i=0;i<2;i++)assert.equal((await call(`/conversas/${freelancer}`,"client","DELETE")).status,200)
+ assert.deepEqual((await call(`/mensagens/${freelancer}`,"client")).data,[])
+ assert.ok(!(await call("/conversas","client")).data.some(p=>p.id===freelancer))
+ const others=(await call(`/mensagens/${client}`,"freelancer")).data
+ assert.equal(others.length,before.length)
+ assert.equal(others[0].ocultada_remetente,undefined);assert.equal(others[0].ocultada_destinatario,undefined)
+ const sent=await call("/mensagens","freelancer","POST",{id_destinatario:client,mensagem:"Nova mensagem depois da exclusão"});assert.equal(sent.status,201)
+ assert.equal(sent.data.ocultada_remetente,undefined)
+ const restored=(await call(`/mensagens/${freelancer}`,"client")).data
+ assert.equal(restored.length,1);assert.equal(restored[0].mensagem,"Nova mensagem depois da exclusão")
+ assert.equal((await call("/conversas","client")).data.some(p=>p.id===freelancer),true)
 })

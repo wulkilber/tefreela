@@ -595,6 +595,14 @@ router.post(
   }),
 )
 
+const messageColumns="id_mensagem,id_remetente,id_destinatario,id_pedido,id_servico,mensagem,lida,data_envio"
+router.delete("/conversas/:peer",handle(async(req,res)=>{
+  const peer=parse(uuid,req.params.peer),userId=current(res).id
+  if(peer===userId)fail(400,"Escolha outra pessoa para conversar.")
+  const result=await db.rpc("tefreela_excluir_conversa",{p_usuario_id:userId,p_contato_id:peer})
+  if(result.error)fail(503,"Não foi possível excluir a conversa. Tente novamente.")
+  res.json({mensagem:"Conversa excluída do seu histórico."})
+}))
 router.get(
   "/conversas",
   handle(async (_req, res) => {
@@ -603,8 +611,8 @@ router.get(
       checked(
         await db
           .from("mensagens")
-          .select("*")
-          .or(`id_remetente.eq.${userId},id_destinatario.eq.${userId}`)
+          .select(messageColumns)
+          .or(`and(id_remetente.eq.${userId},ocultada_remetente.eq.false),and(id_destinatario.eq.${userId},ocultada_destinatario.eq.false)`)
           .order("data_envio", { ascending: false })
           .limit(1000),
       ) || []
@@ -655,9 +663,9 @@ router.get(
       checked(
         await db
           .from("mensagens")
-          .select("*")
+          .select(messageColumns)
           .or(
-            `and(id_remetente.eq.${userId},id_destinatario.eq.${peer}),and(id_remetente.eq.${peer},id_destinatario.eq.${userId})`,
+            `and(id_remetente.eq.${userId},id_destinatario.eq.${peer},ocultada_remetente.eq.false),and(id_remetente.eq.${peer},id_destinatario.eq.${userId},ocultada_destinatario.eq.false)`,
           )
           .order("data_envio", { ascending: false })
           .limit(200),
@@ -724,7 +732,7 @@ router.post(
       await db
         .from("mensagens")
         .insert({ ...values, id_remetente: userId })
-        .select()
+        .select(messageColumns)
         .single(),
     )
     await notify(
@@ -744,6 +752,7 @@ router.patch(
         .from("mensagens")
         .update({ lida: true })
         .eq("id_destinatario", current(res).id)
+        .eq("ocultada_destinatario",false)
         .eq("id_remetente", parse(uuid, req.params.peer)),
     )
     res.json({ mensagem: "Mensagens marcadas como lidas." })
