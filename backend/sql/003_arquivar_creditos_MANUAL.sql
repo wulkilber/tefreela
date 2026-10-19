@@ -1,0 +1,11 @@
+-- ETAPA DESTRUTIVA OPCIONAL: NÃO executar durante a ativação de 002.
+-- Só depois de backup/exportação de profiles.saldo_creditos, pagamentos e
+-- movimentacoes_creditos; versão nova homologada; integrações antigas desativadas.
+-- As instruções ficam comentadas de propósito. Não usar CASCADE.
+-- Verificar dependências em pg_depend e conferir restauração do backup primeiro.
+-- begin;
+-- drop function if exists public.tefreela_pagar_pedido(bigint,uuid);
+-- drop table if exists public.movimentacoes_creditos;
+-- drop table if exists public.pagamentos;
+-- alter table public.profiles drop column if exists saldo_creditos;
+-- commit;

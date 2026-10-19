@@ -79,7 +79,10 @@ const tables = {
   ],
   movimentacoes_creditos: [],
   pagamentos: [],
+  configuracao_financeira:[{singleton:true,percentual_taxa:5}],
+  taxas_plataforma:[],
 }
+const registered=[]
 let fake, app
 const objects = new Map()
 let failAvatarUpload = false
@@ -128,6 +131,19 @@ before(async () => {
     try {
       const url = new URL(req.url, "http://localhost")
       res.setHeader("Content-Type", "application/json")
+      res.setHeader("X-Supabase-Api-Version","2024-01-01")
+      if(url.pathname==="/auth/v1/admin/users"&&req.method==="POST"){
+        let raw="";for await(const chunk of req)raw+=chunk;const input=JSON.parse(raw)
+        if(registered.some(item=>item.email===input.email)){res.statusCode=422;res.end(JSON.stringify({msg:"Email exists",code:"email_exists"}));return}
+        const user={id:require("node:crypto").randomUUID(),email:input.email,aud:"authenticated",role:"authenticated"}
+        registered.push({...user,password:input.password});res.end(JSON.stringify(user));return
+      }
+      if(url.pathname==="/auth/v1/token"){
+        let raw="";for await(const chunk of req)raw+=chunk;const input=JSON.parse(raw),user=registered.find(item=>item.email===input.email&&item.password===input.password)
+        if(!user){res.statusCode=400;res.end(JSON.stringify({msg:"Invalid credentials",code:"invalid_credentials"}));return}
+        const token="registered-"+user.id;identities[token]=user.id
+        res.end(JSON.stringify({access_token:token,refresh_token:"fixture-refresh",token_type:"bearer",expires_in:3600,user:{id:user.id,email:user.email,aud:"authenticated",role:"authenticated"}}));return
+      }
       if (url.pathname.startsWith("/storage/v1/object/avatars/")) {
         if (failAvatarUpload) { res.statusCode=503;res.end(JSON.stringify({message:"Storage unavailable",statusCode:"503"}));return }
         const key=url.pathname.slice("/storage/v1/object/avatars/".length), chunks=[]
@@ -170,6 +186,15 @@ before(async () => {
         return
       }
       if (url.pathname.startsWith("/rest/v1/rpc/")) {
+        let raw="";for await(const chunk of req)raw+=chunk;const args=JSON.parse(raw||"{}")
+        if(url.pathname.endsWith("/tefreela_resumo_taxas")){res.end(JSON.stringify({total_concluidos:tables.taxas_plataforma.filter(f=>f.freelancer_id===args.p_freelancer_id).length,percentual_atual:5,simulado:true}));return}
+        if(url.pathname.endsWith("/tefreela_simular_taxa")){
+          const fee=tables.taxas_plataforma.find(f=>f.id===args.p_taxa_id&&f.freelancer_id===args.p_freelancer_id)
+          if(!fee){res.statusCode=404;res.end(JSON.stringify({code:"P0002"}));return}
+          if(fee.status==="cancelada"||!tables.pedidos.some(p=>p.id_pedido===fee.pedido_id&&p.status==="concluido")){res.statusCode=409;res.end(JSON.stringify({code:"P0001"}));return}
+          if(fee.status!=="paga"){fee.status="paga";fee.pago_em=new Date().toISOString()}
+          res.end(JSON.stringify(fee));return
+        }
         res.statusCode = 404
         res.end(JSON.stringify({ code: "PGRST202" }))
         return
@@ -213,10 +238,11 @@ before(async () => {
         selected = [row]
       }
       if (req.method === "PATCH")
-        selected.forEach((row) => Object.assign(row, values))
+        selected.forEach((row) => {Object.assign(row, values);if(name==="pedidos"&&values.status==="concluido"&&!tables.taxas_plataforma.some(f=>f.pedido_id===row.id_pedido)){tables.taxas_plataforma.push({id:tables.taxas_plataforma.length+1,pedido_id:row.id_pedido,freelancer_id:row.id_freelancer,valor_servico:row.valor,percentual_taxa:5,valor_taxa:7.5,valor_liquido:142.5,status:"pendente",concluido_em:row.data_entrega})}})
       if (req.method === "DELETE")
         tables[name] = rows.filter((row) => !selected.includes(row))
       const columns = url.searchParams.get("select")
+      if(name==="taxas_plataforma")res.setHeader("Content-Range",`0-${Math.max(0,selected.length-1)}/${selected.length}`)
       if (name === "pedidos" && columns?.includes("avaliacao:"))
         selected = selected.map((row) => ({
           ...row,
@@ -302,6 +328,8 @@ test("todas as áreas privadas exigem sessão", async () => {
     "/conversas",
     "/notificacoes",
     "/creditos",
+    "/taxas/minhas",
+    "/taxas/resumo",
   ])
     assert.equal((await call(path)).status, 401, path)
 })
@@ -459,10 +487,10 @@ test("edição do portfólio não altera itens de outra conta", async () => {
     200,
   )
 })
-test("pagamento indisponível não altera saldo", async () => {
+test("pagamento legado desativado não altera dados antigos", async () => {
   assert.equal(
     (await call("/pedidos/1/pagamento", "client", "POST", {})).status,
-    503,
+    410,
   )
   assert.equal(
     tables.profiles.find((row) => row.id === client).saldo_creditos,
@@ -537,4 +565,35 @@ test('falha de Storage ou banco mantém a foto anterior e não deixa novo objeto
  assert.equal(failed.status,503)
  assert.equal(profile.foto,'https://example.invalid/external-avatar.png')
  assert.equal([...objects.keys()].filter(key=>key.startsWith('avatars/'+client+'/')).length,0)
+})
+
+test("cadastro valida confirmação, requisitos e campos antes de criar usuário",async()=>{
+ const base={nome:"Pessoa Teste",email:"signup@example.invalid",senha:"Senha123",confirmarSenha:"Senha123",tipo_usuario:"cliente"}
+ for(const [patch,message] of [[{confirmarSenha:"Outra123"},"As senhas não coincidem."],[{senha:"Ab1",confirmarSenha:"Ab1"},"A senha deve possuir pelo menos 8 caracteres."],[{senha:"abcdefgh",confirmarSenha:"abcdefgh"},"A senha deve conter pelo menos um número."],[{senha:"12345678",confirmarSenha:"12345678"},"A senha deve conter pelo menos uma letra."],[{confirmarSenha:undefined},null],[{nome:"",email:"",senha:"",confirmarSenha:""},null]]){
+  const result=await call("/auth/cadastro",undefined,"POST",{...base,...patch});assert.equal(result.status,400);if(message)assert.equal(result.data.erro,message)
+ }
+ assert.equal(registered.length,0)
+})
+test("cadastro cliente e freelancer permite login e recarga; confirmação não é armazenada",async()=>{
+ for(const tipo_usuario of ["cliente","freelancer"]){
+  const input={nome:"Pessoa Teste",email:`signup-${tipo_usuario}@example.invalid`,senha:"Senha123",confirmarSenha:"Senha123",tipo_usuario,telefone:"",cidade:"Manaus",estado:"AM"}
+  const created=await call("/auth/cadastro",undefined,"POST",input);assert.equal(created.status,201)
+  const profile=tables.profiles.find(p=>p.id===created.data.usuario.id);assert.equal(profile.senha,undefined);assert.equal(profile.confirmarSenha,undefined)
+  const login=await call("/auth/login",undefined,"POST",input);assert.equal(login.status,200);assert.equal(login.data.usuario.tipo_usuario,tipo_usuario);assert.equal(login.data.usuario.saldo_creditos,undefined)
+  const restored=await call("/auth/me",login.data.access_token);assert.equal(restored.status,200);assert.equal(restored.data.usuario.id,created.data.usuario.id)
+ }
+ const duplicate=await call("/auth/cadastro",undefined,"POST",{nome:"Pessoa",email:"signup-cliente@example.invalid",senha:"Senha123",confirmarSenha:"Senha123",tipo_usuario:"cliente"});assert.equal(duplicate.status,400);assert.equal(duplicate.data.erro,"E-mail já cadastrado.")
+})
+test("taxas usam a identidade do token e negam cliente e freelancer alheio",async()=>{
+ for(const route of ["/taxas/minhas","/taxas/resumo"]){assert.equal((await call(route,"client")).status,403);assert.equal((await call(route,"freelancer")).status,200)}
+ const list=await call(`/taxas/minhas?freelancer_id=${stranger}`,"freelancer");assert.equal(list.data.items.length,1);assert.equal(list.data.items[0].freelancer_id,freelancer)
+ const fee=list.data.items[0]
+ assert.equal((await call("/servicos","freelancer","POST",{titulo:"Serviço com taxa pendente",descricao:"Publicação permitida",id_categoria:1,preco:90,prazo_dias:2})).status,201)
+ const otherUser=registered.find(p=>p.email==="signup-freelancer@example.invalid"),otherToken="registered-"+otherUser.id;assert.deepEqual((await call("/taxas/minhas",otherToken)).data.items,[]);assert.equal((await call(`/taxas/${fee.id}/simular-pagamento`,otherToken,"POST",{})).status,404)
+ assert.equal((await call(`/taxas/${fee.id}/simular-pagamento`,"client","POST",{})).status,403)
+ assert.equal((await call(`/taxas/${fee.id+999}/simular-pagamento`,"freelancer","POST",{})).status,404)
+ const result=await call(`/taxas/${fee.id}/simular-pagamento`,"freelancer","POST",{valor_taxa:0,percentual_taxa:0,freelancer_id:stranger});assert.equal(result.status,200);assert.equal(result.data.taxa.status,"paga");assert.equal(result.data.taxa.valor_taxa,7.5)
+ const repeated=await call(`/taxas/${fee.id}/simular-pagamento`,"freelancer","POST",{});assert.equal(repeated.data.taxa.pago_em,result.data.taxa.pago_em)
+ assert.equal((await call("/pedidos/1","freelancer","PATCH",{status:"concluido"})).status,200);assert.equal(tables.taxas_plataforma.filter(f=>f.pedido_id===1).length,1)
+ assert.equal((await call("/creditos","client")).status,410)
 })

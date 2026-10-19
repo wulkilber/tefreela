@@ -1,0 +1,68 @@
+const {test,before,after}=require("node:test")
+const assert=require("node:assert/strict")
+const {readFileSync}=require("node:fs")
+let db
+const owner="22222222-2222-4222-8222-222222222222",client="11111111-1111-4111-8111-111111111111",other="33333333-3333-4333-8333-333333333333"
+const migration=readFileSync(require("node:path").join(__dirname,"../sql/002_taxas_plataforma.sql"),"utf8")
+before(async()=>{
+ const {PGlite}=await import("@electric-sql/pglite");db=new PGlite()
+ await db.exec(`create role anon;create role authenticated;create role service_role bypassrls;
+ create schema auth;create function auth.uid() returns uuid language sql as $$select nullif(current_setting('test.uid',true),'')::uuid$$;
+ create table profiles(id uuid primary key,tipo_usuario text,saldo_creditos numeric(12,2) default 99);
+ create table pedidos(id_pedido bigint primary key,id_freelancer uuid references profiles(id),valor numeric(12,2),status text,data_entrega timestamptz,atualizado_em timestamptz default now(),criado_em timestamptz default now());
+ insert into profiles(id,tipo_usuario) values('${owner}','freelancer'),('${client}','cliente'),('${other}','freelancer');
+ grant usage on schema public,auth to authenticated,service_role;grant select on profiles to authenticated;
+ insert into pedidos(id_pedido,id_freelancer,valor,status) values(1,'${owner}',1000,'solicitado'),(2,'${owner}',0.10,'concluido');`)
+ await db.exec(migration)
+})
+after(async()=>{await db?.close()})
+test("migração é repetível e preserva saldo legado sem gerar taxas de pedidos abertos",async()=>{
+ await db.exec(migration)
+ assert.equal((await db.query("select count(*)::int as n from taxas_plataforma")).rows[0].n,1)
+ assert.equal((await db.query("select saldo_creditos from profiles limit 1")).rows[0].saldo_creditos,"99.00")
+})
+test("somente conclusão gera taxa; centavos, snapshot e unicidade são exatos",async()=>{
+ for(const status of ["aceito","em_andamento","recusado","cancelado"]){
+  await db.query("update pedidos set status=$1 where id_pedido=1",[status])
+  assert.equal((await db.query("select count(*)::int as n from taxas_plataforma where pedido_id=1")).rows[0].n,0)
+ }
+ await db.exec("update pedidos set status='concluido',data_entrega=now() where id_pedido=1")
+ const fee=(await db.query("select * from taxas_plataforma where pedido_id=1")).rows[0]
+ assert.equal(fee.valor_taxa,"50.00");assert.equal(fee.valor_liquido,"950.00");assert.equal(fee.status,"pendente")
+ assert.equal((await db.query("select valor_taxa from taxas_plataforma where pedido_id=2")).rows[0].valor_taxa,"0.01")
+ await db.exec("update configuracao_financeira set percentual_taxa=7;update pedidos set status='concluido' where id_pedido=1")
+ assert.equal((await db.query("select count(*)::int as n from taxas_plataforma where pedido_id=1")).rows[0].n,1)
+ assert.equal((await db.query("select percentual_taxa from taxas_plataforma where pedido_id=1")).rows[0].percentual_taxa,"5.00")
+ await db.exec("update configuracao_financeira set percentual_taxa=5")
+})
+test("falha ao gerar taxa reverte a conclusão na mesma transação",async()=>{
+ await db.query("insert into pedidos(id_pedido,id_freelancer,valor,status) values(3,$1,-1,'em_andamento')",[owner])
+ await assert.rejects(()=>db.exec("update pedidos set status='concluido' where id_pedido=3"))
+ assert.equal((await db.query("select status from pedidos where id_pedido=3")).rows[0].status,"em_andamento")
+})
+test("simulação valida proprietário, papel e conclusão; repetição mantém data",async()=>{
+ const id=(await db.query("select id from taxas_plataforma where pedido_id=1")).rows[0].id
+ await assert.rejects(()=>db.query("select tefreela_simular_taxa($1,$2)",[id,other]))
+ await assert.rejects(()=>db.query("select tefreela_simular_taxa($1,$2)",[id,client]))
+ const first=(await db.query("select tefreela_simular_taxa($1,$2) as fee",[id,owner])).rows[0].fee
+ const repeat=(await db.query("select tefreela_simular_taxa($1,$2) as fee",[id,owner])).rows[0].fee
+ assert.equal(first.status,"paga");assert.ok(first.pago_em);assert.equal(first.pago_em,repeat.pago_em)
+ await db.exec("update pedidos set status='cancelado' where id_pedido=2")
+ const invalid=(await db.query("select id from taxas_plataforma where pedido_id=2")).rows[0].id
+ await assert.rejects(()=>db.query("select tefreela_simular_taxa($1,$2)",[invalid,owner]))
+})
+test("resumo agrega todas as taxas com NUMERIC e configuração única",async()=>{
+ const summary=(await db.query("select tefreela_resumo_taxas($1) as summary",[owner])).rows[0].summary
+ assert.equal(summary.valor_bruto,1000.1);assert.equal(summary.total_taxas,50.01);assert.equal(summary.valor_liquido,950.09);assert.equal(summary.percentual_atual,5)
+})
+test("RLS impede outro freelancer e cliente; escrita e RPCs exclusivas do servidor",async()=>{
+ await db.exec(`set role authenticated;set test.uid='${other}'`)
+ assert.equal((await db.query("select count(*)::int as n from taxas_plataforma")).rows[0].n,0)
+ await db.exec(`set test.uid='${owner}'`)
+ assert.equal((await db.query("select count(*)::int as n from taxas_plataforma")).rows[0].n,2)
+ await assert.rejects(()=>db.exec("update taxas_plataforma set status='cancelada'"))
+ await assert.rejects(()=>db.query("select tefreela_resumo_taxas($1)",[owner]))
+ await db.exec(`set test.uid='${client}'`)
+ assert.equal((await db.query("select count(*)::int as n from taxas_plataforma")).rows[0].n,0)
+ await db.exec("reset role")
+})

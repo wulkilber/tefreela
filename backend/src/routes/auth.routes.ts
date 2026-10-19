@@ -7,12 +7,16 @@ import {
 import { z } from "zod";
 
 const router = Router();
-const credentials = z.object({ email: z.string().trim().email().max(254), senha: z.string().min(1).max(256) });
+const credentials = z.object({ email: z.string().trim().email("Informe um e-mail válido.").max(254), senha: z.string().min(1).max(256) });
 const registration = credentials.extend({
-  senha: z.string().min(6).max(256), nome: z.string().trim().min(2).max(120),
+  senha: z.string().min(8,"A senha deve possuir pelo menos 8 caracteres.").max(256)
+    .regex(/[A-Za-zÀ-ÖØ-öø-ÿ]/,"A senha deve conter pelo menos uma letra.")
+    .regex(/[0-9]/,"A senha deve conter pelo menos um número."),
+  confirmarSenha: z.string().min(1,"Confirme sua senha.").max(256),
+  nome: z.string().trim().min(2,"Informe seu nome completo.").max(120),
   tipo_usuario: z.enum(["cliente", "freelancer"]),
   telefone: z.string().trim().max(20).optional(), cidade: z.string().trim().max(100).optional(), estado: z.string().trim().length(2).or(z.literal("")).optional(),
-});
+}).refine(values=>values.senha===values.confirmarSenha,{message:"As senhas não coincidem.",path:["confirmarSenha"]});
 
 /**
  * POST /api/auth/cadastro
@@ -20,7 +24,7 @@ const registration = credentials.extend({
 router.post("/cadastro", async (req, res) => {
   try {
     const parsed = registration.safeParse(req.body);
-    if (!parsed.success) return res.status(400).json({ erro: "Confira nome, e-mail, senha (mínimo de 6 caracteres) e tipo de conta." });
+    if (!parsed.success) return res.status(400).json({ erro: parsed.error.issues[0]?.message || "Confira os dados do cadastro." });
 
     const {
       nome,
@@ -44,12 +48,6 @@ router.post("/cadastro", async (req, res) => {
       });
     }
 
-    if (senha.length < 6) {
-      return res.status(400).json({
-        erro: "A senha deve possuir pelo menos 6 caracteres."
-      });
-    }
-
     const { data: authData, error: authError } =
       await supabaseAdmin.auth.admin.createUser({
         email,
@@ -58,8 +56,9 @@ router.post("/cadastro", async (req, res) => {
       });
 
     if (authError) {
+      if (authUnavailable(authError)) return res.status(503).json({erro:"Cadastro temporariamente indisponível. Tente novamente."});
       return res.status(400).json({
-        erro: "Não foi possível cadastrar esta conta. Confira os dados ou tente entrar."
+        erro: ["email_exists","user_already_exists"].includes(authError.code || "") ? "E-mail já cadastrado." : "Não foi possível cadastrar esta conta. Confira os dados ou tente entrar."
       });
     }
 
@@ -85,7 +84,7 @@ router.post("/cadastro", async (req, res) => {
     }
 
     return res.status(201).json({
-      mensagem: "Usuário cadastrado com sucesso.",
+      mensagem: "Conta criada com sucesso.",
       usuario: {
         id: user.id,
         email: user.email,
@@ -135,7 +134,7 @@ router.post("/login", async (req, res) => {
     const { data: profiles, error: profileError } =
       await supabaseAdmin
         .from("profiles")
-        .select("*")
+        .select("id,nome,telefone,tipo_usuario,foto,descricao,cidade,estado")
         .eq("id", data.user.id);
 
 
@@ -168,8 +167,7 @@ router.post("/login", async (req, res) => {
         foto: profile.foto,
         descricao: profile.descricao,
         cidade: profile.cidade,
-        estado: profile.estado,
-        saldo_creditos: profile.saldo_creditos
+        estado: profile.estado
       }
     });
   } catch (error) {
@@ -189,7 +187,7 @@ router.post("/refresh", async (req, res) => {
   return res.json({ access_token: data.session.access_token, refresh_token: data.session.refresh_token });
 });
 router.post("/recuperar", async (req, res) => {
-  const parsed = z.object({ email: z.string().trim().email().max(254) }).safeParse(req.body);
+  const parsed = z.object({ email: z.string().trim().email("Informe um e-mail válido.").max(254) }).safeParse(req.body);
   if (!parsed.success) return res.status(400).json({ erro: "Informe um e-mail válido." });
   const origin = (process.env.FRONTEND_URL || process.env.RENDER_EXTERNAL_URL || "http://localhost:8443").split(",")[0].trim();
   const { error } = await createAuthClient().auth.resetPasswordForEmail(parsed.data.email, { redirectTo: `${origin}/recuperar-senha` });

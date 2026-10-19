@@ -29,7 +29,7 @@ const portfolioSchema = z.object({
   link: safeUrl.or(z.literal("")).optional(),
 })
 const publicProfile = "id,nome,tipo_usuario,foto,descricao,cidade,estado"
-const privateProfile = `${publicProfile},telefone,saldo_creditos`
+const privateProfile = `${publicProfile},telefone`
 function fail(status: number, message: string): never {
   throw Object.assign(new Error(message), { status, safe: true })
 }
@@ -86,7 +86,6 @@ const current = (res: Response) =>
     id: string
     tipo_usuario: string
     nome: string
-    saldo_creditos: number
   }
 function freelancer(res: Response) {
   if (current(res).tipo_usuario !== "freelancer")
@@ -518,6 +517,13 @@ router.patch(
     )
     if (!order) fail(404, "Pedido não encontrado.")
     const role = order.id_cliente === userId ? "cliente" : "freelancer"
+    if(next === "concluido") {
+      if(role !== "freelancer") fail(403,"Somente o freelancer responsável pode concluir a entrega.")
+      // Do not accept completion before the atomic database migration is installed.
+      const ready=await db.from("configuracao_financeira").select("percentual_taxa").eq("singleton",true).single()
+      if(ready.error||!ready.data) fail(503,"A conclusão está temporariamente indisponível. A configuração de taxas precisa ser preparada pelo responsável.")
+      if(order.status === "concluido") { res.json(order); return }
+    }
     if (!nextOrderStatus(role, order.status, next))
       fail(409, "Esta mudança de status não é permitida.")
     const update = {
@@ -536,7 +542,13 @@ router.patch(
         .select()
         .maybeSingle(),
     )
-    if (!changed) fail(409, "O pedido mudou. Atualize a página.")
+    if (!changed) {
+      if(next === "concluido") {
+        const latest=checked(await db.from("pedidos").select("*").eq("id_pedido",orderId).eq("id_freelancer",userId).maybeSingle())
+        if(latest?.status === "concluido") {res.json(latest);return}
+      }
+      fail(409, "O pedido mudou. Atualize a página.")
+    }
     await notify(
       role === "cliente" ? order.id_freelancer : order.id_cliente,
       "Pedido atualizado",
@@ -546,27 +558,7 @@ router.patch(
     res.json(changed)
   }),
 )
-router.post(
-  "/pedidos/:id/pagamento",
-  handle(async (req, res) => {
-    const orderId = parse(id, req.params.id)
-    const result = await db.rpc("tefreela_pagar_pedido", {
-      p_id_pedido: orderId,
-      p_id_cliente: current(res).id,
-    })
-    if (result.error)
-      fail(
-        result.error.code === "P0001" ? 409 : 503,
-        result.error.code === "P0001"
-          ? "Pedido não pode ser pago: confira status e saldo."
-          : "Pagamento indisponível. A operação de créditos precisa estar configurada no banco.",
-      )
-    res.json({
-      mensagem: "Pagamento acadêmico processado.",
-      pagamento: result.data,
-    })
-  }),
-)
+router.post("/pedidos/:id/pagamento", handle(async (_req,res)=>{ fail(410,"O pagamento interno foi desativado. O cliente acompanha o pedido sem carteira ou cobrança na plataforma.") }))
 router.post(
   "/avaliacoes",
   handle(async (req, res) => {
@@ -788,33 +780,28 @@ router.patch(
     res.json(notification)
   }),
 )
-router.get(
-  "/creditos",
-  handle(async (_req, res) => {
-    const movements = checked(
-      await db
-        .from("movimentacoes_creditos")
-        .select("*")
-        .eq("id_usuario", current(res).id)
-        .order("criado_em", { ascending: false })
-        .limit(200),
-    )
-    const payments = checked(
-      await db
-        .from("pagamentos")
-        .select("*,pedido:pedidos!inner(id_cliente,id_freelancer)")
-        .or(
-          `id_cliente.eq.${current(res).id},id_freelancer.eq.${current(res).id}`,
-          { referencedTable: "pedido" },
-        )
-        .order("criado_em", { ascending: false })
-        .limit(200),
-    )
-    res.json({
-      saldo: current(res).saldo_creditos,
-      movimentacoes: movements,
-      pagamentos: payments,
-    })
-  }),
-)
+router.get("/taxas/minhas",handle(async(req,res)=>{
+  freelancer(res)
+  const page=parse(z.coerce.number().int().min(1).max(100000).default(1),req.query.page)
+  const size=20
+  const result=await db.from("taxas_plataforma")
+    .select("*,pedido:pedidos!inner(id_pedido,status,servico:servicos(titulo),cliente:profiles!id_cliente(nome))",{count:"exact"})
+    .eq("freelancer_id",current(res).id).order("concluido_em",{ascending:false}).order("id",{ascending:false})
+    .range((page-1)*size,page*size-1)
+  res.json({items:checked(result)||[],total:result.count||0,pagina:page,por_pagina:size,simulado:true})
+}))
+router.get("/taxas/resumo",handle(async(_req,res)=>{
+  freelancer(res)
+  res.json(checked(await db.rpc("tefreela_resumo_taxas",{p_freelancer_id:current(res).id})))
+}))
+router.post("/taxas/:id/simular-pagamento",handle(async(req,res)=>{
+  freelancer(res)
+  const result=await db.rpc("tefreela_simular_taxa",{p_taxa_id:parse(id,req.params.id),p_freelancer_id:current(res).id})
+  if(result.error) {
+    const code=result.error.code
+    fail(code==="P0002"?404:code==="42501"?403:code==="P0001"?409:503,code==="P0002"?"Taxa não encontrada.":code==="P0001"?"Esta taxa não pode ser simulada. Atualize a página.":"Não foi possível registrar a simulação. Tente novamente.")
+  }
+  res.json({mensagem:"Pagamento fictício confirmado. Nenhuma transação financeira foi realizada.",taxa:result.data})
+}))
+router.get("/creditos", handle(async ()=>{ fail(410,"Esta área foi desativada.") }))
 export default router
