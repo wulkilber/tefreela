@@ -1,0 +1,131 @@
+{
+  "environment": "local synthetic conversations",
+  "checks": [
+    {
+      "modalDentroDaTela": true,
+      "overflow": false,
+      "requested": 320,
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "modalDentroDaTela": true,
+      "overflow": false,
+      "requested": 375,
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "modalDentroDaTela": true,
+      "overflow": false,
+      "requested": 390,
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "modalDentroDaTela": true,
+      "overflow": false,
+      "requested": 430,
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "modalDentroDaTela": true,
+      "overflow": false,
+      "requested": 768,
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "modalDentroDaTela": true,
+      "overflow": false,
+      "requested": 1024,
+      "theme": "light",
+      "width": 1024
+    },
+    {
+      "modalDentroDaTela": true,
+      "overflow": false,
+      "requested": 1280,
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "modalDentroDaTela": true,
+      "overflow": false,
+      "requested": 1440,
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "modalDentroDaTela": true,
+      "overflow": false,
+      "requested": 1920,
+      "theme": "light",
+      "width": 1920
+    },
+    {
+      "modalDentroDaTela": true,
+      "overflow": false,
+      "requested": 320,
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "modalDentroDaTela": true,
+      "overflow": false,
+      "requested": 375,
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "modalDentroDaTela": true,
+      "overflow": false,
+      "requested": 390,
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "modalDentroDaTela": true,
+      "overflow": false,
+      "requested": 430,
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "modalDentroDaTela": true,
+      "overflow": false,
+      "requested": 768,
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "modalDentroDaTela": true,
+      "overflow": false,
+      "requested": 1024,
+      "theme": "dark",
+      "width": 1024
+    },
+    {
+      "modalDentroDaTela": true,
+      "overflow": false,
+      "requested": 1280,
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "modalDentroDaTela": true,
+      "overflow": false,
+      "requested": 1440,
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "modalDentroDaTela": true,
+      "overflow": false,
+      "requested": 1920,
+      "theme": "dark",
+      "width": 1920
+    }
+  ]
+}

@@ -9,7 +9,7 @@ let orders=["solicitado","em_andamento","concluido"].map((status,index)=>({id_pe
 let portfolio=[{id_portfolio:1,titulo:"Aurora — identidade que inspira",descricao:"Estratégia e design para uma marca feita de novas possibilidades.",imagem:"/preview-1.svg",link:"https://example.com"}]
 let notifications=[{id_notificacao:1,titulo:"Uma nova conversa está esperando",mensagem:"Lucas enviou uma mensagem sobre seu projeto de identidade visual.",tipo:"mensagem",lida:false,criado_em:new Date().toISOString()},{id_notificacao:2,titulo:"Você recebeu uma nova solicitação",mensagem:"Veja o pedido e combine os próximos passos com seu cliente.",tipo:"pedido",lida:false,criado_em:new Date().toISOString()},{id_notificacao:3,titulo:"Entrega avaliada",mensagem:"Uma nova avaliação foi adicionada ao seu perfil.",tipo:"avaliacao",lida:true,criado_em:"2026-10-10T14:00:00Z"}]
 let messages=[{id_mensagem:1,id_remetente:client,id_destinatario:freelancer,mensagem:"Olá, Marina! Vi seu portfólio e adorei o cuidado com os detalhes. Podemos conversar sobre a identidade visual da minha marca?",data_envio:new Date().toISOString(),lida:false},{id_mensagem:2,id_remetente:freelancer,id_destinatario:client,mensagem:"Olá, Lucas! Que bom que gostou. Vamos criar algo especial. Me conte um pouco sobre a sua marca e o que você tem em mente.",data_envio:new Date().toISOString(),lida:true}]
-const avatarFiles=new Map()
+const avatarFiles=new Map(),hiddenMessages=new Map()
 const feePercent=5;let fees=[];function recordFee(order){if(order.status!=="concluido"||fees.some(f=>f.pedido_id===order.id_pedido))return;const amount=Math.round(order.valor*100),fee=Math.round(amount*feePercent/100);fees.push({id:fees.length+1,pedido_id:order.id_pedido,freelancer_id:freelancer,valor_servico:amount/100,percentual_taxa:feePercent,valor_taxa:fee/100,valor_liquido:(amount-fee)/100,status:"pendente",concluido_em:order.data_entrega||order.criado_em,pago_em:null,pedido:order})};orders.forEach(recordFee)
 const root=path.resolve(__dirname,"../dist")
 http.createServer(async(req,res)=>{try{
@@ -42,10 +42,10 @@ http.createServer(async(req,res)=>{try{
   else if(route==="/taxas/minhas"){if(role!=="freelancer"){res.statusCode=403;result={erro:"Esta ação é exclusiva de freelancers."}}else{const all=empty?[]:fees;const page=Number(url.searchParams.get("page")||1);result={items:all.slice((page-1)*20,page*20),total:all.length,pagina:page,por_pagina:20,simulado:true}}}
   else if(route==="/taxas/resumo"){const all=empty?[]:fees.filter(f=>f.status!=="cancelada"),sum=key=>all.reduce((n,f)=>n+Math.round(f[key]*100),0)/100;result={total_concluidos:all.length,valor_bruto:sum("valor_servico"),total_taxas:sum("valor_taxa"),valor_liquido:sum("valor_liquido"),taxas_pendentes:all.filter(f=>f.status==="pendente").length,valor_pendente:all.filter(f=>f.status==="pendente").reduce((n,f)=>n+Math.round(f.valor_taxa*100),0)/100,percentual_atual:feePercent,simulado:true}}
   else if(/^\/taxas\/\d+\/simular-pagamento$/.test(route)){const fee=fees.find(f=>f.id===Number(route.split("/")[2]));if(role!=="freelancer"||!fee){res.statusCode=403;result={erro:"Taxa indisponível."}}else{fee.status="paga";fee.pago_em||=new Date().toISOString();result={taxa:fee}}}
-  else if(route==="/conversas")result=empty?[]:[{...peer,ultima:messages.at(-1),nao_lidas:1}]
-  else if(route.startsWith("/conversas/"))result=peer
+  else if(route==="/conversas"){const visible=messages.filter(m=>!hiddenMessages.get(user.id)?.has(m.id_mensagem));result=empty||!visible.length?[]:[{...peer,ultima:visible.at(-1),nao_lidas:visible.filter(m=>m.id_destinatario===user.id&&!m.lida).length}]}
+  else if(route.startsWith("/conversas/")){if(req.method==="DELETE"){if(req.headers.cookie?.includes("scenario=delete-error")){res.statusCode=503;result={erro:"Não foi possível excluir a conversa. Tente novamente."}}else{const hidden=hiddenMessages.get(user.id)||new Set();messages.forEach(m=>hidden.add(m.id_mensagem));hiddenMessages.set(user.id,hidden);result={mensagem:"Conversa excluída do seu histórico."}}}else result=peer}
   else if(route.endsWith("/lidas")){messages.forEach(m=>m.lida=true);result={}}
-  else if(route.startsWith("/mensagens/"))result=empty?[]:messages
+  else if(route.startsWith("/mensagens/"))result=empty?[]:messages.filter(m=>!hiddenMessages.get(user.id)?.has(m.id_mensagem))
   else if(route==="/mensagens"&&req.method==="POST"){result={...data,id_mensagem:messages.length+1,id_remetente:user.id,data_envio:new Date().toISOString(),lida:false};messages.push(result)}
   res.end(JSON.stringify(result||{}));return
  }

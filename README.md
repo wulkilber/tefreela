@@ -86,3 +86,13 @@ Para testar visualmente sem contas reais: compile e execute `node tests/preview-
 O chat mantém mensagens e leitura e permite compartilhar links HTTPS de arquivos/referências. Upload binário de anexos, presença online e contagem de visualizações não foram adicionados à API. O tema usa tokens semânticos e respeita redução de movimento; há alternância persistida entre temas claro e escuro.
 
 Refinamento de sessão, temas, perfil e avatares: consulte [RELATORIO_REFINAMENTO.md](RELATORIO_REFINAMENTO.md). O bucket `avatars` deve ser público, limitar arquivos a 5 MB e aceitar JPEG/PNG/WebP. O script `backend/scripts/setup-avatars.cjs` prepara o bucket usando somente as credenciais do servidor; execute apenas com autorização para exposição pública das fotos.
+
+## Excluir conversas
+
+Na lista de Mensagens ou dentro de uma conversa, use o menu de três pontos → Excluir conversa → Excluir do meu histórico. A confirmação permite cancelar, mostra falhas e bloqueia envio repetido durante a exclusão.
+
+Antes de publicar em outro ambiente, execute `backend/sql/004_excluir_conversas.sql`. O responsável executou a migração e as colunas foram confirmadas por leitura em 18/10/2026. São marcadores de exclusão por participante: nenhum registro é apagado fisicamente, a outra pessoa mantém a cópia dela e mensagens novas fazem a conversa reaparecer sem restaurar o histórico oculto. As flags internas não são devolvidas pela API de mensagens. A RPC é exclusiva do servidor, que usa o usuário do token; identidades enviadas no corpo são ignoradas.
+
+A exclusão funciona após recarga e em outros dispositivos. Requisições antigas de atualização são descartadas ao excluir; mensagens próprias antigas não são recuperadas indevidamente pelo polling. Os limites existentes permanecem: até mil mensagens recentes para reunir conversas e duzentas por conversa.
+
+Validação desta etapa: 62 testes automatizados aprovados (18 frontend, 39 backend/SQL e 5 publicação), TypeScript/builds e 18 verificações do modal nos dois temas nas larguras 320, 375, 390, 430, 768, 1024, 1280, 1440 e 1920. Evidência em `tests/chat-delete-responsive-audit.json`. Testes interativos locais: cancelamento, erro sem perder dados, exclusão pela lista no celular, exclusão pelo cabeçalho no desktop, recarga, preservação da outra conta e retorno apenas da mensagem nova. Não foram excluídas conversas reais nos testes. Aparelhos físicos ainda precisam de homologação.
