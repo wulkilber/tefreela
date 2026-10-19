@@ -17,32 +17,14 @@ import {
   type Profile,
   type ServiceRecord,
 } from "../lib/data"
-type Kind = "perfil" | "servicos" | "portfolio" | "notificacoes" | "creditos"
-type Credits = {
-  saldo: number
-  movimentacoes: {
-    id_movimentacao: number
-    tipo: string
-    valor: number
-    descricao: string
-    criado_em: string
-  }[]
-  pagamentos: {
-    id_pagamento: number
-    id_pedido: number
-    valor_servico: number
-    valor_taxa: number
-    valor_freelancer: number
-    status: string
-  }[]
-}
+type Kind = "perfil" | "servicos" | "portfolio" | "notificacoes"
 export default function ManagementPage({ kind }: { kind: Kind }) {
   const path =
-    kind === "creditos" || kind === "notificacoes"
+    kind === "notificacoes"
       ? `/${kind}`
       : `/me/${kind === "perfil" ? "perfil" : kind}`
   const request =
-    useData<Profile | ServiceRecord[] | Portfolio[] | Notification[] | Credits | null>(
+    useData<Profile | ServiceRecord[] | Portfolio[] | Notification[] | null>(
       path,
       null,
     )
@@ -126,10 +108,8 @@ export default function ManagementPage({ kind }: { kind: Kind }) {
     servicos: "Meus serviços",
     portfolio: "Meu portfólio",
     notificacoes: "Notificações",
-    creditos: "Créditos acadêmicos",
   }[kind]
   const profile = kind === "perfil" ? request.data as Profile | null : null
-  const credits = kind === "creditos" ? request.data as Credits | null : null
   return (
     <AppShell title={title}>
       <div className="page-title-row">
@@ -229,7 +209,7 @@ export default function ManagementPage({ kind }: { kind: Kind }) {
               </div>
               {imageFiles.length > 0 && <Button type="button" variant="ghost" onClick={() => setImageFiles([])}>Limpar seleção de imagens</Button>}
               <label>
-                Preço em créditos
+                Preço do serviço (R$)
                 <TextInput
                   type="number"
                   name="preco"
@@ -433,46 +413,6 @@ export default function ManagementPage({ kind }: { kind: Kind }) {
         </>
       )}
       {kind === "notificacoes" && !request.loading && <NotificationsPanel items={(request.data as Notification[] | null) || []} busy={busy} onRead={id => void mutate(`/notificacoes/${id}`, {}, "PATCH")} />}
-      {credits && (
-        <>
-          <section className="panel">
-            <Heading as="h3">Saldo: {money(credits.saldo)}</Heading>
-            <p>
-              Créditos acadêmicos de demonstração. Não representam dinheiro
-              real.
-            </p>
-          </section>
-          <section className="panel">
-            <Heading as="h3">Movimentações</Heading>
-            {credits.movimentacoes.map((item) => (
-              <div className="order-detail" key={item.id_movimentacao}>
-                <strong>
-                  {item.tipo} · {money(item.valor)}
-                </strong>
-                <p>{item.descricao}</p>
-                <small>{date(item.criado_em)}</small>
-              </div>
-            ))}
-            {!credits.movimentacoes.length && <p>Sem movimentações.</p>}
-          </section>
-          <section className="panel">
-            <Heading as="h3">Pagamentos</Heading>
-            {credits.pagamentos.map((item) => (
-              <div className="order-detail" key={item.id_pagamento}>
-                <strong>
-                  Pedido #{item.id_pedido} · {item.status}
-                </strong>
-                <p>
-                  Valor: {money(item.valor_servico)} · Taxa:{" "}
-                  {money(item.valor_taxa)} · Freelancer:{" "}
-                  {money(item.valor_freelancer)}
-                </p>
-              </div>
-            ))}
-            {!credits.pagamentos.length && <p>Sem pagamentos.</p>}
-          </section>
-        </>
-      )}
       <Modal open={!!removingPortfolio} title="Remover este trabalho?" onClose={() => { if (!busy) setRemovingPortfolio(null) }}><p>O trabalho “{removingPortfolio?.titulo}” será removido do seu portfólio público.</p><div className="action-row"><Button variant="secondary" disabled={busy} onClick={() => setRemovingPortfolio(null)}>Manter trabalho</Button><Button disabled={busy} onClick={async () => { if (removingPortfolio && await mutate(`/portfolio/${removingPortfolio.id_portfolio}`, undefined, "DELETE")) setRemovingPortfolio(null) }}>{busy ? "Removendo..." : "Remover trabalho"}</Button></div></Modal>
     </AppShell>
   )

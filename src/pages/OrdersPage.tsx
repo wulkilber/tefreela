@@ -35,9 +35,7 @@ export default function OrdersPage() {
     setError("")
     try {
       await api(
-        `/pedidos/${order.id_pedido}${status === "pagar" ? "/pagamento" : ""}`,
-        status === "pagar" ? {} : { status },
-        status === "pagar" ? "POST" : "PATCH",
+        `/pedidos/${order.id_pedido}`, { status }, "PATCH",
       )
       request.reload()
     } catch (error) {
@@ -130,9 +128,7 @@ export default function OrdersPage() {
           const actions = client
             ? order.status === "solicitado" || order.status === "aceito"
               ? ["cancelado"]
-              : order.status === "concluido"
-                ? ["pagar"]
-                : []
+              : []
             : order.status === "solicitado"
               ? ["aceito", "recusado"]
               : order.status === "aceito"
@@ -166,9 +162,7 @@ export default function OrdersPage() {
                     disabled={busy === order.id_pedido}
                     onClick={() => action(order, status)}
                   >
-                    {status === "pagar"
-                      ? "Pagar com créditos acadêmicos"
-                      : status === "aceito"
+                    {status === "aceito"
                         ? "Aceitar"
                         : status === "recusado"
                           ? "Recusar"

@@ -9,9 +9,7 @@ export default function HelpPage() {
         <section className="panel" id="sobre">
           <Heading as="h2">Tefreela</Heading>
           <p>
-            Protótipo acadêmico para conectar clientes e freelancers. Os
-            pagamentos utilizam créditos fictícios e não movimentam dinheiro
-            real.
+            Protótipo acadêmico para conectar clientes e freelancers. Nenhum pagamento ou transferência real é realizado nesta versão.
           </p>
         </section>
         <section className="panel" id="ajuda">
@@ -24,8 +22,7 @@ export default function HelpPage() {
           </p>
           <p>
             O freelancer aceita o pedido, inicia o trabalho e marca a entrega
-            como concluída. O cliente pode avaliar a entrega e pagar com
-            créditos acadêmicos disponíveis.
+            como concluída. O cliente pode avaliar a entrega e não paga taxa à plataforma. O freelancer acompanha uma taxa simulada, calculada somente na conclusão, na área Financeiro.
           </p>
           <ButtonLink to="/explorar">Explorar serviços</ButtonLink>
         </section>
@@ -33,7 +30,7 @@ export default function HelpPage() {
           <Heading as="h2">Segurança e dados</Heading>
           <p>
             As contas são autenticadas pelo Supabase. Perfis de freelancers e
-            portfólios são públicos. Pedidos, mensagens, notificações e saldos
+            portfólios são públicos. Pedidos, mensagens, notificações e taxas
             são acessíveis pela API conforme o usuário participante.
           </p>
           <p>

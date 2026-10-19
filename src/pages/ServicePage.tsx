@@ -113,7 +113,7 @@ export default function ServicePage() {
               <div className="purchase-price">
                 <span>Valor do serviço</span>
                 <strong>{money(service.price)}</strong>
-                <small>Créditos acadêmicos</small>
+                <small>Valor do serviço · sem cobrança na plataforma</small>
               </div>
               <div className="purchase-meta">
                 <span>

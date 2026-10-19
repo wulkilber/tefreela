@@ -123,7 +123,7 @@ export async function api<T>(
     throw new ApiError(data.erro || "Não foi possível concluir a solicitação.", response.status)
   }
   if (feedback) {
-    const message = path === "/me/avatar" ? method === "DELETE" ? "Foto removida." : "Foto de perfil atualizada." : path === "/auth/login" ? "Tudo certo. Boas-vindas ao Tefreela!" : path === "/mensagens" ? "Mensagem enviada." : path.includes("/imagens/") ? "Imagem atualizada." : path === "/pedidos" ? "Solicitação enviada ao profissional." : path === "/avaliacoes" ? "Obrigado! Sua avaliação foi enviada." : path.includes("/perfil") ? "Perfil atualizado." : "Alteração salva com sucesso."
+    const message = path.includes("/simular-pagamento") ? "Pagamento fictício confirmado. Nenhum dinheiro foi movimentado." : path === "/auth/cadastro" ? "Conta criada com sucesso." : path === "/me/avatar" ? method === "DELETE" ? "Foto removida." : "Foto de perfil atualizada." : path === "/auth/login" ? "Tudo certo. Boas-vindas ao Tefreela!" : path === "/mensagens" ? "Mensagem enviada." : path.includes("/imagens/") ? "Imagem atualizada." : path === "/pedidos" ? "Solicitação enviada ao profissional." : path === "/avaliacoes" ? "Obrigado! Sua avaliação foi enviada." : path.includes("/perfil") ? "Perfil atualizado." : "Alteração salva com sucesso."
     notify(message)
   }
   return data as T

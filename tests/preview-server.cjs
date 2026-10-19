@@ -1,6 +1,6 @@
 const http=require("node:http"),fs=require("node:fs"),path=require("node:path")
 const freelancer="22222222-2222-4222-8222-222222222222",client="11111111-1111-4111-8111-111111111111"
-const people={freelancer:{id:freelancer,nome:"Marina Silva",tipo_usuario:"freelancer",email:"preview@example.invalid",descricao:"Design com estratégia, cuidado e personalidade. Ajudo marcas a transformar ideias em experiências visuais.",cidade:"Manaus",estado:"AM",saldo_creditos:780},client:{id:client,nome:"Lucas Ferreira",tipo_usuario:"cliente",email:"client@example.invalid",saldo_creditos:1250}}
+const people={freelancer:{id:freelancer,nome:"Marina Silva",tipo_usuario:"freelancer",email:"preview@example.invalid",descricao:"Design com estratégia, cuidado e personalidade. Ajudo marcas a transformar ideias em experiências visuais.",cidade:"Manaus",estado:"AM"},client:{id:client,nome:"Lucas Ferreira",tipo_usuario:"cliente",email:"client@example.invalid"}}
 let role="freelancer"
 const categories=["Design","Programação","Marketing","Redação","Tradução","Vídeo e animação","Fotografia","Áudio e música","Consultoria","Arquitetura","Engenharia","Suporte administrativo","Aulas e tutoria","Outros"].map((nome,index)=>({id_categoria:index+1,nome}))
 const reviews=[{id_avaliacao:1,nota:5,comentario:"Muito cuidado com cada detalhe. A comunicação foi clara e o resultado ficou exatamente como imaginávamos.",criado_em:"2026-10-10T14:00:00Z"}]
@@ -10,6 +10,7 @@ let portfolio=[{id_portfolio:1,titulo:"Aurora — identidade que inspira",descri
 let notifications=[{id_notificacao:1,titulo:"Uma nova conversa está esperando",mensagem:"Lucas enviou uma mensagem sobre seu projeto de identidade visual.",tipo:"mensagem",lida:false,criado_em:new Date().toISOString()},{id_notificacao:2,titulo:"Você recebeu uma nova solicitação",mensagem:"Veja o pedido e combine os próximos passos com seu cliente.",tipo:"pedido",lida:false,criado_em:new Date().toISOString()},{id_notificacao:3,titulo:"Entrega avaliada",mensagem:"Uma nova avaliação foi adicionada ao seu perfil.",tipo:"avaliacao",lida:true,criado_em:"2026-10-10T14:00:00Z"}]
 let messages=[{id_mensagem:1,id_remetente:client,id_destinatario:freelancer,mensagem:"Olá, Marina! Vi seu portfólio e adorei o cuidado com os detalhes. Podemos conversar sobre a identidade visual da minha marca?",data_envio:new Date().toISOString(),lida:false},{id_mensagem:2,id_remetente:freelancer,id_destinatario:client,mensagem:"Olá, Lucas! Que bom que gostou. Vamos criar algo especial. Me conte um pouco sobre a sua marca e o que você tem em mente.",data_envio:new Date().toISOString(),lida:true}]
 const avatarFiles=new Map()
+const feePercent=5;let fees=[];function recordFee(order){if(order.status!=="concluido"||fees.some(f=>f.pedido_id===order.id_pedido))return;const amount=Math.round(order.valor*100),fee=Math.round(amount*feePercent/100);fees.push({id:fees.length+1,pedido_id:order.id_pedido,freelancer_id:freelancer,valor_servico:amount/100,percentual_taxa:feePercent,valor_taxa:fee/100,valor_liquido:(amount-fee)/100,status:"pendente",concluido_em:order.data_entrega||order.criado_em,pago_em:null,pedido:order})};orders.forEach(recordFee)
 const root=path.resolve(__dirname,"../dist")
 http.createServer(async(req,res)=>{try{
  const url=new URL(req.url,"http://localhost"),route=url.pathname.replace(/^\/api/,""),empty=req.headers.cookie?.includes("scenario=empty"),broken=req.headers.cookie?.includes("scenario=error")
@@ -22,6 +23,7 @@ http.createServer(async(req,res)=>{try{
   const user=people[role],peer=role==="freelancer"?people.client:people.freelancer
   let result=[]
   if(route==="/auth/login"){role=req.headers.cookie?.includes("previewRole=client")||data.email?.startsWith("client")?"client":"freelancer";result={access_token:"preview-local",refresh_token:"preview-refresh",usuario:people[role]}}
+  else if(route==="/auth/cadastro"){if(data.senha!==data.confirmarSenha){res.statusCode=400;result={erro:"As senhas não coincidem."}}else{role=data.tipo_usuario==="cliente"?"client":"freelancer";Object.assign(people[role],{nome:data.nome,email:data.email});res.setHeader("Set-Cookie",`previewRole=${role}; Path=/; SameSite=Lax`);result={mensagem:"Conta criada com sucesso."}}}
   else if(route==="/auth/me")result={usuario:user}
   else if(route==="/me/avatar"){if(req.headers.cookie?.includes("scenario=avatar-error")){res.statusCode=503;res.end(JSON.stringify({erro:"Não foi possível enviar a foto. Tente novamente."}));return}if(req.method==="DELETE"){user.foto=null;avatarFiles.delete(user.id)}else{avatarFiles.set(user.id,{bytes:inputBuffer,type:req.headers["content-type"]});user.foto=`http://localhost:8445/__avatar/${user.id}?v=${Date.now()}`}result=user}
   else if(route==="/me/perfil"){if(req.method==="PATCH")Object.assign(user,data);result=user}
@@ -33,11 +35,13 @@ http.createServer(async(req,res)=>{try{
   else if(route==="/me/portfolio")result=empty?[]:portfolio
   else if(route==="/portfolio"&&req.method==="POST"){result={...data,id_portfolio:portfolio.length+1};portfolio.push(result)}
   else if(route.startsWith("/portfolio/")){result=portfolio.find(p=>p.id_portfolio===Number(route.split("/")[2]));if(req.method==="PATCH")Object.assign(result,data);if(req.method==="DELETE")portfolio=portfolio.filter(p=>p!==result)}
-  else if(route==="/pedidos")result=empty?[]:orders
-  else if(route.startsWith("/pedidos/")){result=orders.find(o=>o.id_pedido===Number(route.split("/")[2]));if(req.method==="PATCH")Object.assign(result,data)}
+  else if(route==="/pedidos"){if(req.method==="POST"){const service=services.find(s=>s.id_servico===data.id_servico);result={id_pedido:orders.length+1,id_cliente:client,id_freelancer:freelancer,id_servico:service.id_servico,valor:service.preco,status:"solicitado",descricao_solicitacao:data.descricao_solicitacao,criado_em:new Date().toISOString(),servico:service,cliente:people.client,freelancer:people.freelancer,avaliacao:[]};orders.push(result)}else result=empty?[]:orders}
+  else if(route.startsWith("/pedidos/")){result=orders.find(o=>o.id_pedido===Number(route.split("/")[2]));if(req.method==="PATCH"){Object.assign(result,data);if(data.status==="concluido"){result.data_entrega=new Date().toISOString();recordFee(result)}}}
   else if(route==="/notificacoes")result=empty?[]:notifications
   else if(route.startsWith("/notificacoes/")){result=notifications.find(n=>n.id_notificacao===Number(route.split("/")[2]));result.lida=true}
-  else if(route==="/creditos")result={saldo:user.saldo_creditos,movimentacoes:[],pagamentos:empty?[]:[{id_pagamento:1,id_pedido:3,valor_servico:180,valor_taxa:9,valor_freelancer:171,status:"processado"}]}
+  else if(route==="/taxas/minhas"){if(role!=="freelancer"){res.statusCode=403;result={erro:"Esta ação é exclusiva de freelancers."}}else{const all=empty?[]:fees;const page=Number(url.searchParams.get("page")||1);result={items:all.slice((page-1)*20,page*20),total:all.length,pagina:page,por_pagina:20,simulado:true}}}
+  else if(route==="/taxas/resumo"){const all=empty?[]:fees.filter(f=>f.status!=="cancelada"),sum=key=>all.reduce((n,f)=>n+Math.round(f[key]*100),0)/100;result={total_concluidos:all.length,valor_bruto:sum("valor_servico"),total_taxas:sum("valor_taxa"),valor_liquido:sum("valor_liquido"),taxas_pendentes:all.filter(f=>f.status==="pendente").length,valor_pendente:all.filter(f=>f.status==="pendente").reduce((n,f)=>n+Math.round(f.valor_taxa*100),0)/100,percentual_atual:feePercent,simulado:true}}
+  else if(/^\/taxas\/\d+\/simular-pagamento$/.test(route)){const fee=fees.find(f=>f.id===Number(route.split("/")[2]));if(role!=="freelancer"||!fee){res.statusCode=403;result={erro:"Taxa indisponível."}}else{fee.status="paga";fee.pago_em||=new Date().toISOString();result={taxa:fee}}}
   else if(route==="/conversas")result=empty?[]:[{...peer,ultima:messages.at(-1),nao_lidas:1}]
   else if(route.startsWith("/conversas/"))result=peer
   else if(route.endsWith("/lidas")){messages.forEach(m=>m.lida=true);result={}}

@@ -11,7 +11,7 @@ export default function ServiceCard({ service }: { service: Service }) {
   const favoriteKey=`tefreela.favorites.${user?.id || "guest"}`;
   const [favorite, setFavorite] = useState(() => { try { return JSON.parse(localStorage.getItem(favoriteKey) || "[]").includes(service.id); } catch { return false; } });
   useEffect(()=>{try{setFavorite(JSON.parse(localStorage.getItem(favoriteKey)||"[]").includes(service.id))}catch{setFavorite(false)}},[favoriteKey,service.id]);
-  const toggle = () => { try { const saved: string[] = JSON.parse(localStorage.getItem(favoriteKey) || "[]"); localStorage.setItem(favoriteKey, JSON.stringify(favorite ? saved.filter((id) => id !== service.id) : [...new Set([...saved, service.id])])); setFavorite(!favorite); notify(favorite ? "Serviço removido dos favoritos." : "Serviço salvo nos favoritos.", "info"); } catch { /* Browser storage can be unavailable. */ } };
+  const toggle = () => { try { const saved: string[] = JSON.parse(localStorage.getItem(favoriteKey) || "[]"); localStorage.setItem(favoriteKey, JSON.stringify(favorite ? saved.filter((id) => id !== service.id) : [...new Set([...saved, service.id])])); setFavorite(!favorite); window.dispatchEvent(new Event("tefreela:favorites")); notify(favorite ? "Serviço removido dos favoritos." : "Serviço salvo nos favoritos.", "info"); } catch { /* Browser storage can be unavailable. */ } };
   return (
     <article className="service-card">
       <div className="service-image">
@@ -38,7 +38,7 @@ export default function ServiceCard({ service }: { service: Service }) {
         <div className="rating"><Star fill={service.reviews ? "currentColor" : "none"} /> <strong>{service.reviews ? service.rating : "Novo"}</strong> <span>{service.reviews ? `(${service.reviews} avaliações)` : "Sem avaliações ainda"}</span></div>
         <div className="service-footer">
           <span className="delivery"><Clock3 /> {service.delivery}</span>
-          <div><span>A partir de</span><strong>{money(service.price)}</strong><small>em créditos</small></div>
+          <div><span>A partir de</span><strong>{money(service.price)}</strong><small>valor do serviço</small></div>
         </div>
         <Link className="card-quick-action" to={`/servico/${service.id}`}>Conhecer serviço<ArrowUpRight /></Link>
       </div>

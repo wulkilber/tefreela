@@ -14,16 +14,17 @@ import RecoveryPage from "../pages/RecoveryPage";
 import HelpPage from "../pages/HelpPage";
 import RouteErrorPage from "../pages/RouteErrorPage";
 import PageFrame from "../components/PageFrame";
+import FinancePage from "../pages/FinancePage";
 
 export const router = createBrowserRouter([{ element: <PageFrame />, errorElement: <RouteErrorPage />, children: [
   { path: "/", Component: HomePage },
   { path: "/explorar", Component: ExplorePage },
   { path: "/servico/:id", Component: ServicePage },
   { path: "/perfil/:id", Component: ProfilePage },
-  { path: "/entrar", element: <AuthPage mode="login" /> },
+  { path: "/entrar", element: <AuthPage key="login" mode="login" /> },
   { path: "/recuperar-senha", Component: RecoveryPage },
   { path: "/ajuda", Component: HelpPage },
-  { path: "/cadastro", element: <AuthPage mode="register" /> },
+  { path: "/cadastro", element: <AuthPage key="register" mode="register" /> },
   { Component: ProtectedRoute, children: [
   { path: "/app", Component: DashboardPage },
   { path: "/app/cliente", Component: ClientDashboardPage },
@@ -34,9 +35,10 @@ export const router = createBrowserRouter([{ element: <PageFrame />, errorElemen
   { element: <ProtectedRoute role="freelancer" />, children: [
   { path: "/app/servicos", element: <ManagementPage key="servicos" kind="servicos" /> },
   { path: "/app/portfolio", element: <ManagementPage key="portfolio" kind="portfolio" /> },
+  { path: "/app/financeiro", Component: FinancePage },
+  { path: "/app/creditos", element: <Navigate to="/app/financeiro" replace /> },
   ] },
   { path: "/app/notificacoes", element: <ManagementPage key="notificacoes" kind="notificacoes" /> },
-  { path: "/app/creditos", element: <ManagementPage key="creditos" kind="creditos" /> },
   ] },
   { path: "*", element: <RouteErrorPage notFound /> },
 ] }]);

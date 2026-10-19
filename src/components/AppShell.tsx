@@ -10,7 +10,7 @@ import {
   Menu,
   Plus,
   Settings,
-  WalletCards,
+  ChartNoAxesCombined,
   X,
   Images,
   Layers3,
@@ -29,7 +29,6 @@ const nav = [
   { label: "Explorar", to: "/explorar", icon: Compass },
   { label: "Pedidos", to: "/app/pedidos", icon: ClipboardList, badge: "3" },
   { label: "Mensagens", to: "/app/mensagens", icon: MessageCircle, badge: "2" },
-  { label: "Créditos", to: "/app/creditos", icon: WalletCards },
 ];
 
 export default function AppShell({ children, title, role = "freelancer" }: { children: ReactNode; title: string; role?: "freelancer" | "cliente" }) {
@@ -85,7 +84,7 @@ export default function AppShell({ children, title, role = "freelancer" }: { chi
         <Link to={role === "cliente" ? "/explorar" : "/app/servicos"} className="new-service"><Plus /> {role === "cliente" ? "Encontrar um serviço" : "Criar novo serviço"}</Link>
         <p className="workspace-label">Seu espaço</p>
         <nav className="app-nav" aria-label="Menu principal da conta">
-          {[...nav, ...(role === "freelancer" ? [{label:"Meus serviços",to:"/app/servicos",icon:Layers3},{label:"Portfólio",to:"/app/portfolio",icon:Images}] : [])].map((item) => {
+          {[...nav, ...(role === "freelancer" ? [{label:"Financeiro",to:"/app/financeiro",icon:ChartNoAxesCombined},{label:"Meus serviços",to:"/app/servicos",icon:Layers3},{label:"Portfólio",to:"/app/portfolio",icon:Images}] : [])].map((item) => {
             const Icon = item.icon;
             const to = item.to === "/app" && role === "cliente" ? "/app/cliente" : item.to;
             const active = location.pathname === to;
@@ -113,7 +112,7 @@ export default function AppShell({ children, title, role = "freelancer" }: { chi
               {label:"Meu perfil",to:"/app/perfil",icon:<Settings/>},
               {label:"Notificações",to:"/app/notificacoes",icon:<Bell/>},
               ...(role==="freelancer"?[{label:"Meus serviços",to:"/app/servicos",icon:<Layers3/>},{label:"Meu portfólio",to:"/app/portfolio",icon:<Images/>}]:[]),
-              {label:"Meus créditos",to:"/app/creditos",icon:<WalletCards/>},
+              ...(role==="freelancer"?[{label:"Financeiro",to:"/app/financeiro",icon:<ChartNoAxesCombined/>}]:[]),
               {label:"Central de ajuda",to:"/ajuda",icon:<HelpCircle/>},
               {label:"Sair da conta",onSelect:()=>void logout(),danger:true,icon:<LogOut/>},
             ]} />

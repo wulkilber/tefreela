@@ -10,7 +10,7 @@ export type Profile = {
   telefone?: string
   cidade?: string
   estado?: string
-  saldo_creditos?: number
+
   portfolio?: Portfolio[]
 }
 export type Category = {

@@ -5,6 +5,7 @@ import './index.css'
 import './styles/redesign.css'
 import './styles/refinements.css'
 import './styles/themes.css'
+import './styles/finance.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
