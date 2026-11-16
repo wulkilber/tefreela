@@ -4,6 +4,9 @@ import dotenv from "dotenv";
 
 import { supabaseAdmin } from "./config/supabase.js";
 import authRoutes from "./routes/auth.routes.js";
+import accountRoutes from "./routes/account.routes.js";
+import servicesRoutes from "./routes/services.routes.js";
+import ordersRoutes from "./routes/orders.routes.js";
 
 dotenv.config();
 
@@ -13,6 +16,9 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
+app.use("/api/conta", accountRoutes);
+app.use("/api/servicos", servicesRoutes);
+app.use("/api/pedidos", ordersRoutes);
 
 app.get("/", (req, res) => {
   res.json({

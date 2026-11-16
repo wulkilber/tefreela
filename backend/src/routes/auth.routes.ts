@@ -6,17 +6,13 @@ import {
 
 const router = Router();
 
-/**
- * POST /api/auth/cadastro
- */
 router.post("/cadastro", async (req, res) => {
   try {
-    console.log("BODY RECEBIDO:", req.body);
-
     const {
       nome,
       email,
       senha,
+      confirmarSenha,
       telefone,
       tipo_usuario,
       cidade,
@@ -29,15 +25,17 @@ router.post("/cadastro", async (req, res) => {
       });
     }
 
-    if (!["cliente", "freelancer"].includes(tipo_usuario)) {
-      return res.status(400).json({
-        erro: "Tipo de usuário inválido."
-      });
+    if (confirmarSenha !== undefined && senha !== confirmarSenha) {
+      return res.status(400).json({ erro: "As senhas não coincidem." });
     }
 
-    if (senha.length < 6) {
+    if (!["cliente", "freelancer"].includes(tipo_usuario)) {
+      return res.status(400).json({ erro: "Tipo de usuário inválido." });
+    }
+
+    if (senha.length < 8 || !/[A-Za-z]/.test(senha) || !/\d/.test(senha)) {
       return res.status(400).json({
-        erro: "A senha deve possuir pelo menos 6 caracteres."
+        erro: "A senha deve possuir pelo menos 8 caracteres, uma letra e um número."
       });
     }
 
@@ -49,9 +47,7 @@ router.post("/cadastro", async (req, res) => {
       });
 
     if (authError) {
-      return res.status(400).json({
-        erro: authError.message
-      });
+      return res.status(400).json({ erro: authError.message });
     }
 
     const user = authData.user;
@@ -69,10 +65,7 @@ router.post("/cadastro", async (req, res) => {
 
     if (profileError) {
       await supabaseAdmin.auth.admin.deleteUser(user.id);
-
-      return res.status(400).json({
-        erro: profileError.message
-      });
+      return res.status(400).json({ erro: profileError.message });
     }
 
     return res.status(201).json({
@@ -86,27 +79,16 @@ router.post("/cadastro", async (req, res) => {
     });
   } catch (error) {
     console.error("ERRO NO CADASTRO:", error);
-
-    return res.status(500).json({
-      erro: "Erro interno do servidor."
-    });
+    return res.status(500).json({ erro: "Erro interno do servidor." });
   }
 });
 
-/**
- * POST /api/auth/login
- */
 router.post("/login", async (req, res) => {
   try {
-    const {
-      email,
-      senha
-    } = req.body ?? {};
+    const { email, senha } = req.body ?? {};
 
     if (!email || !senha) {
-      return res.status(400).json({
-        erro: "Email e senha são obrigatórios."
-      });
+      return res.status(400).json({ erro: "Email e senha são obrigatórios." });
     }
 
     const { data, error } =
@@ -116,9 +98,7 @@ router.post("/login", async (req, res) => {
       });
 
     if (error || !data.user || !data.session) {
-      return res.status(401).json({
-        erro: "Email ou senha inválidos."
-      });
+      return res.status(401).json({ erro: "Email ou senha inválidos." });
     }
 
     const { data: profiles, error: profileError } =
@@ -127,30 +107,20 @@ router.post("/login", async (req, res) => {
         .select("*")
         .eq("id", data.user.id);
 
-    console.log("ID AUTH:", data.user.id);
-    console.log("PROFILES:", profiles);
-    console.log("PROFILE ERROR:", profileError);
-
     if (profileError) {
-      return res.status(500).json({
-        erro: profileError.message
-      });
+      return res.status(500).json({ erro: profileError.message });
     }
 
     const profile = profiles?.[0];
 
-    if (!profile) {
-      return res.status(404).json({
-        erro: "Perfil do usuário não encontrado."
-      });
+    if (!profile || profile.ativo === false || profile.deletado_em) {
+      return res.status(401).json({ erro: "Esta conta não está disponível." });
     }
 
     return res.json({
       mensagem: "Login realizado com sucesso.",
-
       access_token: data.session.access_token,
       refresh_token: data.session.refresh_token,
-
       usuario: {
         id: data.user.id,
         email: data.user.email,
@@ -160,16 +130,12 @@ router.post("/login", async (req, res) => {
         foto: profile.foto,
         descricao: profile.descricao,
         cidade: profile.cidade,
-        estado: profile.estado,
-        saldo_creditos: profile.saldo_creditos
+        estado: profile.estado
       }
     });
   } catch (error) {
     console.error("ERRO NO LOGIN:", error);
-
-    return res.status(500).json({
-      erro: "Erro interno do servidor."
-    });
+    return res.status(500).json({ erro: "Erro interno do servidor." });
   }
 });
 
