@@ -65,8 +65,8 @@ export default function DashboardPage() {
     if (!serviceToDelete) return;
     setDeleting(true);
     try {
-      await api(`/api/servicos/${serviceToDelete.id}`, { method: "DELETE" });
-      setMyServices((current) => current.filter((service) => service.id_servico !== serviceToDelete.id));
+      await api(`/api/servicos/${serviceToDelete.id_servico}`, { method: "DELETE" });
+      setMyServices((current) => current.filter((service) => service.id_servico !== serviceToDelete.id_servico));
       setServiceToDelete(null);
       setMenuOpen(null);
     } catch (error) {
