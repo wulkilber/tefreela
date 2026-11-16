@@ -90,19 +90,11 @@ router.delete("/", requireAuth, async (req: AuthenticatedRequest, res) => {
       return res.status(500).json({ erro: profileError.message });
     }
 
-    const anonymizedEmail = `deleted-${user.id}@tefreela.invalid`;
-
-    const { error: authError } = await supabaseAdmin.auth.admin.updateUserById(
-      user.id,
-      {
-        email: anonymizedEmail,
-        ban_duration: "876000h",
-        user_metadata: {}
-      }
-    );
+    const { error: authError } =
+      await supabaseAdmin.auth.admin.deleteUser(user.id, true);
 
     if (authError) {
-      console.error("Falha ao desativar usuário no Auth:", authError.message);
+      console.error("Falha ao excluir usuário no Auth:", authError.message);
       return res.status(500).json({
         erro: "O perfil foi desativado, mas houve uma falha ao encerrar o acesso. Contate o suporte."
       });
