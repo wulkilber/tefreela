@@ -17,8 +17,8 @@ router.get("/meus", requireAuth, async (req: AuthenticatedRequest, res) => {
     .order("criado_em", { ascending: false });
 
   query = user.tipo_usuario === "cliente"
-    ? query.eq("cliente_id", user.id)
-    : query.eq("freelancer_id", user.id);
+    ? query.eq("id_cliente", user.id)
+    : query.eq("id_freelancer", user.id);
 
   const { data, error } = await query;
 
@@ -34,10 +34,17 @@ router.patch("/:id/cancelar", requireAuth, async (req: AuthenticatedRequest, res
     const user = req.authUser!;
 
     if (user.tipo_usuario !== "cliente") {
-      return res.status(403).json({ erro: "Apenas o cliente pode cancelar uma solicitação." });
+      return res.status(403).json({
+        erro: "Apenas o cliente pode cancelar uma solicitação."
+      });
     }
 
-    const { id } = req.params;
+    const idPedido = Number(req.params.id);
+
+    if (!Number.isInteger(idPedido) || idPedido <= 0) {
+      return res.status(400).json({ erro: "Pedido inválido." });
+    }
+
     const motivo =
       typeof req.body?.motivo === "string" && req.body.motivo.trim()
         ? req.body.motivo.trim().slice(0, 500)
@@ -46,8 +53,8 @@ router.patch("/:id/cancelar", requireAuth, async (req: AuthenticatedRequest, res
     const { data: pedido, error: findError } = await supabaseAdmin
       .from("pedidos")
       .select("*")
-      .eq("id", id)
-      .eq("cliente_id", user.id)
+      .eq("id_pedido", idPedido)
+      .eq("id_cliente", user.id)
       .maybeSingle();
 
     if (findError) {
@@ -58,7 +65,7 @@ router.patch("/:id/cancelar", requireAuth, async (req: AuthenticatedRequest, res
       return res.status(404).json({ erro: "Solicitação não encontrada." });
     }
 
-    if (!CANCELABLE_STATUSES.includes(pedido.status)) {
+    if (!CANCELABLE_STATUSES.includes(String(pedido.status).toLowerCase())) {
       return res.status(409).json({
         erro: "Este pedido não pode mais ser cancelado diretamente porque já foi aceito, encerrado ou alterado."
       });
@@ -74,8 +81,8 @@ router.patch("/:id/cancelar", requireAuth, async (req: AuthenticatedRequest, res
         cancelado_por: "cliente",
         motivo_cancelamento: motivo
       })
-      .eq("id", id)
-      .eq("cliente_id", user.id)
+      .eq("id_pedido", idPedido)
+      .eq("id_cliente", user.id)
       .in("status", CANCELABLE_STATUSES)
       .select("*")
       .maybeSingle();
@@ -90,18 +97,22 @@ router.patch("/:id/cancelar", requireAuth, async (req: AuthenticatedRequest, res
       });
     }
 
-    if (pedido.freelancer_id) {
+    if (pedido.id_freelancer) {
       const { error: notificationError } = await supabaseAdmin
         .from("notificacoes")
         .insert({
-          usuario_id: pedido.freelancer_id,
+          id_usuario: pedido.id_freelancer,
           titulo: "Solicitação cancelada",
           mensagem: "O cliente cancelou uma solicitação de serviço.",
+          tipo: "pedido_cancelado",
           lida: false
         });
 
       if (notificationError) {
-        console.warn("Falha ao criar notificação de cancelamento:", notificationError.message);
+        console.warn(
+          "Falha ao criar notificação de cancelamento:",
+          notificationError.message
+        );
       }
     }
 

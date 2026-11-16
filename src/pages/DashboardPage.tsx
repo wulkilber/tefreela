@@ -28,7 +28,7 @@ const stats = [
 ];
 
 type Service = {
-  id: string;
+  id_servico: number;
   titulo?: string | null;
   title?: string | null;
   preco?: number | string | null;
@@ -42,7 +42,7 @@ export default function DashboardPage() {
   const [myServices, setMyServices] = useState<Service[]>([]);
   const [servicesLoading, setServicesLoading] = useState(true);
   const [serviceError, setServiceError] = useState("");
-  const [menuOpen, setMenuOpen] = useState<string | null>(null);
+  const [menuOpen, setMenuOpen] = useState<number | null>(null);
   const [serviceToDelete, setServiceToDelete] = useState<Service | null>(null);
   const [deleting, setDeleting] = useState(false);
 
@@ -65,8 +65,8 @@ export default function DashboardPage() {
     if (!serviceToDelete) return;
     setDeleting(true);
     try {
-      await api(`/api/servicos/${serviceToDelete.id}`, { method: "DELETE" });
-      setMyServices((current) => current.filter((service) => service.id !== serviceToDelete.id));
+      await api(`/api/servicos/${serviceToDelete.id_servico}`, { method: "DELETE" });
+      setMyServices((current) => current.filter((service) => service.id_servico !== serviceToDelete.id_servico));
       setServiceToDelete(null);
       setMenuOpen(null);
     } catch (error) {
@@ -126,16 +126,16 @@ export default function DashboardPage() {
             const image = service.imagem || service.image;
             const price = Number(service.preco ?? service.price ?? 0);
             return (
-              <div className="my-service" key={service.id}>
+              <div className="my-service" key={service.id_servico}>
                 {image ? <img src={image} alt="" /> : <div className="service-thumb-placeholder">{title.slice(0, 1)}</div>}
                 <div><strong>{title}</strong><span>Publicado no Tefreela</span></div>
                 <span className="active-service">Ativo</span>
                 <div><strong>{price ? price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" }) : "—"}</strong><small>preço inicial</small></div>
                 <div className="action-menu-wrap">
-                  <Button variant="ghost" aria-label="Opções do serviço" onClick={() => setMenuOpen(menuOpen === service.id ? null : service.id)}>
+                  <Button variant="ghost" aria-label="Opções do serviço" onClick={() => setMenuOpen(menuOpen === service.id_servico ? null : service.id_servico)}>
                     <MoreHorizontal />
                   </Button>
-                  {menuOpen === service.id && (
+                  {menuOpen === service.id_servico && (
                     <div className="action-menu">
                       <button type="button" className="danger-menu-item" onClick={() => setServiceToDelete(service)}>
                         <Trash2 /> Excluir serviço

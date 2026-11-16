@@ -7,12 +7,11 @@ import { api } from "../lib/api";
 import { getSessionUser } from "../lib/session";
 
 type Order = {
-  id: string;
+  id_pedido: number;
   status: string;
   valor?: number | string | null;
   valor_total?: number | string | null;
-  titulo?: string | null;
-  descricao?: string | null;
+  descricao_solicitacao?: string | null;
   criado_em?: string | null;
 };
 
@@ -61,7 +60,7 @@ export default function OrdersPage() {
     const term = search.trim().toLowerCase();
     if (!term) return orders;
     return orders.filter((order) =>
-      [order.titulo, order.descricao, order.id, order.status]
+      [order.descricao_solicitacao, order.id_pedido, order.status]
         .some((value) => String(value || "").toLowerCase().includes(term))
     );
   }, [orders, search]);
@@ -70,11 +69,11 @@ export default function OrdersPage() {
     if (!selected) return;
     setBusy(true);
     try {
-      const result = await api<{ mensagem: string; pedido: Order }>(`/api/pedidos/${selected.id}/cancelar`, {
+      const result = await api<{ mensagem: string; pedido: Order }>(`/api/pedidos/${selected.id_pedido}/cancelar`, {
         method: "PATCH",
         body: JSON.stringify({}),
       });
-      setOrders((current) => current.map((order) => order.id === selected.id ? result.pedido : order));
+      setOrders((current) => current.map((order) => order.id_pedido === selected.id_pedido ? result.pedido : order));
       setFeedback(result.mensagem);
       setSelected(null);
     } catch (error) {
@@ -108,10 +107,10 @@ export default function OrdersPage() {
           const status = statusLabel(order.status);
           const amount = Number(order.valor_total ?? order.valor ?? 0);
           return (
-            <article className="full-order" key={order.id}>
+            <article className="full-order" key={order.id_pedido}>
               <div className="full-order-main">
-                <div className="order-placeholder">{(order.titulo || "P").slice(0, 1)}</div>
-                <div><strong>{order.titulo || "Solicitação de serviço"}</strong><span>Pedido #{order.id.slice(0, 8)}</span></div>
+                <div className="order-placeholder">{(order.descricao_solicitacao || "P").slice(0, 1)}</div>
+                <div><strong>{order.descricao_solicitacao || "Solicitação de serviço"}</strong><span>Pedido #{String(order.id_pedido)}</span></div>
               </div>
               <span className={`order-status status-${status.replaceAll(" ", "-").toLowerCase()}`}>
                 {status === "Concluído" && <Check />}{status}
