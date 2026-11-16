@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: tefreela
+    runtime: node
+    repo: https://github.com/wulkilber/tefreela
+    branch: main
+    plan: free
+    buildCommand: corepack enable && corepack prepare pnpm@10.34.3 --activate && pnpm install --frozen-lockfile && pnpm --dir backend install --frozen-lockfile && pnpm --dir backend build
+    startCommand: node backend/dist/server.js
+    healthCheckPath: /
+    autoDeployTrigger: commit
+
+  - type: web
+    name: tefreela-web
+    runtime: static
+    repo: https://github.com/wulkilber/tefreela
+    branch: main
+    buildCommand: corepack enable && corepack prepare pnpm@10.34.3 --activate && pnpm install --frozen-lockfile && pnpm build
+    staticPublishPath: ./dist
+    autoDeployTrigger: commit
+    envVars:
+      - key: VITE_API_URL
+        value: https://tefreela.onrender.com
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
