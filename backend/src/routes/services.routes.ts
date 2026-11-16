@@ -9,13 +9,15 @@ const router = Router();
 
 router.get("/meus", requireAuth, async (req: AuthenticatedRequest, res) => {
   if (req.authUser?.tipo_usuario !== "freelancer") {
-    return res.status(403).json({ erro: "Apenas freelancers podem acessar seus serviços." });
+    return res.status(403).json({
+      erro: "Apenas freelancers podem acessar seus serviços."
+    });
   }
 
   const { data, error } = await supabaseAdmin
     .from("servicos")
     .select("*")
-    .eq("freelancer_id", req.authUser.id)
+    .eq("id_freelancer", req.authUser.id)
     .is("deletado_em", null)
     .order("criado_em", { ascending: false });
 
@@ -29,16 +31,22 @@ router.get("/meus", requireAuth, async (req: AuthenticatedRequest, res) => {
 router.delete("/:id", requireAuth, async (req: AuthenticatedRequest, res) => {
   try {
     if (req.authUser?.tipo_usuario !== "freelancer") {
-      return res.status(403).json({ erro: "Apenas freelancers podem excluir serviços." });
+      return res.status(403).json({
+        erro: "Apenas freelancers podem excluir serviços."
+      });
     }
 
-    const { id } = req.params;
+    const idServico = Number(req.params.id);
+
+    if (!Number.isInteger(idServico) || idServico <= 0) {
+      return res.status(400).json({ erro: "Serviço inválido." });
+    }
 
     const { data: servico, error: serviceError } = await supabaseAdmin
       .from("servicos")
       .select("*")
-      .eq("id", id)
-      .eq("freelancer_id", req.authUser.id)
+      .eq("id_servico", idServico)
+      .eq("id_freelancer", req.authUser.id)
       .maybeSingle();
 
     if (serviceError) {
@@ -51,9 +59,9 @@ router.delete("/:id", requireAuth, async (req: AuthenticatedRequest, res) => {
 
     const { data: pedidosAtivos, error: ordersError } = await supabaseAdmin
       .from("pedidos")
-      .select("id,status")
-      .eq("servico_id", id)
-      .in("status", ["aceito", "em_andamento"]);
+      .select("id_pedido,status")
+      .eq("id_servico", idServico)
+      .in("status", ["aceito", "em_andamento", "em andamento", "andamento"]);
 
     if (ordersError) {
       return res.status(500).json({ erro: ordersError.message });
@@ -71,8 +79,8 @@ router.delete("/:id", requireAuth, async (req: AuthenticatedRequest, res) => {
         ativo: false,
         deletado_em: new Date().toISOString()
       })
-      .eq("id", id)
-      .eq("freelancer_id", req.authUser.id);
+      .eq("id_servico", idServico)
+      .eq("id_freelancer", req.authUser.id);
 
     if (deleteError) {
       return res.status(500).json({ erro: deleteError.message });
