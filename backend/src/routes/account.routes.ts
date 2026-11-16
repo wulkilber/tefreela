@@ -6,7 +6,15 @@ import {
 } from "../middleware/auth.js";
 
 const router = Router();
-const ACTIVE_ORDER_STATUSES = ["solicitado", "pendente", "aceito", "em_andamento"];
+
+const ACTIVE_ORDER_STATUSES = [
+  "solicitado",
+  "pendente",
+  "aceito",
+  "em_andamento",
+  "em andamento",
+  "andamento"
+];
 
 router.delete("/", requireAuth, async (req: AuthenticatedRequest, res) => {
   try {
@@ -36,14 +44,15 @@ router.delete("/", requireAuth, async (req: AuthenticatedRequest, res) => {
 
     let activeOrdersQuery = supabaseAdmin
       .from("pedidos")
-      .select("id,status")
+      .select("id_pedido,status")
       .in("status", ACTIVE_ORDER_STATUSES);
 
     activeOrdersQuery = user.tipo_usuario === "cliente"
-      ? activeOrdersQuery.eq("cliente_id", user.id)
-      : activeOrdersQuery.eq("freelancer_id", user.id);
+      ? activeOrdersQuery.eq("id_cliente", user.id)
+      : activeOrdersQuery.eq("id_freelancer", user.id);
 
-    const { data: activeOrders, error: activeOrdersError } = await activeOrdersQuery;
+    const { data: activeOrders, error: activeOrdersError } =
+      await activeOrdersQuery;
 
     if (activeOrdersError) {
       return res.status(500).json({ erro: activeOrdersError.message });
@@ -64,7 +73,7 @@ router.delete("/", requireAuth, async (req: AuthenticatedRequest, res) => {
       const { error: servicesError } = await supabaseAdmin
         .from("servicos")
         .update({ ativo: false, deletado_em: deletedAt })
-        .eq("freelancer_id", user.id)
+        .eq("id_freelancer", user.id)
         .is("deletado_em", null);
 
       if (servicesError) {
