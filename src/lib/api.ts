@@ -1,4 +1,4 @@
-import { clearSession, getAccessToken } from "./session";
+import { getAccessToken } from "./session";
 
 export const API_URL =
   import.meta.env.VITE_API_URL?.replace(/\/$/, "") || "http://localhost:3000";
@@ -18,6 +18,7 @@ export async function api<T>(
   authenticated = true
 ): Promise<T> {
   const headers = new Headers(init.headers);
+
   if (!headers.has("Content-Type") && init.body) {
     headers.set("Content-Type", "application/json");
   }
@@ -32,8 +33,10 @@ export async function api<T>(
   const payload = await response.json().catch(() => ({}));
 
   if (!response.ok) {
-    if (response.status === 401 && authenticated) clearSession();
-    throw new ApiError(payload.erro || "Não foi possível concluir a operação.", response.status);
+    throw new ApiError(
+      payload.erro || "Não foi possível concluir a operação.",
+      response.status
+    );
   }
 
   return payload as T;
