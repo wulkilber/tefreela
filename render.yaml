@@ -5,7 +5,7 @@ services:
     repo: https://github.com/wulkilber/tefreela
     branch: main
     plan: free
-    buildCommand: corepack enable && corepack prepare pnpm@10.34.3 --activate && pnpm install --frozen-lockfile && pnpm --dir backend install --frozen-lockfile && pnpm --dir backend build
+    buildCommand: pnpm install --frozen-lockfile && pnpm --dir backend install --frozen-lockfile && pnpm --dir backend build
     startCommand: node backend/dist/server.js
     healthCheckPath: /
     autoDeployTrigger: commit
@@ -15,7 +15,7 @@ services:
     runtime: static
     repo: https://github.com/wulkilber/tefreela
     branch: main
-    buildCommand: corepack enable && corepack prepare pnpm@10.34.3 --activate && pnpm install --frozen-lockfile && pnpm build
+    buildCommand: pnpm install --frozen-lockfile && pnpm build
     staticPublishPath: ./dist
     autoDeployTrigger: commit
     envVars:
